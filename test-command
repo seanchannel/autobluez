@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+##
+## $0 <POD> <COMMAND> <OUTPUT>
+##
+
+export EL_DELAY_WAIT_FOR_HOST=10000
+command_out=""
+
+pod_address=`fgrep -his $1 podnames | awk '{print $1}'`; shift
+hex_command=`echo -n $1 | xxd -ps`; shift
+command_out=$*
+
+# fork to expect-lite
+echo $0.log
+expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost\
+    pod_address="$pod_address" hex_command=$hex_command command_out=$command_out
+exit $?
+
+*NOINFO
+*LOG
+#*TIMESTAMP
+@10
+
+# === documentation ===
+;;;
+    Test Suite for expect-lite, use connect_method=ssh_key
+
+    NOTE: Not all tests will pass when running connect method=none
+	    self_test_directives.txt & self_test_fork.txt will fail
+;;;
+
+# ==== Tests ====
+>gatttool --listen -b $pod_address --char-write-req --handle=0x001b --value=$hex_command
+<Characteristic value was written successfully
+!expect timeout {send }
+
+>egrep -i '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+<$command_out
