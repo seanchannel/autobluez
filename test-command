@@ -17,7 +17,7 @@ expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost\
     pod_address="$pod_address" hex_command=$hex_command command_out=$command_out
 exit $?
 
-*NOINFO
+#*NOINFO
 *LOG
 #*TIMESTAMP
 @10
