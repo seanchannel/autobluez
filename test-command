@@ -4,8 +4,8 @@
 ## $0 <POD> <COMMAND> <OUTPUT>
 ##
 
+echo " ==== Setup ==== "
 export EL_DELAY_WAIT_FOR_HOST=10000
-command_out=""
 
 pod_address=`fgrep -his $1 podnames | awk '{print $1}'`; shift
 hex_command=`echo -n $1 | xxd -ps`; shift
@@ -17,15 +17,19 @@ expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost\
     pod_address="$pod_address" hex_command=$hex_command command_out=$command_out
 exit $?
 
-#*NOINFO
+*NOINFO
 *LOG
 #*TIMESTAMP
 @10
 
-# ==== Tests ====
+; ==== Tests ====
+*sleep 5
 >gatttool --listen -b $pod_address --char-write-req --handle=0x001b --value=$hex_command
+-<connect error
 <Characteristic value was written successfully
 !expect timeout {send }
 
+; ==== Verify ====
+*sleep 5
 >egrep -i '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 <$command_out
