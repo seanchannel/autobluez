@@ -23,15 +23,15 @@ exit $?
 -=5
 
 ; ==== Tests ====
-*sleep 5
+:2
 >gatttool --listen -b $pod_address --char-write-req --handle=0x001b --value=$hex_command
 -<connect error
 <Characteristic value was written successfully
 !expect timeout {send }
 
 ; ==== Verify ====
-*sleep 5
->egrep -i '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+:2
+>egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
-~<$command_out
+<$command_out
