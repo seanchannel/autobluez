@@ -5,7 +5,7 @@
 ##
 
 echo " ==== Setup ==== "
-export EL_DELAY_WAIT_FOR_HOST=10000
+export EL_DELAY_WAIT_FOR_HOST=5000
 
 pod_address=`fgrep -his $1 podnames | awk '{print $1}'`; shift
 hex_command=`echo -n $1 | xxd -ps`; shift
@@ -19,8 +19,8 @@ exit $?
 
 *NOINFO
 *LOG
-#*TIMESTAMP
-@10
+@5
+-=5
 
 ; ==== Tests ====
 *sleep 5
@@ -32,4 +32,6 @@ exit $?
 ; ==== Verify ====
 *sleep 5
 >egrep -i '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
-<$command_out
+-<Please try again
+-<Unknown
+~<$command_out
