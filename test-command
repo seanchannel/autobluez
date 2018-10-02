@@ -5,6 +5,7 @@
 ##
 
 echo " ==== Setup: $1 ==== "
+export EL_SHELL=/bin/sh
 export EL_DELAY_WAIT_FOR_HOST=5000
 
 pod_address=`fgrep -his $1 podnames | awk '{print $1}'`; shift
