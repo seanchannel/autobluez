@@ -1,0 +1,65 @@
+#!/bin/sh
+
+## usage:
+##   $0 <POD>
+##
+
+echo " ==== Setup: `basename $0` ==== "
+
+ssid=${ssid:-WG2}
+ssid_len=`echo -n $ssid | wc -c`
+
+pswd=${pswd:-clearwater}
+pswd_len=`echo -n $pswd | wc -c`
+
+pod_address=`fgrep -his $1 podnames | awk '{print $1}'`
+
+export EL_DELAY_WAIT_FOR_HOST=5000
+
+# fork to expect-lite
+expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost\
+    pod_address="$pod_address" hex_command=$hex_command 
+exit $?
+
+*NOINFO
+#*LOG
+@5
+*/[$pod_address][LE]>/
+
+; === Connect to pod ===
+:1
+>screen gatttool -I --listen -b $pod_address
+>connect
+-<connect error
+-<Error
+<Connection successful
+
+
+; === 
+
+"ssid reset" "ssid chars = 0"
+"ssid save" "ssid saved"
+"ssid set $ssid" "ssid chars = $ssid_len"
+"ssid save" "ssid saved"
+"ssid show" "$ssid"
+
+"pswd reset" "pswd chars = 0"
+"pswd save" "pswd saved"
+"pswd set $pswd" "pswd chars = $pswd_len"
+"pswd save" "pswd saved"
+"pswd show" "$pswd"
+"wifi test" "WI-FI OK"
+
+#; ==== Verify: $command_out ====
+#*//
+#:1
+#>egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+#-<Please try again
+#-<Unknown
+#<$command_out
+
+#hex_command=`echo -n $1 | xxd -ps`; shift
+
+#>gatttool --listen -b $pod_address --char-write-req --handle=0x001b --value=$hex_command
+#<Characteristic value was written successfully
+#!expect timeout {send }
