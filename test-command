@@ -6,7 +6,7 @@
 
 echo " ==== Setup: $1 ==== "
 export EL_SHELL=/bin/sh
-export EL_DELAY_WAIT_FOR_HOST=5000
+export EL_DELAY_WAIT_FOR_HOST=4000
 
 pod_address=`fgrep -his $1 podnames | awk '{print $1}'`; shift
 pod_command=$1
@@ -15,15 +15,12 @@ command_out=$*
 
 # fork to expect-lite
 echo $0.log
-expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost\
+expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost *NOINFO *LOG \
     pod_address="$pod_address" hex_command=$hex_command command_out="$command_out" \
     pod_command="$pod_command"
 exit $?
 
-*NOINFO
-*LOG
-@5
--=5
+@4
 
 ; ==== Test: $pod_command ====
 :2
