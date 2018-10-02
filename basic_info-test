@@ -9,14 +9,13 @@ pod_name=${1:-testpod}
 pod_address=`fgrep -his $pod_name podnames | awk '{print $1}'`
 export EL_DELAY_WAIT_FOR_HOST=6000
 export EL_SHELL=/bin/sh
-cp /dev/null screen.log
 
 # fork to expect-lite
 expect-lite c=`basename $0` el=expect-lite log=`basename $0`.log d=$PWD r=localhost\
     pod_address="$pod_address" hex_command=$hex_command pod_name=$pod_name
 exit $?
 
-*NOINFO
+#*NOINFO
 *LOG
 @6
 
@@ -40,31 +39,58 @@ exit $?
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
 
 ; ==== Test "get volt" ====
-# "get volt" e.g. "Vbat =  5.67"
+>cp /dev/null screen.log
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd\015
 <Characteristic value was written successfully
-#<Notification
-+$cmd_out=((.|\n|\r)*)
 !expect timeout {send }
 >^A
 >^D
 
-; ==== Verify "get volt" ====
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
-#> echo -e $cmd_out | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+; ==== Verify "get volt" e.g. "Vbat =  5.67" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <Vbat
-#cp /dev/null screen.log
 
-# "get time" e.g. "UTC time: 17:53:47"
-# "get date" e.g. "UTC date: 2018/10/02"
+; ==== Test "get time" ====
+>cp /dev/null screen.log
+>echo -n "get time" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd\015
+<Characteristic value was written successfully
+!expect timeout {send }
+>^A
+>^D
 
-; ==== Verify ====
+; ==== Verify "get time" e.g. "UTC time: 17:53:47" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<UTC time
+
+; ==== Test "get date" ====
+>cp /dev/null screen.log
+>echo -n "get date" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd\015
+<Characteristic value was written successfully
+!expect timeout {send }
+>^A
+>^D
+
+; ==== Verify "get date" e.g. "UTC date: 2018/10/02" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<UTC date
 
 ; ==== Cleanup ====
 >screen -S $myscreen -X stuff 'exit\015'
->killall screen
