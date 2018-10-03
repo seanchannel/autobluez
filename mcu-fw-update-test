@@ -1,0 +1,80 @@
+#!/bin/sh
+
+## usage:
+##   $0 <POD> <ENV> <INDEX>
+##
+
+pod_name=${1:-testpod}
+pod_address=`fgrep -his $pod_name podnames | awk '{print $1}'`
+echo " ==== Setup `basename $0` on $pod_name ==== "
+
+env=${2:-qa}
+index=${3:-qa}
+
+export EL_DELAY_WAIT_FOR_HOST=10000
+export EL_SHELL=/bin/sh
+
+# "fw env" e.g. "env = prod (3)" or "env = qa (1)"
+# "fw env qa" e.g. "env set to 'qa'"
+# "fw env prod" e.g. "env set to 'prod'"
+# "fw index" e.g. "9.1"
+# "fw index qa" e.g. "qa"
+# "fw dwld" e.g.:
+#   IP: 192.168.1.143
+#   Bytes to go: 124174
+#   Bytes to go: 0 bytes
+# "fw inst" e.g. "Restarting..."
+# "version" e.g.:
+#   TI_VERS = 9
+#   v9.1.10-3-g5179845
+
+# fork to expect-lite
+expect-lite c=`basename $0` el=expect-lite log=`basename $0`.log d=$PWD r=localhost\
+    pod_address="$pod_address" env=$env index=$index
+exit $?
+
+#*NOINFO
+*LOG
+@10
+
+; ==== Connect to pod ====
+# launch a screen running gatttool with log
+# connect to pod and put screen in the background
+*/[$pod_address][LE]>/
+>screen -Logfile screen.log gatttool -I --listen -b $pod_address
+-<Usage
+>^A
+>H
+<logfile
+>connect
+-<connect error
+<Connection successful
+>^A
+>^D
+
+# save screen id
+>screen -list | grep pts | sort | head -1
++$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
+
+# "fw env" e.g. "env = prod (3)" or "env = qa (1)"
+; ==== Test "fw env" ====
+>cp /dev/null screen.log
+>echo -n "fw env $env" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+!expect timeout {send }
+>^A
+>^D
+
+; ==== Verify "fw env" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<env set to \'$env\'
+
+
+; ==== Cleanup ====
+>screen -S $myscreen -X stuff 'exit\015'
