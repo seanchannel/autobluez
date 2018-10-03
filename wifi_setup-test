@@ -71,7 +71,7 @@ exit $?
 >^D
 
 ; ==== Verify "ssid reset" e.g. "ssid chars = 0" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -89,7 +89,7 @@ exit $?
 >^D
 
 ; ==== Verify "ssid save" e.g. "ssid saved" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -108,7 +108,7 @@ exit $?
 >^D
 
 ; ==== Verify "ssid set $ssid" e.g. "ssid chars = $ssid_len" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -126,7 +126,7 @@ exit $?
 >^D
 
 ; ==== Verify "ssid save" e.g. "ssid saved" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -144,7 +144,7 @@ exit $?
 >^D
 
 ; ==== Verify "ssid show" e.g. "$ssid" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -162,7 +162,7 @@ exit $?
 >^D
 
 ; ==== Verify "pswd reset" e.g. "pswd chars = 0" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -180,7 +180,7 @@ exit $?
 >^D
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -199,7 +199,7 @@ exit $?
 >^D
 
 ; ==== Verify "pswd set $pswd" e.g. "pswd chars = $pswd_len" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -217,7 +217,7 @@ exit $?
 >^D
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -235,7 +235,7 @@ exit $?
 >^D
 
 ; ==== Verify "pswd show" e.g. "$pswd" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -243,6 +243,7 @@ exit $?
 
 ; ==== Test "wifi test" ====
 >cp /dev/null screen.log
+@30
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -253,7 +254,7 @@ exit $?
 >^D
 
 ; ==== Verify "wifi test" e.g. "WI-FI OK" ====
-:3
+:2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
