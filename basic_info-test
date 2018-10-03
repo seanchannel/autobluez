@@ -44,7 +44,7 @@ exit $?
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
->char-write-req 0x001b $cmd\015
+>char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 !expect timeout {send }
 >^A
@@ -62,7 +62,7 @@ exit $?
 >echo -n "get time" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
->char-write-req 0x001b $cmd\015
+>char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 !expect timeout {send }
 >^A
@@ -80,7 +80,7 @@ exit $?
 >echo -n "get date" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
->char-write-req 0x001b $cmd\015
+>char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 !expect timeout {send }
 >^A

@@ -261,4 +261,4 @@ exit $?
 <WI-FI OK
 
 ; ==== Cleanup ====
->screen -S $myscreen -X stuff 'exit'
+>screen -S $myscreen -X stuff 'exit\015'
