@@ -20,6 +20,11 @@ test-command:
 
 podnames
 
+    This file lists BLE addresses for pods we want to talk to. Everything after
+    The BLE MAC is just an alias (e.g. "squid", or "176") which the scripts 
+    simply grab from the podnames file. When a pod gets a new ID I keep the old
+    ones listed in there for future reference and possible recycling.
+
 basic_info.sh
 basic_info-test
 
