@@ -14,15 +14,6 @@ index=${3:-qa}
 export EL_DELAY_WAIT_FOR_HOST=10000
 export EL_SHELL=/bin/sh
 
-# "fw dwld" e.g.:
-#   IP: 192.168.1.143
-#   Bytes to go: 124174
-#   Bytes to go: 0 bytes
-# "fw inst" e.g. "Restarting..."
-# "version" e.g.:
-#   TI_VERS = 9
-#   v9.1.10-3-g5179845
-
 # fork to expect-lite
 expect-lite c=`basename $0` el=expect-lite log=`basename $0`.log d=$PWD r=localhost\
     pod_address="$pod_address" env=$env index=$index
@@ -133,7 +124,6 @@ exit $?
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
-#!expect timeout {send }
 >^A
 >^D
 @10
@@ -144,6 +134,57 @@ exit $?
 -<Please try again
 -<Unknown
 <Bytes to go
+
+; ==== Test "fw inst" ====
+>cp /dev/null screen.log
+>echo -n "fw inst" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+>exit
+
+; ==== Verify show "fw inst" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<Restarting
+
+; ==== Re-connect to pod ====
+>screen -Logfile screen.log gatttool -I --listen -b $pod_address
+-<Usage
+>^A
+>H
+<logfile
+>connect
+-<connect error
+<Connection successful
+>^A
+>^D
+
+# save screen id
+>screen -list | grep pts | sort | head -1
++$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
+
+; ==== Test "version" ====
+>cp /dev/null screen.log
+>echo -n "version" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+!expect timeout {send }
+>^A
+>^D
+
+; ==== Verify "version" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<TI_VERS = 9
+<v9.1
 
 
 ; ==== Cleanup ====
