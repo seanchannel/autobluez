@@ -4,23 +4,33 @@ Scripts to automate firmware testing
 test-command:
 
     Send a command over BLE and optionally verify the output This script uses
-    a list of pods called "podnames" to lookup pod BLE address. The list is in
-    the standard /etc/hosts, /etc/ethers style format. Aliases for pod names 
-    can be added for convenience. Commands must be in quotes if they are more 
-    than one word. Output will be saved to a temporary file $0.log and displayed
-    in hex and ascii.
+    a list of pods called "podnames" in the current directory to lookup BLE 
+    address. Commands of more than one word must be in quotes. Output will be 
+    displayed in hex and ascii.
 
     Syntax:
         ./test-command <POD> "<COMMAND>" [<OUTPUT>]
 
     Example:
-        ./test-command squid version
+        ./test-command squid version 9.10
 
-        ./test-command bench "pad auto 24"
+    Will always pass with no output argument. Uses some patient timeouts 
+    deliberately. Exit code of scripts indicates pass or fail (e.g. echo $?)
+    but 'fail' will always be shown for non-matches.
 
-        ./test-command 88 version
+podnames
 
-    Note: relies on multiple timeouts. There will be at least one timeout shown
-    after getting the BLE hex response. Output will include "Expect Failed: ..."
-    only for failures detected and return non-zero, and otherwise only shows
-    the terminal session and exits with a 0 status.
+basic_info.sh
+basic_info-test
+
+    These run the "basic info" test suite for date, time, and battery. The
+    ".sh" version uses separate connections for each command, which has 
+    sometimes resulted in a hung BLE. The "-test" version uses a continuous
+    BLE session for all commands.
+
+wifi_setup.sh
+wifi_setup-test
+
+    As above but for setting the wifi SSID & password. Both take a pod name.
+    The ".sh" version takes variables on the command line. The "-test" version
+    takes a pod, SSID, and password (less than 10 chars) as arguments.
