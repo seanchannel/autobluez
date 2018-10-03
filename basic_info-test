@@ -4,9 +4,10 @@
 ##   $0 <POD>
 ##
 
-echo " ==== Setup `basename $0` ==== "
 pod_name=${1:-testpod}
 pod_address=`fgrep -his $pod_name podnames | awk '{print $1}'`
+echo " ==== Setup `basename $0` on $pod_name ==== "
+
 export EL_DELAY_WAIT_FOR_HOST=6000
 export EL_SHELL=/bin/sh
 
