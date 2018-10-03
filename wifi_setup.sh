@@ -1,12 +1,14 @@
 #!/bin/sh
 
+pod=`fgrep -his $1 podnames | awk '{print $1}'`; shift
+
 ssid=${ssid:-WG2}
 ssid_len=`echo -n $ssid | wc -c`
 
 pswd=${pswd:-clearwater}
 pswd_len=`echo -n $pswd | wc -c`
 
-sleep=${sleep:-2}
+sleep=${sleep:-10}
 
 ./test-command $pod "ssid reset" "ssid chars = 0"
 if [ $? -ne 0 ]; then echo FAIL; exit; fi
