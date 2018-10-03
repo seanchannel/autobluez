@@ -14,11 +14,6 @@ index=${3:-qa}
 export EL_DELAY_WAIT_FOR_HOST=10000
 export EL_SHELL=/bin/sh
 
-# "fw env" e.g. "env = prod (3)" or "env = qa (1)"
-# "fw env qa" e.g. "env set to 'qa'"
-# "fw env prod" e.g. "env set to 'prod'"
-# "fw index" e.g. "9.1"
-# "fw index qa" e.g. "qa"
 # "fw dwld" e.g.:
 #   IP: 192.168.1.143
 #   Bytes to go: 124174
@@ -56,8 +51,7 @@ exit $?
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
 
-# "fw env" e.g. "env = prod (3)" or "env = qa (1)"
-; ==== Test "fw env" ====
+; ==== Test set "fw env" ====
 >cp /dev/null screen.log
 >echo -n "fw env $env" | xxd -ps
 +$cmd=\n(.*)
@@ -68,12 +62,88 @@ exit $?
 >^A
 >^D
 
-; ==== Verify "fw env" ====
+; ==== Verify set "fw env" ====
 :2
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <env set to \'$env\'
+
+; ==== Test show "fw env" ====
+>cp /dev/null screen.log
+>echo -n "fw env" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+!expect timeout {send }
+>^A
+>^D
+
+; ==== Verify show "fw env" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<env = $env
+
+; ==== Test set "fw index" ====
+>cp /dev/null screen.log
+>echo -n "fw index $index" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+!expect timeout {send }
+>^A
+>^D
+
+; ==== Verify set "fw index" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<$index
+
+; ==== Test show "fw index" ====
+>cp /dev/null screen.log
+>echo -n "fw index" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+!expect timeout {send }
+>^A
+>^D
+
+; ==== Verify show "fw index" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<$index
+
+; ==== Test download "fw dwld" ====
+>cp /dev/null screen.log
+@90
+>echo -n "fw dwld" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>^M
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
+#!expect timeout {send }
+>^A
+>^D
+@10
+
+; ==== Verify download "fw dwld" ====
+:2
+>egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+-<Please try again
+-<Unknown
+<Bytes to go
 
 
 ; ==== Cleanup ====
