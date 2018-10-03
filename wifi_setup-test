@@ -17,19 +17,19 @@ pswd_len=`echo -n $pswd | wc -c`
 export EL_DELAY_WAIT_FOR_HOST=10000
 export EL_SHELL=/bin/sh
 
-echo To Do:
-echo "ssid reset" = "ssid chars = 0"
-echo "ssid save" = "ssid saved"
-echo "ssid set $ssid" = "ssid chars = $ssid_len"
-echo "ssid save" = "ssid saved"
-echo "ssid show" = "$ssid"
-echo 
-echo "pswd reset" = "pswd chars = 0"
-echo "pswd save" = "pswd saved"
-echo "pswd set $pswd" = "pswd chars = $pswd_len"
-echo "pswd save" = "pswd saved"
-echo "pswd show" = "$pswd"
-echo "wifi test" = "WI-FI OK"
+# To Do:
+# "ssid reset" = "ssid chars = 0"
+# "ssid save" = "ssid saved"
+# "ssid set $ssid" = "ssid chars = $ssid_len"
+# "ssid save" = "ssid saved"
+# "ssid show" = "$ssid"
+#
+# "pswd reset" = "pswd chars = 0"
+# "pswd save" = "pswd saved"
+# "pswd set $pswd" = "pswd chars = $pswd_len"
+# "pswd save" = "pswd saved"
+# "pswd show" = "$pswd"
+# "wifi test" = "WI-FI OK"
 
 # fork to expect-lite
 expect-lite c=`basename $0` el=expect-lite log=`basename $0`.log d=$PWD r=localhost\
