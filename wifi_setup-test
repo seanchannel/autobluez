@@ -49,6 +49,7 @@ exit $?
 >^A
 >H
 <logfile
+>
 >connect
 -<connect error
 <Connection successful
