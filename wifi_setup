@@ -14,6 +14,7 @@ ssid_len=`echo -n $ssid | wc -c`
 pswd=${3:-clearwater}
 pswd_len=`echo -n $pswd | wc -c`
 
+rm screen.log screentmp.log
 export EL_DELAY_WAIT_FOR_HOST=15000
 export EL_SHELL=/bin/sh
 
@@ -29,7 +30,7 @@ exit $?
 # launch a screen running gatttool with log
 # connect to pod and put screen in the background
 */[$pod_address][LE]>/
->screen -Logfile screen.log gatttool -I --listen -b $pod_address
+>screen -Logfile screentmp.log gatttool -I --listen -b $pod_address
 -<Usage
 >^A
 >H
@@ -47,7 +48,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "ssid reset" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "ssid reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -60,7 +61,7 @@ exit $?
 
 ; ==== Verify "ssid reset" e.g. "ssid chars = 0" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <ssid chars = 0
@@ -68,7 +69,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "ssid save" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -81,7 +82,7 @@ exit $?
 
 ; ==== Verify "ssid save" e.g. "ssid saved" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <ssid saved
@@ -89,7 +90,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "ssid set" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "ssid set $ssid" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -102,7 +103,7 @@ exit $?
 
 ; ==== Verify "ssid set $ssid" e.g. "ssid chars = $ssid_len" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <ssid chars = $ssid_len
@@ -110,11 +111,10 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "ssid save" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
->^M
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 73 73 69 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
@@ -124,7 +124,7 @@ exit $?
 
 ; ==== Verify "ssid save" e.g. "ssid saved" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <ssid saved
@@ -132,7 +132,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "ssid show" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "ssid show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -145,7 +145,7 @@ exit $?
 
 ; ==== Verify "ssid show" e.g. "$ssid" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <$ssid
@@ -153,7 +153,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "pswd reset" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "pswd reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -166,7 +166,7 @@ exit $?
 
 ; ==== Verify "pswd reset" e.g. "pswd chars = 0" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <pswd chars = 0
@@ -174,7 +174,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "pswd save" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -187,7 +187,7 @@ exit $?
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <pswd saved
@@ -195,7 +195,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "pswd set" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "pswd set $pswd" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -208,7 +208,7 @@ exit $?
 
 ; ==== Verify "pswd set $pswd" e.g. "pswd chars = $pswd_len" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <pswd chars = $pswd_len
@@ -216,7 +216,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "pswd save" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -229,7 +229,7 @@ exit $?
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <pswd saved
@@ -237,7 +237,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "pswd show" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 >echo -n "pswd show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -250,7 +250,7 @@ exit $?
 
 ; ==== Verify "pswd show" e.g. "$pswd" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <$pswd
@@ -258,7 +258,7 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ==== Test "wifi test" ====
->cp /dev/null screen.log
+>cat screentmp.log >> screen.log; cp /dev/null screentmp.log
 @60
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
@@ -272,7 +272,7 @@ exit $?
 
 ; ==== Verify "wifi test" e.g. "WI-FI OK" ====
 :2
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification screentmp.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <WI-FI OK
