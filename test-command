@@ -6,33 +6,35 @@
 
 echo " ==== Setup: $1 ==== "
 export EL_SHELL=/bin/sh
-export EL_DELAY_WAIT_FOR_HOST=30000
+export EL_DELAY_WAIT_FOR_HOST=10000
 
 pod_address=`fgrep -his $1 podnames | awk '{print $1}'`; shift
 pod_command=$1
 hex_command=`echo -n $1 | xxd -ps`; shift
 command_out=$*
+timeout=${timeout:-10}
 
 # fork to expect-lite
 echo $0.log
-expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost *NOINFO *LOG \
+expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost *LOG \
     pod_address="$pod_address" hex_command=$hex_command command_out="$command_out" \
-    pod_command="$pod_command"
+    pod_command="$pod_command" timeout=$timeout
 exit $?
 
-@30
+@$timeout
 
 ; ==== Test: $pod_command ====
-:2
+*/[$pod_address][LE]>/
 >gatttool --listen -b $pod_address --char-write-req --handle=0x001b --value=$hex_command
 -<Usage
 -<connect error
 <Characteristic value was written successfully
-!expect timeout {send }
+>^C
 
 ; ==== Verify: $command_out ====
-:2
+>
 >egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <$command_out
+>
