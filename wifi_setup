@@ -14,16 +14,18 @@ ssid_len=`echo -n $ssid | wc -c`
 pswd=${3:-clearwater}
 pswd_len=`echo -n $pswd | wc -c`
 
-export EL_DELAY_WAIT_FOR_HOST=10000
+timeout=${timeout:-15}
+export EL_DELAY_WAIT_FOR_HOST=${timeout}000
 export EL_SHELL=/bin/sh
 
 # fork to expect-lite
 expect-lite c=`basename $0` el=expect-lite log=`basename $0`.log d=$PWD r=localhost\
-    pod_address="$pod_address" ssid=$ssid ssid_len=$ssid_len pswd=$pswd pswd_len=$pswd_len
+    pod_address="$pod_address" ssid=$ssid ssid_len=$ssid_len pswd=$pswd pswd_len=$pswd_len \
+    timeout=$timeout
 exit $?
 
 *LOG
-@10
+@$timeout
 
 ; ==== Connect to pod ====
 # launch a screen running gatttool with log
@@ -31,18 +33,23 @@ exit $?
 */[$pod_address][LE]>/
 >screen -Logfile screen.log gatttool -I --listen -b $pod_address
 -<Usage
->^A
->H
-<Appending
+>>^A
+>>H
+#<logfile
+#>
 >connect
+-<Error
 -<connect error
 <Connection successful
->^A
+>
+>>^A
 >^D
+>
 
 # save screen id
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
+>
 
 ##-------------------------------------------------------------------##
 
@@ -53,13 +60,15 @@ exit $?
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 73 73 69 64 20 63 68 61 72 73 20 3d 20 30 00 00 00 00 00 00 
-!expect timeout {send }
->^A
+<Notification
+#!expect timeout {send }
+>>^A
 >^D
+:2
+>
 
 ; ==== Verify "ssid reset" e.g. "ssid chars = 0" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -74,13 +83,16 @@ exit $?
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 73 73 69 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
-!expect timeout {send }
->^A
+<Notification
+>
+#!expect timeout {send }
+>>^A
 >^D
+:2
+>
 
 ; ==== Verify "ssid save" e.g. "ssid saved" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -96,12 +108,15 @@ exit $?
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification
-!expect timeout {send }
->^A
+>
+#!expect timeout {send }
+>>^A
 >^D
+>
+:2
 
 ; ==== Verify "ssid set $ssid" e.g. "ssid chars = $ssid_len" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -116,13 +131,16 @@ exit $?
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 73 73 69 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
+<Notification
+>
 !expect timeout {send }
->^A
+>>^A
 >^D
+>
+:2
 
 ; ==== Verify "ssid save" e.g. "ssid saved" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -138,12 +156,15 @@ exit $?
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification
-!expect timeout {send }
-#>^A
-#>^D
+>
+!expect timeout {send }
+>>^A
+>^D
+>
+:2
 
 ; ==== Verify "ssid show" e.g. "$ssid" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -158,13 +179,16 @@ exit $?
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 70 73 77 64 20 63 68 61 72 73 20 3d 20 30 00 00 00 00 00 00 
+<Notification
+>
 !expect timeout {send }
->^A
+>>^A
 >^D
+>
+:2
 
 ; ==== Verify "pswd reset" e.g. "pswd chars = 0" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -179,13 +203,16 @@ exit $?
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 70 73 77 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
+<Notification
+>
 !expect timeout {send }
->^A
+>>^A
 >^D
+>
+:2
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -201,12 +228,15 @@ exit $?
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification
+>
 !expect timeout {send }
->^A
+>>^A
 >^D
+>
+:2
 
 ; ==== Verify "pswd set $pswd" e.g. "pswd chars = $pswd_len" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -221,13 +251,16 @@ exit $?
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 70 73 77 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
+<Notification
+>
 !expect timeout {send }
->^A
+>>^A
 >^D
+>
+:2
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -243,12 +276,15 @@ exit $?
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification
-!expect timeout {send }
-#>^A
-#>^D
+>
+!expect timeout {send }
+>>^A
+>^D
+>
+:2
 
 ; ==== Verify "pswd show" e.g. "$pswd" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -262,23 +298,26 @@ exit $?
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
->^M
->
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 57 49 2d 46 49 20 4f 4b 00 00 00 00 00 00 00 00 00 00 00 00 
+<Notification
+>
 !expect timeout {send }
->^A
+>>^A
 >^D
+>
+:2
 
 ; ==== Verify "wifi test" e.g. "WI-FI OK" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
+-<SSID NOT FOUND
 <WI-FI OK
 
 ##-------------------------------------------------------------------##
 
 ; ==== Cleanup ====
->screen -S $myscreen -X stuff 'exit\015'
+#>screen -S $myscreen -X stuff 'exit\015'
+>killall screen
