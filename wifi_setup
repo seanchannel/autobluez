@@ -19,29 +19,24 @@ export EL_DELAY_WAIT_FOR_HOST=${timeout}000
 export EL_SHELL=/bin/sh
 
 # fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=`basename $0`.log d=$PWD r=localhost\
-    pod_address="$pod_address" ssid=$ssid ssid_len=$ssid_len pswd=$pswd pswd_len=$pswd_len \
-    timeout=$timeout
+expect-lite c=`basename $0` el=expect-lite log=${pod_name}-`basename $0`.log d=$PWD r=localhost\
+    pod_address="$pod_address" pod_name=$pod_name timeout=$timeout \
+    ssid=$ssid ssid_len=$ssid_len pswd=$pswd pswd_len=$pswd_len
 exit $?
 
 *LOG
 @$timeout
 
-; ==== Connect to pod ====
-# launch a screen running gatttool with log
-# connect to pod and put screen in the background
+; ==== Connect to $pod_name ====
 */[$pod_address][LE]>/
 >screen -Logfile screen.log gatttool -I --listen -b $pod_address
 -<Usage
 >>^A
 >>H
-#<logfile
-#>
 >connect
 -<Error
 -<connect error
 <Connection successful
->
 >>^A
 >^D
 >
@@ -59,9 +54,7 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
-#!expect timeout {send }
 >>^A
 >^D
 :2
@@ -82,10 +75,7 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-#!expect timeout {send }
 >>^A
 >^D
 :2
@@ -106,14 +96,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-#!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "ssid set $ssid" e.g. "ssid chars = $ssid_len" ====
 >
@@ -130,14 +117,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "ssid save" e.g. "ssid saved" ====
 >
@@ -154,14 +138,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "ssid show" e.g. "$ssid" ====
 >
@@ -178,14 +159,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "pswd reset" e.g. "pswd chars = 0" ====
 >
@@ -202,14 +180,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
 >
@@ -226,14 +201,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "pswd set $pswd" e.g. "pswd chars = $pswd_len" ====
 >
@@ -250,14 +222,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "pswd save" e.g. "pswd saved" ====
 >
@@ -274,14 +243,11 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
 <Notification
->
-!expect timeout {send }
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "pswd show" e.g. "$pswd" ====
 >
@@ -294,19 +260,16 @@ exit $?
 
 ; ==== Test "wifi test" ====
 >cp /dev/null screen.log
-@30
+@40
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification
->
-!expect timeout {send }
+<Notification handle = 0x001b value: 57 49 2d 46 49 20 4f 4b 00 00 00 00 00 00 00 00 00 00 00 00
 >>^A
 >^D
->
 :2
+>
 
 ; ==== Verify "wifi test" e.g. "WI-FI OK" ====
 >
