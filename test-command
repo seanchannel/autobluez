@@ -1,40 +1,36 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
+## Usage:
+## pod=pod <other variables> $0 <COMMAND>
 ##
-## $0 <POD> <COMMAND> <OUTPUT>
-##
 
-echo " ==== Setup: $1 ==== "
-export EL_SHELL=/bin/sh
-export EL_DELAY_WAIT_FOR_HOST=10000
-
-pod_address=`fgrep -his $1 podnames | awk '{print $1}'`; shift
-pod_command=$1
+command=$1
 hex_command=`echo -n $1 | xxd -ps`; shift
-command_out=$*
-timeout=${timeout:-10}
+#result=${result:-\$}
+
+. ./bash_include
 
 # fork to expect-lite
-echo $0.log
-expect-lite c=$0 el=expect-lite log=$0.log d=$PWD r=localhost *LOG \
-    pod_address="$pod_address" hex_command=$hex_command command_out="$command_out" \
-    pod_command="$pod_command" timeout=$timeout
+expect-lite c=`basename $0` el=expect-lite log=${pod}-`basename $0`.log d=$PWD r=localhost \
+    pod_address="$pod_address" hex_command=$hex_command result="$result" \
+    command="$command" timeout=$timeout
 exit $?
 
+*LOG $log
 @$timeout
 
-; ==== Test: $pod_command ====
+; ==== Test: $command ====
 */[$pod_address][LE]>/
 >gatttool --listen -b $pod_address --char-write-req --handle=0x001b --value=$hex_command
 -<Usage
+-<Error
 -<connect error
 <Characteristic value was written successfully
 >^C
 
-; ==== Verify: $command_out ====
->
->egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+; ==== Output ====
+>>egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
-<$command_out
->
+<<$result
+>>
