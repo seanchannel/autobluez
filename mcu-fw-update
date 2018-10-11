@@ -1,47 +1,40 @@
 #!/bin/sh
 
-## usage:
-##   $0 <POD> <ENV> <INDEX>
+## Usage:
+## pod=pod <other variables> $0
 ##
 
-pod_name=${1:-testpod}
-pod_address=`fgrep -his $pod_name podnames | awk '{print $1}'`
-echo " ==== Setup `basename $0` on $pod_name ==== "
-
-env=${2:-qa}
-index=${3:-qa}
-
-export EL_DELAY_WAIT_FOR_HOST=10000
-export EL_SHELL=/bin/sh
+. ./bash_include
 
 # fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=`basename $0`.log d=$PWD r=localhost\
-    pod_address="$pod_address" env=$env index=$index
+expect-lite c=`basename $0` el=expect-lite log=${pod}-`basename $0`.log d=$PWD r=localhost\
+    pod_address="$pod_address" pod=$pod timeout=$timeout \
+    env=$env index=$index version=$version
 exit $?
 
-#*NOINFO
-*LOG
-@10
+*LOG $log
+@$timeout
 
-; ==== Connect to pod ====
-# launch a screen running gatttool with log
-# connect to pod and put screen in the background
+; ==== Connect to $pod ====
 */[$pod_address][LE]>/
 >screen -Logfile screen.log gatttool -I --listen -b $pod_address
 -<Usage
->^A
->H
-<logfile
->
+>>^A
+>>H
 >connect
+-<Error
 -<connect error
 <Connection successful
->^A
+>>^A
 >^D
+>
 
 # save screen id
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
+>
+
+##------------------------------------------------------------------##
 
 ; ==== Test set "fw env" ====
 >cp /dev/null screen.log
@@ -49,17 +42,19 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-!expect timeout {send }
->^A
+<Notification
+>>^A
 >^D
+>
 
 ; ==== Verify set "fw env" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <env set to \'$env\'
+
+##------------------------------------------------------------------##
 
 ; ==== Test show "fw env" ====
 >cp /dev/null screen.log
@@ -67,17 +62,19 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-!expect timeout {send }
->^A
+<Notification
+>>^A
 >^D
+>
 
 ; ==== Verify show "fw env" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <env = $env
+
+##------------------------------------------------------------------##
 
 ; ==== Test set "fw index" ====
 >cp /dev/null screen.log
@@ -85,17 +82,19 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-!expect timeout {send }
->^A
+<Notification
+>>^A
 >^D
+>
 
 ; ==== Verify set "fw index" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <$index
+
+##------------------------------------------------------------------##
 
 ; ==== Test show "fw index" ====
 >cp /dev/null screen.log
@@ -103,38 +102,43 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-!expect timeout {send }
->^A
+<Notification
+>>^A
 >^D
+>
 
 ; ==== Verify show "fw index" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <$index
 
+##------------------------------------------------------------------##
+
 ; ==== Test download "fw dwld" ====
->cp /dev/null screen.log
 @90
+>cp /dev/null screen.log
 >echo -n "fw dwld" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >^M
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
->^A
+>>^A
 >^D
-@10
+>
+@$timeout
 
 ; ==== Verify download "fw dwld" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <Bytes to go
+
+##------------------------------------------------------------------##
 
 ; ==== Test "fw inst" ====
 >cp /dev/null screen.log
@@ -144,29 +148,34 @@ exit $?
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 >exit
+>
 
-; ==== Verify show "fw inst" ====
-:2
+; ==== Verify "fw inst" ====
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <Restarting
 
-; ==== Re-connect to pod ====
+:sleep 60
+
+; ==== Re-connect to $pod ====
 >screen -Logfile screen.log gatttool -I --listen -b $pod_address
 -<Usage
->^A
->H
-<logfile
+>>^A
+>>H
 >connect
+-<Error
 -<connect error
 <Connection successful
->^A
+>>^A
 >^D
+>
 
 # save screen id
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
+>
 
 ; ==== Test "version" ====
 >cp /dev/null screen.log
@@ -174,19 +183,18 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-!expect timeout {send }
->^A
+<Notification
+>>^A
 >^D
+>
 
 ; ==== Verify "version" ====
-:2
+>
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
-<TI_VERS = 9
-<v9.1
+<$version
 
 
 ; ==== Cleanup ====
->screen -S $myscreen -X stuff 'exit\015'
+>>screen -S $myscreen -X stuff 'exit\015'

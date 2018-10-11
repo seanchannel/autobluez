@@ -1,32 +1,26 @@
 #!/bin/sh
 
-## usage:
-##   $0 <POD>
+## Usage:
+## pod=pod <other variables> $0
 ##
 
-
-pod_name=${1:-testpod}
-pod_address=`fgrep -his $pod_name podnames | awk '{print $1}'`
-echo " ==== Setup `basename $0` on $pod_name ==== "
-
-timeout=${timeout:-10}
-export EL_DELAY_WAIT_FOR_HOST=${timeout}000
-export EL_SHELL=/bin/sh
+. ./bash_include 
 
 # fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=${pod_name}-`basename $0`.log d=$PWD r=localhost\
-    pod_address="$pod_address" pod_name=$pod_name timeout=$timeout
+expect-lite c=`basename $0` el=expect-lite log=$log d=$PWD r=localhost\
+    pod_address="$pod_address" pod=$pod timeout=$timeout
 exit $?
 
-*LOG
+*LOG $log
 @$timeout
 
-; === Connect to $pod_name ===
+; === Connect to $pod ===
 */[$pod_address][LE]>/
 >screen -Logfile screen.log gatttool -I --listen -b $pod_address
 -<Usage
 >>^A
 >H
+<logfile
 >connect
 -<Error
 -<connect error
@@ -51,11 +45,9 @@ exit $?
 <Notification
 >>^A
 >^D
-:2
 >
 
 ; ==== Verify "get volt" e.g. "Vbat =  5.67" ====
->
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -72,11 +64,9 @@ exit $?
 <Notification
 >>^A
 >^D
-:2
 >
 
 ; ==== Verify "get time" e.g. "UTC time: 17:53:47" ====
->
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
@@ -93,16 +83,13 @@ exit $?
 <Notification
 >>^A
 >^D
-:2
 >
 
 ; ==== Verify "get date" e.g. "UTC date: 2018/10/02" ====
->
 >egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <UTC date
 
 ; ==== Cleanup ====
-#>screen -S $myscreen -X stuff 'exit\015'
->killall screen
+>>screen -S $myscreen -X stuff 'exit\015'

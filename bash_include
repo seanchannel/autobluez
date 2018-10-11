@@ -1,5 +1,6 @@
 ##
-## defaults for test scripts
+## Defaults for test scripts. Set these on the command-line in front of
+## the test script invocation.
 ##
 
 pod=${pod:-testpod}
@@ -9,8 +10,8 @@ echo " ==== Setup `basename $0` on $pod ==== "
 timeout=${timeout:-10}
 log=${pod}-`basename $0`.log
 
-env=${env:-qa}
-index=${index:-qa}
+env=${env:-prod}
+index=${index:-9.1}
 version=${version:-v9.1}
 
 ssid=${ssid:-WG2}
