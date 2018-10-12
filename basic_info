@@ -37,7 +37,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test "get volt" ====
+; ============ Test "get volt" ============
 >rm $SCREENLOG
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
@@ -48,7 +48,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "get volt" e.g. "Vbat =  5.67" ====
+; ============ Verify "get volt" e.g. "Vbat =  5.67" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -56,7 +56,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test "get time" ====
+; ============ Test "get time" ============
 >rm $SCREENLOG
 >echo -n "get time" | xxd -ps
 +$cmd=\n(.*)
@@ -67,7 +67,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "get time" e.g. "UTC time: 17:53:47" ====
+; ============ Verify "get time" e.g. "UTC time: 17:53:47" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -75,7 +75,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test "get date" ====
+; ============ Test "get date" ============
 >rm $SCREENLOG
 >echo -n "get date" | xxd -ps
 +$cmd=\n(.*)
@@ -86,11 +86,11 @@ exit $?
 >^D
 >
 
-; ==== Verify "get date" e.g. "UTC date: 2018/10/02" ====
+; ============ Verify "get date" e.g. "UTC date: 2018/10/02" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <UTC date
 
-; ==== Cleanup ====
+; ============ Cleanup ============
 >>screen -S $myscreen -X stuff 'exit\015'

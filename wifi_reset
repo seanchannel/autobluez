@@ -16,7 +16,7 @@ exit $?
 
 >>. ~/.bash_aliases
 
-; ==== Connect to $pod ====
+; ============ Connect to $pod ============
 */[$pod_address][LE]>/
 >screen gatttool -I --listen -b $pod_address
 -<Usage
@@ -37,7 +37,7 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Test "ssid reset" ====
+; ============ Test "ssid reset" ============
 >rm $SCREENLOG
 >echo -n "ssid reset" | xxd -ps
 +$cmd=\n(.*)
@@ -48,7 +48,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "ssid reset" e.g. "ssid chars = 0" ====
+; ============ Verify "ssid reset" e.g. "ssid chars = 0" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -57,7 +57,7 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Test "ssid save" ====
+; ============ Test "ssid save" ============
 >rm $SCREENLOG
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
@@ -68,7 +68,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "ssid save" e.g. "ssid saved" ====
+; ============ Verify "ssid save" e.g. "ssid saved" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -77,7 +77,7 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Test "ssid show" ====
+; ============ Test "ssid show" ============
 >rm $SCREENLOG
 >echo -n "ssid show" | xxd -ps
 +$cmd=\n(.*)
@@ -88,7 +88,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "ssid show" e.g. "ssid =" ====
+; ============ Verify "ssid show" e.g. "ssid =" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -97,7 +97,7 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Test "pswd reset" ====
+; ============ Test "pswd reset" ============
 >rm $SCREENLOG
 >echo -n "pswd reset" | xxd -ps
 +$cmd=\n(.*)
@@ -108,7 +108,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "pswd reset" e.g. "pswd chars = 0" ====
+; ============ Verify "pswd reset" e.g. "pswd chars = 0" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -117,7 +117,7 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Test "pswd save" ====
+; ============ Test "pswd save" ============
 >rm $SCREENLOG
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
@@ -128,7 +128,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "pswd save" e.g. "pswd saved" ====
+; ============ Verify "pswd save" e.g. "pswd saved" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -137,7 +137,7 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Test "pswd show" ====
+; ============ Test "pswd show" ============
 >rm $SCREENLOG
 >echo -n "pswd show" | xxd -ps
 +$cmd=\n(.*)
@@ -148,7 +148,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "pswd show" e.g. "pswd =" ====
+; ============ Verify "pswd show" e.g. "pswd =" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -157,7 +157,7 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Test "wifi test" ====
+; ============ Test "wifi test" ============
 >rm $SCREENLOG
 @40
 >echo -n "wifi test" | xxd -ps
@@ -169,7 +169,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "wifi test" e.g. "WI-FI OK" ====
+; ============ Verify "wifi test" e.g. "WI-FI OK" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -179,5 +179,5 @@ exit $?
 
 ##-------------------------------------------------------------------##
 
-; ==== Cleanup ====
+; ============ Cleanup ============
 >>screen -S $myscreen -X stuff 'exit\015'

@@ -17,7 +17,7 @@ exit $?
 
 >>. ~/.bash_aliases
 
-; ==== Connect to $pod ====
+; ============ Connect to $pod ============
 */[$pod_address][LE]>/
 >screen gatttool -I --listen -b $pod_address
 -<Usage
@@ -38,7 +38,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test set "fw env" ====
+; ============ Test set "fw env" ============
 >rm $SCREENLOG
 >echo -n "fw env $env" | xxd -ps
 +$cmd=\n(.*)
@@ -49,7 +49,7 @@ exit $?
 >^D
 >
 
-; ==== Verify set "fw env" ====
+; ============ Verify set "fw env" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -58,7 +58,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test show "fw env" ====
+; ============ Test show "fw env" ============
 >rm $SCREENLOG
 >echo -n "fw env" | xxd -ps
 +$cmd=\n(.*)
@@ -69,7 +69,7 @@ exit $?
 >^D
 >
 
-; ==== Verify show "fw env" ====
+; ============ Verify show "fw env" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -78,7 +78,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test set "fw index" ====
+; ============ Test set "fw index" ============
 >rm $SCREENLOG
 >echo -n "fw index $index" | xxd -ps
 +$cmd=\n(.*)
@@ -89,7 +89,7 @@ exit $?
 >^D
 >
 
-; ==== Verify set "fw index" ====
+; ============ Verify set "fw index" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -98,7 +98,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test show "fw index" ====
+; ============ Test show "fw index" ============
 >rm $SCREENLOG
 >echo -n "fw index" | xxd -ps
 +$cmd=\n(.*)
@@ -109,7 +109,7 @@ exit $?
 >^D
 >
 
-; ==== Verify show "fw index" ====
+; ============ Verify show "fw index" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -118,7 +118,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test download "fw dwld" ====
+; ============ Test download "fw dwld" ============
 @90
 >rm $SCREENLOG
 >echo -n "fw dwld" | xxd -ps
@@ -133,7 +133,7 @@ exit $?
 >
 @$timeout
 
-; ==== Verify download "fw dwld" ====
+; ============ Verify download "fw dwld" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -142,7 +142,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ==== Test "fw inst" ====
+; ============ Test "fw inst" ============
 >rm $SCREENLOG
 >echo -n "fw inst" | xxd -ps
 +$cmd=\n(.*)
@@ -152,7 +152,7 @@ exit $?
 >exit
 >
 
-; ==== Verify "fw inst" ====
+; ============ Verify "fw inst" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -161,7 +161,7 @@ exit $?
 
 :sleep 60
 
-; ==== Re-connect to $pod ====
+; ============ Re-connect to $pod ============
 >screen gatttool -I --listen -b $pod_address
 -<Usage
 >>^A
@@ -179,7 +179,7 @@ exit $?
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
 >
 
-; ==== Test "version" ====
+; ============ Test "version" ============
 >rm $SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
@@ -190,7 +190,7 @@ exit $?
 >^D
 >
 
-; ==== Verify "version" ====
+; ============ Verify "version" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -198,5 +198,5 @@ exit $?
 <$version
 
 
-; ==== Cleanup ====
+; ============ Cleanup ============
 >>screen -S $myscreen -X stuff 'exit\015'

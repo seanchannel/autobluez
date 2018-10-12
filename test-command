@@ -19,7 +19,7 @@ exit $?
 *LOG $log
 @$timeout
 
-; ==== Test: $command ====
+; ============ Test: $command ============
 */[$pod_address][LE]>/
 >gatttool --listen -b $pod_address --char-write-req --handle=0x001b --value=$hex_command
 -<Usage
@@ -28,7 +28,7 @@ exit $?
 <Characteristic value was written successfully
 >^C
 
-; ==== Output ====
+; ============ Output ============
 >egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
