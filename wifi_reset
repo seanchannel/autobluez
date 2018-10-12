@@ -1,0 +1,183 @@
+#!/bin/sh
+
+## Usage:
+## pod=pod <other variables> $0
+##
+
+. ./bash_include
+
+# fork to expect-lite
+expect-lite c=`basename $0` el=expect-lite log=$log d=$PWD r=localhost\
+    pod_address="$pod_address" pod=$pod timeout=$timeout 
+exit $?
+
+*LOG $log
+@$timeout
+
+>>. ~/.bash_aliases
+
+; ==== Connect to $pod ====
+*/[$pod_address][LE]>/
+>screen gatttool -I --listen -b $pod_address
+-<Usage
+>>^A
+>>H
+>connect
+-<Error
+-<connect error
+<Connection successful
+>>^A
+>^D
+>
+
+# save screen id
+>screen -list | grep pts | sort | head -1
++$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
+>
+
+##-------------------------------------------------------------------##
+
+; ==== Test "ssid reset" ====
+>rm $SCREENLOG
+>echo -n "ssid reset" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification
+>>^A
+>^D
+>
+
+; ==== Verify "ssid reset" e.g. "ssid chars = 0" ====
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<ssid chars = 0
+
+##-------------------------------------------------------------------##
+
+; ==== Test "ssid save" ====
+>rm $SCREENLOG
+>echo -n "ssid save" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification
+>>^A
+>^D
+>
+
+; ==== Verify "ssid save" e.g. "ssid saved" ====
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<ssid saved
+
+##-------------------------------------------------------------------##
+
+; ==== Test "ssid show" ====
+>rm $SCREENLOG
+>echo -n "ssid show" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification
+>>^A
+>^D
+>
+
+; ==== Verify "ssid show" e.g. "ssid =" ====
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<ssid =
+
+##-------------------------------------------------------------------##
+
+; ==== Test "pswd reset" ====
+>rm $SCREENLOG
+>echo -n "pswd reset" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification
+>>^A
+>^D
+>
+
+; ==== Verify "pswd reset" e.g. "pswd chars = 0" ====
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<pswd chars = 0
+
+##-------------------------------------------------------------------##
+
+; ==== Test "pswd save" ====
+>rm $SCREENLOG
+>echo -n "pswd save" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification
+>>^A
+>^D
+>
+
+; ==== Verify "pswd save" e.g. "pswd saved" ====
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<pswd saved
+
+##-------------------------------------------------------------------##
+
+; ==== Test "pswd show" ====
+>rm $SCREENLOG
+>echo -n "pswd show" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification
+>>^A
+>^D
+>
+
+; ==== Verify "pswd show" e.g. "pswd =" ====
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<pswd =
+
+##-------------------------------------------------------------------##
+
+; ==== Test "wifi test" ====
+>rm $SCREENLOG
+@40
+>echo -n "wifi test" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification handle = 0x001b value: 57 49 2d 46 49 20 4f 4b 00 00 00 00 00 00 00 00 00 00 00 00
+>>^A
+>^D
+>
+
+; ==== Verify "wifi test" e.g. "WI-FI OK" ====
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+-<SSID NOT FOUND
+<WI-FI OK
+
+##-------------------------------------------------------------------##
+
+; ==== Cleanup ====
+>>screen -S $myscreen -X stuff 'exit\015'
