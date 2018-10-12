@@ -1,4 +1,6 @@
 
+export PATH=.:$PATH
+
 # take hex input from gatttool up to ^D and print ascii
 alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
 
