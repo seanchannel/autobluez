@@ -7,13 +7,14 @@ pod=${pod:-testpod}
 pod_address=`fgrep -his $pod podnames | awk '{print $1}'`
 echo " ==== Setup `basename $0` on $pod ==== "
 
-timeout=${timeout:-10}
-log=${pod}-`basename $0`.log
-export SCREENLOG=${pod}-`basename $0`-gatt.log
+timeout=${timeout:-20}
+log=logs/${pod}-`basename $0`.log
+export SCREENLOG=logs/${pod}-`basename $0`-gatt.log
 
 env=${env:-prod}
 index=${index:-9.1}
 version=${version:-v9.1}
+bleversion=${bleversion:-9}
 
 ssid=${ssid:-WG2}
 ssid_len=`echo -n $ssid | wc -c`
