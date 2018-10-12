@@ -14,6 +14,8 @@ exit $?
 *LOG $log
 @$timeout
 
+>>. ~/.bash_aliases
+
 ; === Connect to $pod ===
 >screen gatttool -I --listen -b $pod_address
 */[$pod_address][LE]>/
@@ -32,7 +34,6 @@ exit $?
 # save screen id
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
 
 ##------------------------------------------------------------------##
 
@@ -48,7 +49,7 @@ exit $?
 >
 
 ; ==== Verify "get volt" e.g. "Vbat =  5.67" ====
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <Vbat
@@ -67,7 +68,7 @@ exit $?
 >
 
 ; ==== Verify "get time" e.g. "UTC time: 17:53:47" ====
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <UTC time
@@ -86,7 +87,7 @@ exit $?
 >
 
 ; ==== Verify "get date" e.g. "UTC date: 2018/10/02" ====
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <UTC date

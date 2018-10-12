@@ -1,9 +1,6 @@
 
 export PATH=.:$PATH
 
-# take hex input from gatttool up to ^D and print ascii
-alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
-
 # The following all require a "podnames" file in the current directory
 
 # connect to a pod in the gatttool interactive command line
@@ -35,3 +32,13 @@ bleep()
 
         gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
+
+dehex()
+{
+    # convert from hex to ascii
+    cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
+    echo
+}
+
+# translate hex input pasted into the command line up until ^D is pressed
+alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'

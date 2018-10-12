@@ -5,7 +5,7 @@
 ##
 
 command=$1
-hex_command=`echo -n $1 | xxd -ps`; shift
+hex_command=`echo -n $* | xxd -ps`; shift
 #result=${result:-\$}
 
 . ./bash_include
@@ -29,8 +29,8 @@ exit $?
 >^C
 
 ; ==== Output ====
->>egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a '^Notification' $log | cut -f2 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
-<<$result
+#<<$result
 >>

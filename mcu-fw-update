@@ -15,6 +15,8 @@ exit $?
 *LOG $log
 @$timeout
 
+>>. ~/.bash_aliases
+
 ; ==== Connect to $pod ====
 */[$pod_address][LE]>/
 >screen gatttool -I --listen -b $pod_address
@@ -49,7 +51,7 @@ exit $?
 
 ; ==== Verify set "fw env" ====
 >
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <env set to \'$env\'
@@ -69,7 +71,7 @@ exit $?
 
 ; ==== Verify show "fw env" ====
 >
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <env = $env
@@ -89,7 +91,7 @@ exit $?
 
 ; ==== Verify set "fw index" ====
 >
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <$index
@@ -109,7 +111,7 @@ exit $?
 
 ; ==== Verify show "fw index" ====
 >
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <$index
@@ -133,7 +135,7 @@ exit $?
 
 ; ==== Verify download "fw dwld" ====
 >
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <Bytes to go
@@ -152,7 +154,7 @@ exit $?
 
 ; ==== Verify "fw inst" ====
 >
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <Restarting
@@ -190,7 +192,7 @@ exit $?
 
 ; ==== Verify "version" ====
 >
->egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <$version
