@@ -15,8 +15,8 @@ exit $?
 @$timeout
 
 ; === Connect to $pod ===
+>screen gatttool -I --listen -b $pod_address
 */[$pod_address][LE]>/
->screen -Logfile screen.log gatttool -I --listen -b $pod_address
 -<Usage
 >>^A
 >H
@@ -37,7 +37,7 @@ exit $?
 ##------------------------------------------------------------------##
 
 ; ==== Test "get volt" ====
->cp /dev/null screen.log
+>rm $SCREENLOG
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -48,7 +48,7 @@ exit $?
 >
 
 ; ==== Verify "get volt" e.g. "Vbat =  5.67" ====
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <Vbat
@@ -56,7 +56,7 @@ exit $?
 ##------------------------------------------------------------------##
 
 ; ==== Test "get time" ====
->cp /dev/null screen.log
+>rm $SCREENLOG
 >echo -n "get time" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -67,7 +67,7 @@ exit $?
 >
 
 ; ==== Verify "get time" e.g. "UTC time: 17:53:47" ====
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <UTC time
@@ -75,7 +75,7 @@ exit $?
 ##------------------------------------------------------------------##
 
 ; ==== Test "get date" ====
->cp /dev/null screen.log
+>rm $SCREENLOG
 >echo -n "get date" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -86,7 +86,7 @@ exit $?
 >
 
 ; ==== Verify "get date" e.g. "UTC date: 2018/10/02" ====
->egrep -a Notification screen.log | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
+>egrep -a Notification $SCREENLOG | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps; echo
 -<Please try again
 -<Unknown
 <UTC date

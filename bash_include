@@ -9,6 +9,7 @@ echo " ==== Setup `basename $0` on $pod ==== "
 
 timeout=${timeout:-10}
 log=${pod}-`basename $0`.log
+export SCREENLOG=${pod}-`basename $0`-gatt.log
 
 env=${env:-prod}
 index=${index:-9.1}
