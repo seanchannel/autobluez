@@ -4,7 +4,7 @@
 ## pod=pod <other variables> $0
 ##
 
-. ./bash_common
+. ./test_defaults
 
 # fork to expect-lite
 expect-lite c=`basename $0` el=expect-lite log=${pod}-`basename $0`.log d=$PWD r=localhost\

@@ -8,7 +8,7 @@ command=$1
 hex_command=`echo -n $* | xxd -ps`; shift
 #result=${result:-\$}
 
-. ./bash_common
+. ./test_defaults
 
 # fork to expect-lite
 expect-lite c=`basename $0` el=expect-lite log=$log d=$PWD r=localhost \
