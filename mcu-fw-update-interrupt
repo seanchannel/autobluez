@@ -136,7 +136,7 @@ exit $?
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<Bytes to go: 0 bytes
+<Bytes to go
 
 ##------------------------------------------------------------------##
 
