@@ -4,10 +4,10 @@
 ## pod=pod <other variables> $0
 ##
 
-. ./bash_include
+. ./bash_common
 
 # fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=${pod}-`basename $0`.log d=$PWD r=localhost\
+expect-lite c=`basename $0` el=expect-lite log=$log d=$PWD r=localhost\
     pod_address="$pod_address" pod=$pod timeout=$timeout \
     env=$env index=$index version=$version
 exit $?

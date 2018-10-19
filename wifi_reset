@@ -4,7 +4,7 @@
 ## pod=pod <other variables> $0
 ##
 
-. ./bash_include
+. ./bash_common
 
 # fork to expect-lite
 expect-lite c=`basename $0` el=expect-lite log=$log d=$PWD r=localhost\
