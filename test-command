@@ -4,7 +4,7 @@
 ## pod=pod <other variables> $0 <COMMAND>
 ##
 
-command=$1
+command=$*
 hex_command=`echo -n $* | xxd -ps`; shift
 #result=${result:-\$}
 
@@ -18,6 +18,8 @@ exit $?
 
 *LOG $log
 @$timeout
+
+>> . ~/.bashrc
 
 ; ============ Test: $command ============
 */[$pod_address][LE]>/
