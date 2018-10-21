@@ -14,7 +14,7 @@ exit $?
 *LOG $log
 @$timeout
 
->>. ~/.bash_aliases
+>>. ~/.bashrc
 
 ; === Connect to $pod ===
 >screen gatttool -I --listen -b $pod_address

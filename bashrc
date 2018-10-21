@@ -1,6 +1,4 @@
 
-export PATH=.:$PATH
-
 # The following all require a "podnames" file in the current directory
 
 # connect to a pod in the gatttool interactive command line

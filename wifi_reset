@@ -14,7 +14,7 @@ exit $?
 *LOG $log
 @$timeout
 
->>. ~/.bash_aliases
+>>. ~/.bashrc
 
 ; ============ Connect to $pod ============
 */[$pod_address][LE]>/
