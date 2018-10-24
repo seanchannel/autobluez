@@ -1,6 +1,6 @@
 #!/usr/bin/env expect-lite
 
-~setup.inc
+~connect.inc
 
 ##------------------------------------------------------------------##
 
@@ -129,7 +129,7 @@
 
 ; ============ Re-connect to $pod ============
 
-~setup.inc
+~connect.inc
 
 ; ============ Test "version" ============
 >rm $SCREENLOG
