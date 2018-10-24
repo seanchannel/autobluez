@@ -1,24 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env expect-lite
 
-## Usage:
-## pod=pod <other variables> $0
-##
+*LOG $EL_log
+@$EL_timeout
 
-. ./test_defaults 
-
-# fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=$log d=$PWD r=localhost\
-    pod_address="$pod_address" pod=$pod timeout=$timeout
-exit $?
-
-*LOG $log
-@$timeout
-
->>. ~/.bashrc
-
-; === Connect to $pod ===
->screen gatttool -I --listen -b $pod_address
-*/[$pod_address][LE]>/
+; === Connect to $EL_pod for $0 ===
+>screen gatttool -I --listen -b $EL_address
+*/[$EL_address][LE]>/
 -<Usage
 >>^A
 >H
@@ -35,21 +22,24 @@ exit $?
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
 
+>>. ~/.bashrc
+
 ##------------------------------------------------------------------##
 
 ; ============ Test "get volt" ============
->rm $SCREENLOG
+>rm $EL_SCREENLOG
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
 >
-
+:2
 ; ============ Verify "get volt" e.g. "Vbat =  5.67" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <Vbat
@@ -57,7 +47,7 @@ exit $?
 ##------------------------------------------------------------------##
 
 ; ============ Test "get time" ============
->rm $SCREENLOG
+>rm $EL_SCREENLOG
 >echo -n "get time" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -68,7 +58,7 @@ exit $?
 >
 
 ; ============ Verify "get time" e.g. "UTC time: 17:53:47" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <UTC time
@@ -76,7 +66,7 @@ exit $?
 ##------------------------------------------------------------------##
 
 ; ============ Test "get date" ============
->rm $SCREENLOG
+>rm $EL_SCREENLOG
 >echo -n "get date" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -87,10 +77,15 @@ exit $?
 >
 
 ; ============ Verify "get date" e.g. "UTC date: 2018/10/02" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <UTC date
 
 ; ============ Cleanup ============
->>screen -S $myscreen -X stuff 'exit\015'
+>>rm $EL_SCREENLOG
+>screen -r $myscreen
+>>^A
+>h
+>^D
+#>>screen -S $myscreen -X stuff 'exit\015'

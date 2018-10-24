@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+##
+## Defaults for test scripts. Set these on the command-line to change.
+##
+
+test=basic_info
+
+# exporting the test parameters makes them constants for the test run
+#
+export EL_pod=${pod:-testpod}
+export EL_address=`fgrep -his $EL_pod podnames | awk '{print $1}'`
+
+export EL_env=${env:-prod}
+export EL_index=${index:-9.1}
+export EL_version=${version:-v9.1}
+export EL_bleversion=${bleversion:-9}
+
+export EL_ssid=${ssid:-WG2}
+export EL_ssid_len=`echo -n $EL_ssid | wc -c`
+export EL_pswd=${pswd:-clearwater}
+export EL_pswd_len=`echo -n $EL_pswd | wc -c`
+
+export EL_timeout=${timeout:-20}
+export EL_log=logs/${EL_pod}-$test.log
+export SCREENLOG=logs/${EL_pod}-$test-screen.log
+export EL_SCREENLOG=$SCREENLOG
+export EL_INFINITE_LOOP=100
+export EL_DELAY_WAIT_FOR_HOST=${EL_timeout}000
+export EL_DYN_VAR_PROMPT=0
+export EL_SHELL=/bin/sh
+
+./tests/$test
