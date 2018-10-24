@@ -1,40 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env expect-lite
 
-## Usage:
-## pod=pod <other variables> $0
-##
-
-. ./test_defaults
-
-# fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=${pod}-`basename $0`.log d=$PWD r=localhost\
-    pod_address="$pod_address" pod=$pod timeout=$timeout \
-    bleversion=$bleversion
-exit $?
-
-*LOG $log
-@$timeout
-
->>. ~/.bashrc
-
-; ============ Connect to $pod ============
-*/[$pod_address][LE]>/
->screen gatttool -I --listen -b $pod_address
--<Usage
->>^A
->>H
->connect
--<Error
--<connect error
-<Connection successful
->>^A
->^D
->
-
-# save screen id
->screen -list | grep pts | sort | head -1
-+$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
+~setup.inc
 
 ##------------------------------------------------------------------##
 
@@ -51,7 +17,7 @@ exit $?
 >>^A
 >^D
 >
-@$timeout
+@$EL_timeout
 
 ; ============ Verify download "fw dwld ble" ============
 >
@@ -76,23 +42,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ============ Re-connect to $pod ============
->screen gatttool -I --listen -b $pod_address
--<Usage
->>^A
->>H
->connect
--<Error
--<connect error
-<Connection successful
->>^A
->^D
->
-
-# save screen id
->screen -list | grep pts | sort | head -1
-+$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
+~setup.inc
 
 ##------------------------------------------------------------------##
 
@@ -117,23 +67,7 @@ exit $?
 
 ##------------------------------------------------------------------##
 
-; ============ Re-connect to $pod ============
->screen gatttool -I --listen -b $pod_address
--<Usage
->>^A
->>H
->connect
--<Error
--<connect error
-<Connection successful
->>^A
->^D
->
-
-# save screen id
->screen -list | grep pts | sort | head -1
-+$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
+~setup.inc
 
 ##------------------------------------------------------------------##
 
@@ -159,4 +93,9 @@ exit $?
 ##------------------------------------------------------------------##
 
 ; ============ Cleanup ============
->>screen -S $myscreen -X stuff 'exit\015'
+>>rm $SCREENLOG
+>screen -r $myscreen
+>>^A
+>h
+>^D
+#>>screen -S $myscreen -X stuff 'exit\015'

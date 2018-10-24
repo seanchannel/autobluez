@@ -1,4 +1,10 @@
 
+# this file is just for conveniece. it is not used by automated tests
+
+export PATH=.:$PATH
+export SCREENRC=~/.screenrc
+export SCREENLOG=${EL_SCREENLOG:-screen.log}
+
 # The following all require a "podnames" file in the current directory
 
 # connect to a pod in the gatttool interactive command line

@@ -1,40 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env expect-lite
 
-## Usage:
-## pod=pod <other variables> $0
-##
-
-. ./test_defaults
-
-# fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=$log d=$PWD r=localhost\
-    pod_address="$pod_address" pod=$pod timeout=$timeout \
-    ssid=$ssid ssid_len=$ssid_len pswd=$pswd pswd_len=$pswd_len
-exit $?
-
-*LOG $log
-@$timeout
-
->>. ~/.bashrc
-
-; ============ Connect to $pod ============
-*/[$pod_address][LE]>/
->screen gatttool -I --listen -b $pod_address
--<Usage
->>^A
->>H
->connect
--<Error
--<connect error
-<Connection successful
->>^A
->^D
->
-
-# save screen id
->screen -list | grep pts | sort | head -1
-+$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
+~setup.inc
 
 ##-------------------------------------------------------------------##
 
@@ -44,13 +10,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "ssid reset" e.g. "ssid chars = 0" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -64,13 +29,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "ssid save" e.g. "ssid saved" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -84,13 +48,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "ssid set $ssid" e.g. "ssid chars = $ssid_len" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -104,13 +67,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "ssid save" e.g. "ssid saved" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -124,13 +86,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "ssid show" e.g. "$ssid" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -144,13 +105,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "pswd reset" e.g. "pswd chars = 0" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -164,13 +124,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "pswd save" e.g. "pswd saved" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -184,13 +143,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "pswd set $pswd" e.g. "pswd chars = $pswd_len" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -204,13 +162,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "pswd save" e.g. "pswd saved" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -224,13 +181,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
->
 
 ; ============ Verify "pswd show" e.g. "$pswd" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -245,13 +201,12 @@ exit $?
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 57 49 2d 46 49 20 4f 4b 00 00 00 00 00 00 00 00 00 00 00 00
 >>^A
 >^D
->
 
 ; ============ Verify "wifi test" e.g. "WI-FI OK" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -261,4 +216,9 @@ exit $?
 ##-------------------------------------------------------------------##
 
 ; ============ Cleanup ============
->>screen -S $myscreen -X stuff 'exit\015'
+>>rm $SCREENLOG
+>screen -r $myscreen
+>>^A
+>h
+>^D
+#>>screen -S $myscreen -X stuff 'exit\015'

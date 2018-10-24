@@ -1,21 +1,104 @@
-#!/bin/sh
+#!/usr/bin/env expect-lite
 
-## Usage:
-## pod=pod <other variables> $0
-##
+~setup.inc
 
-. ./test_defaults
+##------------------------------------------------------------------##
 
-# fork to expect-lite
-expect-lite c=`basename $0` el=expect-lite log=${pod}-`basename $0`.log d=$PWD r=localhost\
-    pod_address="$pod_address" pod=$pod timeout=$timeout \
-    bleversion=$bleversion
-exit $?
+; ============ Test download "fw dwld ble" ============
+@120
+>rm $SCREENLOG
+>echo -n "fw dwld ble" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>^M
+>char-write-req 0x001b $cmd
+#<Characteristic value was written successfully
+<Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
+>>^A
+>^D
+>
+@EL_$timeout
 
-*LOG $log
-@$timeout
+; ============ Verify download "fw dwld ble" ============
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<Bytes to go: 0 bytes
 
->>. ~/.bashrc
+##------------------------------------------------------------------##
+
+; ============ Test "fw ble" ============
+>rm $SCREENLOG
+>echo -n "fw ble" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+>>exit
+>
+
+:30
+
+##------------------------------------------------------------------##
+
+; ============ Re-connect to $pod ============
+
+~setup.inc
+
+##------------------------------------------------------------------##
+
+; ============ Test "restart" ============
+>rm $SCREENLOG
+>echo -n "restart" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+>>exit
+>
+
+; ============ Verify "restart" ============
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<Restarting
+
+:30
+
+##------------------------------------------------------------------##
+
+; ============ Re-connect to $pod ============
+
+~setup.inc
+
+##------------------------------------------------------------------##
+
+; ============ Test BLE "version" ============
+>rm $SCREENLOG
+>echo -n "version" | xxd -ps
++$cmd=\n(.*)
+>screen -r $myscreen
+>char-write-req 0x001b $cmd
+<Notification
+>>^A
+>^D
+>
+
+; ============ Verify BLE "version" ============
+>
+>dehex $SCREENLOG
+-<Please try again
+-<Unknown
+<TI_VERS = $bleversion
+>
+
+##------------------------------------------------------------------##
+
+; ============ Cleanup ============
+>>screen -S $myscreen -X stuff 'exit\015'
+>>. bashrc
 
 ; ============ Connect to $pod ============
 */[$pod_address][LE]>/
