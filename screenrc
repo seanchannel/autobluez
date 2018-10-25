@@ -5,6 +5,5 @@ defscrollback 1000
 
 logfile flush 0
 logfile $SCREENLOG
-hardcopy -h $SCREENLOG
 
 shell /bin/sh

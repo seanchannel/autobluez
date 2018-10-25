@@ -2,6 +2,7 @@
 # set logs from environment variables (via runtest)
 *LOG $EL_log
 @$EL_timeout
+>export SCREENRC=$EL_SCREENRC
 >export SCREENLOG=$EL_SCREENLOG
 
 ; ============ Connect to pod ============ 
