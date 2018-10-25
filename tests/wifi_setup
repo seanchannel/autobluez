@@ -5,7 +5,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid reset" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "ssid reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -14,6 +14,7 @@
 <Notification
 >>^A
 >^D
+>
 
 ; ============ Verify "ssid reset" e.g. "ssid chars = 0" ============
 >dehex $SCREENLOG
@@ -24,7 +25,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid save" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -33,6 +34,7 @@
 <Notification
 >>^A
 >^D
+>
 
 ; ============ Verify "ssid save" e.g. "ssid saved" ============
 >dehex $SCREENLOG
@@ -43,8 +45,8 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid set" ============
->rm $SCREENLOG
->echo -n "ssid set $ssid" | xxd -ps
+>cat /dev/null > $SCREENLOG
+>echo -n "ssid set $EL_ssid" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
@@ -52,17 +54,18 @@
 <Notification
 >>^A
 >^D
+>
 
-; ============ Verify "ssid set $ssid" e.g. "ssid chars = $ssid_len" ============
+; ============ Verify "ssid set $EL_ssid" e.g. "ssid chars = $EL_ssid_len" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<ssid chars = $ssid_len
+<ssid chars = $EL_ssid_len
 
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid save" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -71,6 +74,7 @@
 <Notification
 >>^A
 >^D
+>
 
 ; ============ Verify "ssid save" e.g. "ssid saved" ============
 >dehex $SCREENLOG
@@ -81,7 +85,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid show" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "ssid show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -90,17 +94,18 @@
 <Notification
 >>^A
 >^D
+>
 
-; ============ Verify "ssid show" e.g. "$ssid" ============
+; ============ Verify "ssid show" e.g. "$EL_ssid" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<$ssid
+<$EL_ssid
 
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd reset" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "pswd reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -109,6 +114,7 @@
 <Notification
 >>^A
 >^D
+>
 
 ; ============ Verify "pswd reset" e.g. "pswd chars = 0" ============
 >dehex $SCREENLOG
@@ -119,7 +125,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd save" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -128,6 +134,7 @@
 <Notification
 >>^A
 >^D
+>
 
 ; ============ Verify "pswd save" e.g. "pswd saved" ============
 >dehex $SCREENLOG
@@ -138,8 +145,8 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd set" ============
->rm $SCREENLOG
->echo -n "pswd set $pswd" | xxd -ps
+>cat /dev/null > $SCREENLOG
+>echo -n "pswd set $EL_pswd" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
@@ -147,17 +154,18 @@
 <Notification
 >>^A
 >^D
+>
 
-; ============ Verify "pswd set $pswd" e.g. "pswd chars = $pswd_len" ============
+; ============ Verify "pswd set $EL_pswd" e.g. "pswd chars = $EL_pswd_len" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<pswd chars = $pswd_len
+<pswd chars = $EL_pswd_len
 
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd save" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -166,6 +174,7 @@
 <Notification
 >>^A
 >^D
+>
 
 ; ============ Verify "pswd save" e.g. "pswd saved" ============
 >dehex $SCREENLOG
@@ -176,7 +185,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd show" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "pswd show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -185,17 +194,18 @@
 <Notification
 >>^A
 >^D
+>
 
-; ============ Verify "pswd show" e.g. "$pswd" ============
+; ============ Verify "pswd show" e.g. "$EL_pswd" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<$pswd
+<$EL_pswd
 
 ##-------------------------------------------------------------------##
 
 ; ============ Test "wifi test" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 @40
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
@@ -205,6 +215,7 @@
 <Notification handle = 0x001b value: 57 49 2d 46 49 20 4f 4b 00 00 00 00 00 00 00 00 00 00 00 00
 >>^A
 >^D
+>
 
 ; ============ Verify "wifi test" e.g. "WI-FI OK" ============
 >dehex $SCREENLOG
@@ -215,10 +226,4 @@
 
 ##-------------------------------------------------------------------##
 
-; ============ Cleanup ============
->>rm $SCREENLOG
->screen -r $myscreen
->>^A
->h
->^D
-#>>screen -S $myscreen -X stuff 'exit\015'
+~cleanup.inc

@@ -5,11 +5,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid reset" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "ssid reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
@@ -25,11 +26,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid save" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
@@ -45,11 +47,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "ssid show" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "ssid show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
@@ -65,11 +68,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd reset" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "pswd reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
@@ -85,11 +89,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd save" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
@@ -105,11 +110,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "pswd show" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "pswd show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
@@ -125,31 +131,26 @@
 ##-------------------------------------------------------------------##
 
 ; ============ Test "wifi test" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 @40
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Notification handle = 0x001b value: 57 49 2d 46 49 20 4f 4b 00 00 00 00 00 00 00 00 00 00 00 00
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 53 53 49 44 20 4e 4f 54 20 46 4f 55 4e 44 00 00 00 00 00 00 
 >>^A
 >^D
 >
 
-; ============ Verify "wifi test" e.g. "WI-FI OK" ============
+; ============ Verify "wifi test" e.g. "SSID NOT FOUND" ============
 >
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
--<SSID NOT FOUND
-<WI-FI OK
+-<WI-FI OK
+<SSID NOT FOUND
 
 ##-------------------------------------------------------------------##
 
-; ============ Cleanup ============
->>rm $SCREENLOG
->screen -r $myscreen
->>^A
->h
->^D
-#>>screen -S $myscreen -X stuff 'exit\015'
+~cleanup.inc

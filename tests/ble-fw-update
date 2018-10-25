@@ -6,13 +6,12 @@
 
 ; ============ Test download "fw dwld ble" ============
 @120
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
->^M
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
 >>^A
 >^D
@@ -20,7 +19,6 @@
 @$EL_timeout
 
 ; ============ Verify download "fw dwld ble" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -29,7 +27,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ Test "fw ble" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -38,18 +36,16 @@
 >>exit
 >
 
-:30
+:45
 
 ##------------------------------------------------------------------##
-
-; ============ Re-connect to $pod ============
 
 ~connect.inc
 
 ##------------------------------------------------------------------##
 
 ; ============ Test "restart" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -59,187 +55,37 @@
 >
 
 ; ============ Verify "restart" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <Restarting
 
-:30
+:45
 
 ##------------------------------------------------------------------##
-
-; ============ Re-connect to $pod ============
 
 ~connect.inc
 
 ##------------------------------------------------------------------##
 
 ; ============ Test BLE "version" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Notification
+<Characteristic value was written successfully
+<Notification handle = 0x001b value:
 >>^A
 >^D
 >
 
 ; ============ Verify BLE "version" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<TI_VERS = $bleversion
->
+<TI_VERS = $EL_fw_bleversion
 
 ##------------------------------------------------------------------##
 
-; ============ Cleanup ============
->>screen -S $myscreen -X stuff 'exit\015'
->>. bashrc
-
-; ============ Connect to $pod ============
-*/[$pod_address][LE]>/
->screen gatttool -I --listen -b $pod_address
--<Usage
->>^A
->>H
->connect
--<Error
--<connect error
-<Connection successful
->>^A
->^D
->
-
-# save screen id
->screen -list | grep pts | sort | head -1
-+$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
-
-##------------------------------------------------------------------##
-
-; ============ Test download "fw dwld ble" ============
-@120
->rm $SCREENLOG
->echo -n "fw dwld ble" | xxd -ps
-+$cmd=\n(.*)
->screen -r $myscreen
->^M
->char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
-<Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
->>^A
->^D
->
-@$EL_timeout
-
-; ============ Verify download "fw dwld ble" ============
->
->dehex $SCREENLOG
--<Please try again
--<Unknown
-<Bytes to go: 0 bytes
-
-##------------------------------------------------------------------##
-
-; ============ Test "fw ble" ============
->rm $SCREENLOG
->echo -n "fw ble" | xxd -ps
-+$cmd=\n(.*)
->screen -r $myscreen
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
->>exit
->
-
-:30
-
-##------------------------------------------------------------------##
-
-; ============ Re-connect to $pod ============
->screen gatttool -I --listen -b $pod_address
--<Usage
->>^A
->>H
->connect
--<Error
--<connect error
-<Connection successful
->>^A
->^D
->
-
-# save screen id
->screen -list | grep pts | sort | head -1
-+$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
-
-##------------------------------------------------------------------##
-
-; ============ Test "restart" ============
->rm $SCREENLOG
->echo -n "restart" | xxd -ps
-+$cmd=\n(.*)
->screen -r $myscreen
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
->>exit
->
-
-; ============ Verify "restart" ============
->
->dehex $SCREENLOG
--<Please try again
--<Unknown
-<Restarting
-
-:30
-
-##------------------------------------------------------------------##
-
-; ============ Re-connect to $pod ============
->screen gatttool -I --listen -b $pod_address
--<Usage
->>^A
->>H
->connect
--<Error
--<connect error
-<Connection successful
->>^A
->^D
->
-
-# save screen id
->screen -list | grep pts | sort | head -1
-+$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
->
-
-##------------------------------------------------------------------##
-
-; ============ Test BLE "version" ============
->rm $SCREENLOG
->echo -n "version" | xxd -ps
-+$cmd=\n(.*)
->screen -r $myscreen
->char-write-req 0x001b $cmd
-<Notification
->>^A
->^D
->
-
-; ============ Verify BLE "version" ============
->
->dehex $SCREENLOG
--<Please try again
--<Unknown
-<TI_VERS = $bleversion
->
-
-##------------------------------------------------------------------##
-
-; ============ Cleanup ============
->>screen -S $myscreen -X stuff 'exit\015'
+~cleanup.inc

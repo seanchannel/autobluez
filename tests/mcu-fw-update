@@ -5,94 +5,94 @@
 ##------------------------------------------------------------------##
 
 ; ============ Test set "fw env" ============
->rm $SCREENLOG
->echo -n "fw env $env" | xxd -ps
+>cat /dev/null > $SCREENLOG
+>echo -n "fw env $EL_fw_env" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
 >
 
 ; ============ Verify set "fw env" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<env set to \'$env\'
+<env set to \'$EL_fw_env\'
 
 ##------------------------------------------------------------------##
 
 ; ============ Test show "fw env" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "fw env" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
 >
 
 ; ============ Verify show "fw env" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<env = $env
+<env = $EL_fw_env
 
 ##------------------------------------------------------------------##
 
 ; ============ Test set "fw index" ============
->rm $SCREENLOG
->echo -n "fw index $index" | xxd -ps
+>cat /dev/null > $SCREENLOG
+>echo -n "fw index $EL_fw_index" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
 >
 
 ; ============ Verify set "fw index" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<$index
+<$EL_fw_index
 
 ##------------------------------------------------------------------##
 
 ; ============ Test show "fw index" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "fw index" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
 >
 
 ; ============ Verify show "fw index" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<$index
+<$EL_fw_index
 
 ##------------------------------------------------------------------##
 
 ; ============ Test download "fw dwld" ============
 @90
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "fw dwld" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >^M
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
 >>^A
 >^D
@@ -100,7 +100,6 @@
 @$EL_timeout
 
 ; ============ Verify download "fw dwld" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -109,7 +108,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ Test "fw inst" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "fw inst" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -119,13 +118,12 @@
 >
 
 ; ============ Verify "fw inst" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <Restarting
 
-:sleep 60
+:30
 
 ##------------------------------------------------------------------##
 
@@ -134,28 +132,23 @@
 ##------------------------------------------------------------------##
 
 ; ============ Test "version" ============
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
+<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
 >
 
 ; ============ Verify "version" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<$version
+<$EL_fw_version
 
 ##------------------------------------------------------------------##
 
-; ============ Cleanup ============
->screen -r $myscreen
->>^A
->h
->^D
-#>>screen -S $myscreen -X stuff 'exit\015'
+~cleanup.inc
