@@ -15,6 +15,7 @@
 >connect
 -<Error
 -<connect error
+-<connect: Device or resource busy (16)
 <Connection successful
 >>^A
 >^D
@@ -23,10 +24,5 @@
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)
 
-# shortcut to convert BLE output from hex to ascii
->>dehex()
->>{
->>    cat $1 | egrep -a Notification | cut -f7 -d: | xxd -r -ps
->>    echo
->>}
-
+# get shortcut to convert BLE output from hex to ascii
+>>. bashrc
