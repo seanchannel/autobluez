@@ -4,7 +4,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test download "fw dwld ble" ============
+; ============ $EL_testname: download "fw dwld ble" ============
 @120
 >cat /dev/null > $SCREENLOG
 >echo -n "fw dwld ble" | xxd -ps
@@ -18,7 +18,7 @@
 >
 @$EL_timeout
 
-; ============ Verify download "fw dwld ble" ============
+; ============ $EL_testname: Verify download "fw dwld ble" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -26,7 +26,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test "fw ble" ============
+; ============ $EL_testname: "fw ble" ============
 >cat /dev/null > $SCREENLOG
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
@@ -44,7 +44,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test "restart" ============
+; ============ $EL_testname: "restart" ============
 >cat /dev/null > $SCREENLOG
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
@@ -54,7 +54,7 @@
 >>exit
 >
 
-; ============ Verify "restart" ============
+; ============ $EL_testname: Verify "restart" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -68,7 +68,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test BLE "version" ============
+; ============ $EL_testname: BLE "version" ============
 >cat /dev/null > $SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
@@ -80,7 +80,7 @@
 >^D
 >
 
-; ============ Verify BLE "version" ============
+; ============ $EL_testname: Verify BLE "version" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown

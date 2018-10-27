@@ -5,7 +5,7 @@
 >export SCREENRC=$EL_SCREENRC
 >export SCREENLOG=$EL_SCREENLOG
 
-; ============ Connect to pod ============ 
+; ============ $EL_testname: Connect to $EL_pod ============ 
 */[$EL_address][LE]>/
 >screen gatttool -I --listen -b $EL_address
 -<Usage

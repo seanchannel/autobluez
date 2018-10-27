@@ -4,7 +4,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test "get volt" ============
+; ============ $EL_testname: Test "get volt" ============
 >cat /dev/null > $SCREENLOG
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
@@ -16,7 +16,7 @@
 >^D
 >
 
-; ============ Verify "get volt" e.g. "Vbat =  5.67" ============
+; ============ $EL_testname: Verify "get volt" e.g. "Vbat =  5.67" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -24,7 +24,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test "get time" ============
+; ============ $EL_testname: Test "get time" ============
 >cat /dev/null > $SCREENLOG
 >echo -n "get time" | xxd -ps
 +$cmd=\n(.*)
@@ -36,15 +36,15 @@
 >^D
 >
 
-; ============ Verify "get time" e.g. "UTC time: 17:53:47" ============
+; ============ $EL_testname: Verify "get time" e.g. "UTC time: 17:53:47" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<UTC time: [0-9]+:[0-9]+:[0-9]+
+<UTC time: [1-9][0-9]?:[0-5][0-9]?:[0-5][0-9]?
 
 ##------------------------------------------------------------------##
 
-; ============ Test "get date" ============
+; ============ $EL_testname: Test "get date" ============
 >cat /dev/null > $SCREENLOG
 >echo -n "get date" | xxd -ps
 +$cmd=\n(.*)
@@ -56,11 +56,11 @@
 >^D
 >
 
-; ============ Verify "get date" e.g. "UTC date: 2018/10/02" ============
+; ============ $EL_testname: Verify "get date" e.g. "UTC date: 2018/10/02" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<UTC date: 201[8-9]/[0-9]+/[0-9]+
+<UTC date: 201[8-9]/[1-9][0-9]?/[1-9][0-9]?
 
 ##------------------------------------------------------------------##
 

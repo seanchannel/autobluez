@@ -4,23 +4,21 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test download "fw dwld ble" ============
+; ============ $EL_testname: download "fw dwld ble" ============
 @120
->rm $SCREENLOG
+>cat /dev/null > $SCREENLOG
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
->^M
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
 >>^A
 >^D
 >
 @$EL_timeout
 
-; ============ Verify download "fw dwld ble" ============
->
+; ============ $EL_testname: Verify download "fw dwld ble" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -28,8 +26,8 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test "fw ble" ============
->rm $SCREENLOG
+; ============ $EL_testname: "fw ble" ============
+>cat /dev/null > $SCREENLOG
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -38,7 +36,7 @@
 >>exit
 >
 
-:30
+:45
 
 ##------------------------------------------------------------------##
 
@@ -46,8 +44,8 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test "restart" ============
->rm $SCREENLOG
+; ============ $EL_testname: "restart" ============
+>cat /dev/null > $SCREENLOG
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -56,14 +54,13 @@
 >>exit
 >
 
-; ============ Verify "restart" ============
->
+; ============ $EL_testname: Verify "restart" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
 <Restarting
 
-:30
+:45
 
 ##------------------------------------------------------------------##
 
@@ -71,31 +68,24 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test BLE "version" ============
->rm $SCREENLOG
+; ============ $EL_testname: BLE "version" ============
+>cat /dev/null > $SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
-<Notification
+<Characteristic value was written successfully
+<Notification handle = 0x001b value:
 >>^A
 >^D
 >
 
-; ============ Verify BLE "version" ============
->
+; ============ $EL_testname: Verify BLE "version" ============
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<TI_VERS = $bleversion
->
+<TI_VERS = $EL_fw_bleversion
 
 ##------------------------------------------------------------------##
 
-; ============ Cleanup ============
->>rm $SCREENLOG
->screen -r $myscreen
->>^A
->h
->^D
-#>>screen -S $myscreen -X stuff 'exit\015'
+~cleanup.inc

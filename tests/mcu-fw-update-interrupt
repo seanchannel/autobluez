@@ -4,7 +4,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test set "fw env" ============
+; ============ $EL_testname: set "fw env" ============
 >rm $SCREENLOG
 >echo -n "fw env $env" | xxd -ps
 +$cmd=\n(.*)
@@ -15,7 +15,7 @@
 >^D
 >
 
-; ============ Verify set "fw env" ============
+; ============ $EL_testname: Verify set "fw env" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -24,7 +24,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test show "fw env" ============
+; ============ $EL_testname: show "fw env" ============
 >rm $SCREENLOG
 >echo -n "fw env" | xxd -ps
 +$cmd=\n(.*)
@@ -35,7 +35,7 @@
 >^D
 >
 
-; ============ Verify show "fw env" ============
+; ============ $EL_testname: Verify show "fw env" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -44,7 +44,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test set "fw index" ============
+; ============ $EL_testname: set "fw index" ============
 >rm $SCREENLOG
 >echo -n "fw index $index" | xxd -ps
 +$cmd=\n(.*)
@@ -55,7 +55,7 @@
 >^D
 >
 
-; ============ Verify set "fw index" ============
+; ============ $EL_testname: Verify set "fw index" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -64,7 +64,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test show "fw index" ============
+; ============ $EL_testname: show "fw index" ============
 >rm $SCREENLOG
 >echo -n "fw index" | xxd -ps
 +$cmd=\n(.*)
@@ -75,7 +75,7 @@
 >^D
 >
 
-; ============ Verify show "fw index" ============
+; ============ $EL_testname: Verify show "fw index" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -84,7 +84,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test download "fw dwld" ============
+; ============ $EL_testname: download "fw dwld" ============
 @90
 >rm $SCREENLOG
 >echo -n "fw dwld" | xxd -ps
@@ -99,7 +99,7 @@
 >
 @$EL_timeout
 
-; ============ Verify download "fw dwld" ============
+; ============ $EL_testname: Verify download "fw dwld" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -108,7 +108,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ Test "fw inst" ============
+; ============ $EL_testname: "fw inst" ============
 >rm $SCREENLOG
 >echo -n "fw inst" | xxd -ps
 +$cmd=\n(.*)
@@ -118,7 +118,7 @@
 >exit
 >
 
-; ============ Verify "fw inst" ============
+; ============ $EL_testname: Verify "fw inst" ============
 >
 >dehex $SCREENLOG
 -<Please try again
@@ -131,7 +131,7 @@
 
 ~connect.inc
 
-; ============ Test "version" ============
+; ============ $EL_testname: "version" ============
 >rm $SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
@@ -142,7 +142,7 @@
 >^D
 >
 
-; ============ Verify "version" ============
+; ============ $EL_testname: Verify "version" ============
 >
 >dehex $SCREENLOG
 -<Please try again

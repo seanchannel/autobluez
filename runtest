@@ -1,12 +1,14 @@
 #!/bin/sh
 
 ##
-## Defaults for test scripts. Set these on the command-line to change.
+## Default parameterss for testing. Set on the command line to change, e.g.:
+##
+## $ ssid=Barnacle pswd=clearwater timeout=100 ./runtest tests/wifi_setup
 ##
 
-test=${test:-basic_info}
+export EL_timeout=${timeout:-20}
+export EL_DELAY_WAIT_FOR_HOST=${EL_timeout}00
 
-# variables exported as constants to test scripts
 export EL_pod=${pod:-testpod}
 export EL_address=`fgrep -his $EL_pod podnames | awk '{print $1}'`
 
@@ -20,14 +22,19 @@ export EL_pswd=${pswd:-clearwater}
 export EL_ssid_len=`echo -n $EL_ssid | wc -c`
 export EL_pswd_len=`echo -n $EL_pswd | wc -c`
 
-export EL_timeout=${timeout:-20}
-export EL_log=logs/${EL_pod}-$test.log
-export EL_INFINITE_LOOP=20
 export EL_DELAY_WAIT_FOR_HOST=${EL_timeout}00
-export EL_DYN_VAR_PROMPT=1
-export EL_SHELL=/bin/sh
-
 export EL_SCREENRC=screenrc
-export EL_SCREENLOG=logs/${EL_pod}-$test-gatt.log
+export EL_SHELL=/bin/sh
+export PATH=.:./tests:$PATH
 
-./tests/$test
+# run each argument as a test script
+for test in $*; do
+    export EL_log=logs/${EL_pod}-`basename $test`.log
+    export EL_SCREENLOG=logs/${EL_pod}-`basename $test`-BLE.log
+    export EL_testname=`basename $test`
+    $test
+    case $? in
+        0) echo PASS: "$EL_testname" ;;
+        *) echo FAIL: "$EL_testname" ;;
+    esac
+done
