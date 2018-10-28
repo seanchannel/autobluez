@@ -1,10 +1,12 @@
 
-# this file is just for conveniece. it is not used by automated tests
+# WaterGuru tester .profile
 
 export SCREENRC=$EL_SCREENRC
 export SCREENLOG=${EL_SCREENLOG:-screen.log}
 
-# The following all require a "podnames" file in the current directory
+if [ -d ~/virtualenv ]; then
+    . ~/virtualenv/bin/activate
+fi
 
 # send a comman to a pod without waiting for results
 blip()
@@ -16,7 +18,7 @@ blip()
         gatttool -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
 
-# send a comman to a pod and wait for results until ^C is pressed
+# send a comman to a pod and listen for results until ^C is pressed
 bleep()
 {
         # send one command to a BLE and wait for response
