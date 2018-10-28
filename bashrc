@@ -1,21 +1,10 @@
 
 # this file is just for conveniece. it is not used by automated tests
 
-export PATH=.:$PATH
-export SCREENRC=~/.screenrc
+export SCREENRC=$EL_SCREENRC
 export SCREENLOG=${EL_SCREENLOG:-screen.log}
 
 # The following all require a "podnames" file in the current directory
-
-# connect to a pod in the gatttool interactive command line
-ble()
-{
-        # connect to interactive BLE
-	POD=`fgrep -his $1 podnames | awk '{print $1}'`; shift
-	echo -n $* | xxd -ps
-
-        gatttool -I --listen -b $POD
-}
 
 # send a comman to a pod without waiting for results
 blip()
@@ -37,6 +26,7 @@ bleep()
         gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
 
+# convert a gatt log from hex into ascii
 dehex()
 {
     # convert from hex to ascii

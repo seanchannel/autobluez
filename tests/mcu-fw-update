@@ -11,7 +11,7 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 65 6e 76 20 73 65 74 20 74 6f 20
 >>^A
 >^D
 >
@@ -31,7 +31,7 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 65 6e 76 20 3d 20
 >>^A
 >^D
 >
@@ -93,6 +93,7 @@
 >^M
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
+<Notification
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
 >>^A
 >^D

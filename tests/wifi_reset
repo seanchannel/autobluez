@@ -11,13 +11,12 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 73 73 69 64 20 63 68 61 72 73 20 3d 20 30 00 00 00 00 00 00 
 >>^A
 >^D
 >
 
 ; ============ $EL_testname: Verify "ssid reset" e.g. "ssid chars = 0" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -32,13 +31,12 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 73 73 69 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
 >>^A
 >^D
 >
 
 ; ============ $EL_testname: Verify "ssid save" e.g. "ssid saved" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -53,7 +51,7 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 73 73 69 64 20 3d 
 >>^A
 >^D
 >
@@ -63,7 +61,7 @@
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<ssid =
+<ssid =\s+\n
 
 ##-------------------------------------------------------------------##
 
@@ -74,13 +72,12 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 70 73 77 64 20 63 68 61 72 73 20 3d 20 30 00 00 00 00 00 00 
 >>^A
 >^D
 >
 
 ; ============ $EL_testname: Verify "pswd reset" e.g. "pswd chars = 0" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -95,13 +92,12 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 70 73 77 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
 >>^A
 >^D
 >
 
 ; ============ $EL_testname: Verify "pswd save" e.g. "pswd saved" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
@@ -116,40 +112,16 @@
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification
+<Notification handle = 0x001b value: 70 73 77 64 20 3d
 >>^A
 >^D
 >
 
 ; ============ $EL_testname: Verify "pswd show" e.g. "pswd =" ============
->
 >dehex $SCREENLOG
 -<Please try again
 -<Unknown
-<pswd =
-
-##-------------------------------------------------------------------##
-
-; ============ $EL_testname: "wifi test" ============
->cat /dev/null > $SCREENLOG
-@40
->echo -n "wifi test" | xxd -ps
-+$cmd=\n(.*)
->screen -r $myscreen
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 53 53 49 44 20 4e 4f 54 20 46 4f 55 4e 44 00 00 00 00 00 00 
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "wifi test" e.g. "SSID NOT FOUND" ============
->
->dehex $SCREENLOG
--<Please try again
--<Unknown
--<WI-FI OK
-<SSID NOT FOUND
+<pswd =\s+\n
 
 ##-------------------------------------------------------------------##
 
