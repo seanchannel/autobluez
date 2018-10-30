@@ -4,10 +4,6 @@
 export SCREENRC=$EL_SCREENRC
 export SCREENLOG=${EL_SCREENLOG:-screen.log}
 
-if [ -d ~/virtualenv ]; then
-    . ~/virtualenv/bin/activate
-fi
-
 # send a comman to a pod without waiting for results
 blip()
 {
