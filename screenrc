@@ -4,6 +4,5 @@ startup_message off
 defscrollback 1000
 
 logfile flush 0
-logfile $SCREENLOG
 
 shell /bin/sh

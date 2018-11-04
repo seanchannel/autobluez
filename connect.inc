@@ -1,17 +1,12 @@
 
-# set logs from environment variables (via runtest)
+# log, timeout, and screen defaults file
 *LOG $EL_log
 @$EL_timeout
 >export SCREENRC=$EL_SCREENRC
->export SCREENLOG=$EL_SCREENLOG
 
-; ============ $EL_testname: Connect to $EL_pod ============ 
+; ============ $EL_testname: Connect to pod: $EL_pod ============ 
 */[$EL_address][LE]>/
->screen gatttool -I --listen -b $EL_address
--<Usage
->>^A
->H
-<logfile
+>screen -L -Logfile $EL_SCREENLOG gatttool -I --listen -b $EL_address
 >connect
 -<Error
 -<connect error

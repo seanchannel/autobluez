@@ -6,7 +6,7 @@
 
 ; ============ $EL_testname: download "fw dwld ble" ============
 @120
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -19,7 +19,7 @@
 @$EL_timeout
 
 ; ============ $EL_testname: Verify download "fw dwld ble" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <Bytes to go: 0 bytes
@@ -27,35 +27,40 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: "fw ble" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
->>exit
+>>disconnect
+>>^A
+>^D
 >
 
 :45
 
 ##------------------------------------------------------------------##
 
-~connect.inc
-
-##------------------------------------------------------------------##
-
 ; ============ $EL_testname: "restart" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
+>connect
+-<Error
+-<connect error
+-<connect: Device or resource busy (16)
+<Connection successful
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
->>exit
+>>disconnect
+>>^A
+>^D
 >
 
 ; ============ $EL_testname: Verify "restart" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <Restarting
@@ -64,15 +69,16 @@
 
 ##------------------------------------------------------------------##
 
-~connect.inc
-
-##------------------------------------------------------------------##
-
 ; ============ $EL_testname: BLE "version" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
+>connect
+-<Error
+-<connect error
+-<connect: Device or resource busy (16)
+<Connection successful
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 54 49 5f 56 45 52 53 20 3d
@@ -81,7 +87,7 @@
 >
 
 ; ============ $EL_testname: Verify BLE "version" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <TI_VERS = $EL_fw_bleversion

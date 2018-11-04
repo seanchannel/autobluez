@@ -3,7 +3,7 @@
 ~connect.inc
 
 ; ============ $EL_testname: "ssid set" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "ssid set $EL_ssid" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -15,7 +15,7 @@
 >
 
 ; ============ $EL_testname: Verify "ssid set $EL_ssid" e.g. "ssid chars = $EL_ssid_len" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <ssid chars = $EL_ssid_len
@@ -23,7 +23,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "ssid save" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -35,7 +35,7 @@
 >
 
 ; ============ $EL_testname: Verify "ssid save" e.g. "ssid saved" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <ssid saved
@@ -43,7 +43,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "ssid show" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "ssid show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -55,7 +55,7 @@
 >
 
 ; ============ $EL_testname: Verify "ssid show" e.g. "$EL_ssid" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <$EL_ssid
@@ -63,7 +63,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "pswd set" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "pswd set $EL_pswd" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -75,7 +75,7 @@
 >
 
 ; ============ $EL_testname: Verify "pswd set $EL_pswd" e.g. "pswd chars = $EL_pswd_len" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <pswd chars = $EL_pswd_len
@@ -83,7 +83,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "pswd save" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -95,7 +95,7 @@
 >
 
 ; ============ $EL_testname: Verify "pswd save" e.g. "pswd saved" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <pswd saved
@@ -103,7 +103,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "pswd show" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 >echo -n "pswd show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -115,7 +115,7 @@
 >
 
 ; ============ $EL_testname: Verify "pswd show" e.g. "$EL_pswd" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <$EL_pswd
@@ -123,7 +123,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "wifi test" ============
->cat /dev/null > $SCREENLOG
+>cat /dev/null > $EL_SCREENLOG
 @40
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
@@ -136,7 +136,7 @@
 >
 
 ; ============ $EL_testname: Verify "wifi test" e.g. "WI-FI OK" ============
->dehex $SCREENLOG
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND
