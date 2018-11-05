@@ -8,7 +8,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 56 62 61 74 20 3d 20
@@ -28,7 +28,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "get time" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 55 54 43 20 74 69 6d 65 3a 20
@@ -48,7 +48,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "get date" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 55 54 43 20 64 61 74 65 3a 20

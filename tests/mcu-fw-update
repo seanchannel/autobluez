@@ -8,7 +8,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw env $EL_fw_env" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 65 6e 76 20 73 65 74 20 74 6f 20
@@ -28,7 +28,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw env" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 65 6e 76 20 3d 20
@@ -48,7 +48,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw index $EL_fw_index" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification
@@ -68,7 +68,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw index" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification
@@ -89,7 +89,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw dwld" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >^M
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
@@ -112,7 +112,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw inst" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 52 65 73 74 61 72 74 69 6e 67 2e 2e 2e 00 00 00 00 00 00 00 
@@ -135,7 +135,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >connect
 -<Error
 -<connect error

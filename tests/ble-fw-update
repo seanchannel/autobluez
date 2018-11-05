@@ -9,7 +9,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
@@ -30,7 +30,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 >>disconnect
@@ -46,7 +46,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >connect
 -<Error
 -<connect error
@@ -73,7 +73,7 @@
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
->screen -r $myscreen
+>screen -r $EL_testname
 >connect
 -<Error
 -<connect error
