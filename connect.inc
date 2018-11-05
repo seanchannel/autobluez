@@ -2,11 +2,10 @@
 # log, timeout, and screen defaults file
 *LOG $EL_log
 @$EL_timeout
->export SCREENRC=$EL_SCREENRC
 
 ; ============ $EL_testname: Connect to pod: $EL_pod ============ 
 */[$EL_address][LE]>/
->screen -L -Logfile $EL_SCREENLOG gatttool -I --listen -b $EL_address
+>screen -c screenrc -L -Logfile $EL_SCREENLOG gatttool -I --listen -b $EL_address
 >connect
 -<Error
 -<connect error
