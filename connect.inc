@@ -14,6 +14,8 @@
 >>^A
 >^D
 
+>tail -s 0 -F $EL_SCREENLOG >> $EL_SCREENLOG-tmp &
+
 # get the screen id
 >screen -list | grep pts | sort | head -1
 +$myscreen=([0-9]+\.pts.[0-9]+.[a-z\- 0-9]+)

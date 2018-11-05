@@ -1,11 +1,5 @@
 
 ; ============ $EL_testname: Cleanup $EL_pod ============
-#>>screen -S $myscreen -X stuff 'exit\015'
->>rm $SCREENLOG
->screen -r $myscreen
->>^A
->h
-<hardcopy
->exit
->mv hardcopy.0 $SCREENLOG
+>screen -S $myscreen -X stuff 'exit\015'
+>rm $EL_SCREENLOG-tmp
 >

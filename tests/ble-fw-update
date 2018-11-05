@@ -6,7 +6,7 @@
 
 ; ============ $EL_testname: download "fw dwld ble" ============
 @120
->cat /dev/null > $EL_SCREENLOG
+>cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -19,7 +19,7 @@
 @$EL_timeout
 
 ; ============ $EL_testname: Verify download "fw dwld ble" ============
->dehex $EL_SCREENLOG
+>dehex $EL_SCREENLOG-tmp
 -<Please try again
 -<Unknown
 <Bytes to go: 0 bytes
@@ -27,7 +27,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: "fw ble" ============
->cat /dev/null > $EL_SCREENLOG
+>cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -43,7 +43,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: "restart" ============
->cat /dev/null > $EL_SCREENLOG
+>cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -60,7 +60,7 @@
 >
 
 ; ============ $EL_testname: Verify "restart" ============
->dehex $EL_SCREENLOG
+>dehex $EL_SCREENLOG-tmp
 -<Please try again
 -<Unknown
 <Restarting
@@ -70,7 +70,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: BLE "version" ============
->cat /dev/null > $EL_SCREENLOG
+>cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $myscreen
@@ -87,7 +87,7 @@
 >
 
 ; ============ $EL_testname: Verify BLE "version" ============
->dehex $EL_SCREENLOG
+>dehex $EL_SCREENLOG-tmp
 -<Please try again
 -<Unknown
 <TI_VERS = $EL_fw_bleversion
