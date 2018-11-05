@@ -31,7 +31,8 @@ export PATH=.:./tests:$PATH
 for test in $*; do
     export EL_log=logs/${EL_pod}-`basename $test`.log
     export EL_SCREENLOG=logs/${EL_pod}-`basename $test`-gatt.log
-    export EL_testname=`basename $test`
+    export EL_testname=${EL_pod}-`basename $test`
+
     $test
     case $? in
         0) echo PASS: "$EL_testname" ;;

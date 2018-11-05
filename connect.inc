@@ -3,7 +3,7 @@
 *LOG $EL_log
 @$EL_timeout
 
-; ============ $EL_testname: Connect to pod: $EL_pod ============ 
+; ============ $EL_testname: Connect to pod ============ 
 */[$EL_address][LE]>/
 >screen -c screenrc -L -Logfile $EL_SCREENLOG gatttool -I --listen -b $EL_address
 >connect
@@ -14,7 +14,7 @@
 >>^A
 >^D
 
->tail -s 0 -F $EL_SCREENLOG >> $EL_SCREENLOG-tmp &
+>tail -s 0 -f $EL_SCREENLOG >> $EL_SCREENLOG-tmp &
 
 # get the screen id
 >screen -list | grep pts | sort | head -1
