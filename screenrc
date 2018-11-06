@@ -1,8 +1,8 @@
 # don't display the copyright page
 startup_message off
 
-defscrollback 1000
-
+# flush logs to disk as fast as you can
 logfile flush 0
 
+# use a basic POSIX shell, not bash
 shell /bin/sh
