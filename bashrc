@@ -1,20 +1,18 @@
 
 # WaterGuru tester .profile
 
-export SCREENRC=$EL_SCREENRC
-export SCREENLOG=${EL_SCREENLOG:-screen.log}
-
-# send a comman to a pod without waiting for results
+# send a comman to a pod without waiting for notificatsions
+# e.g. 'blip <mypod> restart' or 'blip <mypod> pad test 2'
 blip()
 {
-        # send one command to a BLE (no response)
 	POD=`fgrep -his $1 podnames | awk '{print $1}'`; shift
 	COMMAND=`echo -n $* | xxd -ps`
 	
         gatttool -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
 
-# send a comman to a pod and listen for results until ^C is pressed
+# send a comman to a pod and show notifications until ^C is pressed. 
+# same syntax as above, but stays connected until you press Control-c.
 bleep()
 {
         # send one command to a BLE and wait for response
