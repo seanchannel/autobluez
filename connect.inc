@@ -4,11 +4,11 @@
 @$EL_timeout
 
 # shortcut / alias to convert BLE output logs from hex to ascii
-dehex()
-{
-    cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
-    echo
-}
+>>dehex()
+>>{
+>>    cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
+>>    echo
+>}
 
 ; ============ $EL_testname: Connect to pod ============ 
 */[$EL_address][LE]>/
