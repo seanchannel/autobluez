@@ -33,13 +33,13 @@ $ sudo apt install expect-lite
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
 ```
 
-* Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using vi or other text editor. To can scan for the pod address requires root (superuser) privilege:
+* Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using vi or other text editor. To scan for pod address requires root (superuser) privilege:
 
 ```
 $ sudo hcitool lescan
 ```
 
-The scan will repeat every few secconds until Control-c is pressed. Look for the pod in the terminal output and copy/paste into ```podnames``` (the output is not sorted).
+The scan will repeat every few secconds until Control-c is pressed. Look for the pod in the terminal output and copy/paste into ```podnames``` (the output is not sorted), adding any alias names for convenience.
 
 ## Running the tests
 
@@ -55,7 +55,7 @@ $ cd wg-firmware-test
 $ pod=220 ssid=Barnacle pswd=clearwater ./runtest wifi_setup
 ```
 
-What follows after ```runtest``` is the test script to run.
+What follows after ```runtest``` is the name of the test script to run.
 
 ### Test Parameters
 
