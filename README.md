@@ -21,7 +21,7 @@ These scripts use standard Linux bluetooth ```gatttool``` and shell utilitie and
 
 [expect-lite](http://expect-lite.sourceforge.net) is the main test driver and must be installed first.
 
-To install expext-lite on ubuntu (as root):
+To install expext-lite on ubuntu:
 ```
 $ sudo apt install expect-lite
 ```
