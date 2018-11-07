@@ -1,36 +1,26 @@
 # wg-firmware-test
 
-Scripts to automate firmware testing procedures
+Scripts to automate firmware testing procedures. 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These scripts should work on any standard Linux system.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+* [expect-lite](http://expect-lite.sourceforge.net) must be installed. The tests otherwise use the standard Linux bluetooth and shell utilities
 
-```
-Give examples
-```
+To install ```expext-lite``` on ubuntu (as root):
+    sudo apt install expect-lite
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Clone this repository (or copy) to the Linux system the tests will run on. 
 
-Say what the step will be
+To clone from GitHub via HTTPS:
+    git clone https://github.com/WaterGuru/wg-firmware-test.git
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using ```vi``` or your default text editor.
 
 ## Running the tests
 
@@ -51,37 +41,3 @@ Explain what these tests test and why
 ```
 Give an example
 ```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
