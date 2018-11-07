@@ -57,13 +57,8 @@ $ pod=220 ssid=Barnacle pswd=clearwater ./runtest wifi_setup
 
 There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax.
 
-Please note the help text is appended with the boilerplate expect-lite help
 
 ### Test Parameters
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+(Explain what these tests test and why...)
 
