@@ -8,7 +8,7 @@ These scripts should work on any standard Linux system.
 
 ### Prerequisites
 
-* [expect-lite](http://expect-lite.sourceforge.net) must be installed. The tests otherwise use standard Linux bluetooth and shell utilities.
+[expect-lite](http://expect-lite.sourceforge.net) must be installed. The tests otherwise use standard Linux bluetooth and shell utilities.
 
 To install expext-lite on ubuntu (as root):
 ```
