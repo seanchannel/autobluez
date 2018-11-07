@@ -57,7 +57,7 @@ $ cd wg-firmware-test
 $ pod=220 ssid=Barnacle pswd=clearwater ./runtest wifi_setup
 ```
 
-There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax.
+There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax. All of these may be specified as above on the command line.
 
 
 ### Test Parameters
