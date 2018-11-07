@@ -30,7 +30,7 @@ export PATH=.:./tests:$PATH
 # run each argument as a test script
 for test in $*; do
     export EL_log=logs/${EL_pod}-`basename $test`.log
-    export EL_SCREENLOG=logs/${EL_pod}-`basename $test`-gatt.log
+    export EL_SCREENLOG=logs/${EL_pod}-`basename $test`-ble.log
     export EL_testname=${EL_pod}-`basename $test`
 
     $test
