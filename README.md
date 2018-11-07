@@ -15,13 +15,10 @@ apt install expect-lite
 
 ### Installing
 
-* Clone this repository (or copy) to the Linux system the tests will run on. 
-
-To clone from GitHub via HTTPS:
+* Clone this repository (or copy) to the Linux system the tests will run on. To clone from GitHub via HTTPS:
 ```
 git clone https://github.com/WaterGuru/wg-firmware-test.git
 ```
-
 * Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using vi or your default text editor.
 
 ## Running the tests
