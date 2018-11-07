@@ -49,13 +49,15 @@ First, cd into the ```wg-firmware-test``` directory. The scripts assume this is 
 $ cd wg-firmware-test
 ```
 
-```runtest``` is used to run any script in the ```scripts/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest``` e.g.:
+```runtest``` is used to run any script in the ```scripts/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the name of the test script to run. E.g.:
 
 ```
 $ pod=220 ssid=Barnacle pswd=clearwater ./runtest wifi_setup
 ```
 
-What follows after ```runtest``` is the name of the test script to run.
+There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax.
+
+Please note the help text is appended with the boilerplate expect-lite help
 
 ### Test Parameters
 
