@@ -33,6 +33,8 @@ $ sudo apt install expect-lite
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
 ```
 
+This syntax and other options are available to copy and paste in the Github UI button "Clone or Download" (top right on main project page).
+
 * Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using vi or other text editor. To scan for pod address requires root (superuser) privilege:
 
 ```
