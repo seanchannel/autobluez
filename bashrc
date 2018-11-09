@@ -21,7 +21,7 @@ bleep()
 }
 
 # connect to a pod in gatttool. leaves you at the gatttool prompt until exit / ^D
-bleep()
+ble()
 {
 	POD=`fgrep -his $1 podnames | awk '{print $1}'`; shift
         gatttool -I --listen -b $POD 
