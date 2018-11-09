@@ -15,17 +15,21 @@ blip()
 # same syntax as above, but stays connected until you press Control-c.
 bleep()
 {
-        # send one command to a BLE and wait for response
 	POD=`fgrep -his $1 podnames | awk '{print $1}'`; shift
 	COMMAND=`echo -n $* | xxd -ps`
-
         gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
+}
+
+# connect to a pod in gatttool. leaves you at the gatttool prompt until exit / ^D
+bleep()
+{
+	POD=`fgrep -his $1 podnames | awk '{print $1}'`; shift
+        gatttool -I --listen -b $POD 
 }
 
 # convert a gatt log from hex into ascii
 dehex()
 {
-    # convert from hex to ascii
     cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
     echo
 }
