@@ -38,6 +38,7 @@ Clone this repository (or copy) to the Linux system the tests will run on. Use t
 
 ```
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
+$ cd wg-firmware-test
 ```
 
 Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using vi or other text editor. To scan for pod address requires root (superuser) privilege:
@@ -49,12 +50,6 @@ $ sudo hcitool lescan
 The scan will repeat every few secconds until Control-c is pressed. Look for the pod in the terminal output and copy/paste into ```podnames``` (the output is not sorted), adding any alias names for convenience.
 
 ## Running the tests
-
-First, cd into the ```wg-firmware-test``` directory. The scripts assume this is the working directory:
-
-```
-$ cd wg-firmware-test
-```
 
 ```runtest``` is used to run any script in the ```scripts/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the name of the test script to run. E.g.:
 
