@@ -22,10 +22,10 @@ These scripts use standard Linux bluetooth and shell utilities along with a Tcl/
 To prepare a system for these tests you should be familiar with Linux in general and your system's software package management tools.
 
 * the system must be configured with a bluetooth device
-* ```gatttool``` must be installed from the BlueZ system package(s)
-* ```screen``` version 4.06 or newer is required
-* ```Expect``` is the Tcl/Tk automation engine
-* [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is the main test driver and can be downloaded from the link or installed with your system's package manager (may require configuring additional repositories for your system.) 
+* ```gatttool``` handles BLE communications and can be installed from the BlueZ system package(s)
+* ```screen``` version 4.06 or newer is required to run and logs interactive BLE / serial programs in the background
+* ```Expect``` is the core Tcl/Tk automation engine
+* [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is the main test driver and can be downloaded from the link or installed with your system's package manager (may require configuring additional repositories) 
 
 To install expext-lite on ubuntu requires the "Universe" [repository](https://help.ubuntu.com/community/Repositories#Managing_Repositories) be configured. 
 
