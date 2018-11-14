@@ -4,13 +4,13 @@ Scripts to automate firmware testing procedures.
 
 ### What's in here
 
-* ```podnames``` - list of pod BLE addresses followed by one or more aliases such as pod ID or a name
-* ```runtest```  - front-end (test harness) used to run test scripts
+* ```podnames``` - list of pod BLE addresses followed by one or more aliases like pod ID or a name
+* ```runtest```  - front-end script used to run test scripts
 * ```tests/``` - directory (folder) containing the test scripts
-* ```logs/``` - logs for the script and the BLE communications are saved in this directory
-* ```connect.inc``` - common procedures included at start of every test script`
-* ```cleanup.inc``` - common procedures included at end of every test script
-* ```screenrc``` - a few critical settings for the ```screen``` utility
+* ```logs/``` - logs lf test runs and BLE communications
+* ```connect.inc``` - common procedures at start of every test script`
+* ```cleanup.inc``` - common procedures at end of every test script
+* ```screenrc``` - critical settings for the ```screen``` utility
 * ```bashrc```- diagnostic functions for test development (not used by any scripts)
 
 ## Getting Started
@@ -22,6 +22,7 @@ These scripts use standard Linux bluetooth and shell utilities along with a Tcl/
 * the system must be configured with a bluetooth device
 * ```gatttool``` must be installed from the BlueZ system package(s) if it is not already
 * ```Expect``` is the Tcl/Tk automation engine and should be installed with system packages
+* Screen version 4.06.02 (GNU) 23-Oct-17
 * [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is the main test driver and can be downloaded from the link or installed with your system's package manager (may require configuring additional repositories for your system.) 
 
 To install expext-lite on ubuntu requires the "Universe" [repository](https://help.ubuntu.com/community/Repositories#Managing_Repositories) be configured. 
