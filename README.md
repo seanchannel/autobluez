@@ -8,8 +8,8 @@ Scripts to automate firmware testing procedures.
 * ```runtest```  - front-end script used to run test scripts
 * ```tests/``` - directory (folder) containing the test scripts
 * ```logs/``` - logs lf test runs and BLE communications
-* ```connect.inc``` - common procedures at start of every test script`
-* ```cleanup.inc``` - common procedures at end of every test script
+* ```connect.inc``` - common procedures at the start of every test script
+* ```cleanup.inc``` - common procedures at the end of every test script
 * ```screenrc``` - critical settings for the ```screen``` utility
 * ```bashrc```- diagnostic functions for test development (not used by any scripts)
 
@@ -23,7 +23,7 @@ To prepare a system for these tests you should be familiar with Linux in general
 
 * the system must be configured with a bluetooth device
 * ```gatttool``` handles BLE communications and can be installed from the BlueZ system package(s)
-* ```screen``` version 4.06 or newer is required to run and logs interactive BLE / serial programs in the background
+* ```screen``` version 4.06 or newer is required to run and log interactive BLE / serial programs in the background
 * ```Expect``` is the core Tcl/Tk automation engine
 * [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is the main test driver and can be downloaded from the link or installed with your system's package manager (may require configuring additional repositories) 
 
