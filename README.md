@@ -32,13 +32,13 @@ $ sudo apt install expect-lite
 ```
 ### Installing
 
-* Clone this repository (or copy) to the Linux system the tests will run on. Use the GitHub "clone or download" button for other choices. E.g.: 
+Clone this repository (or copy) to the Linux system the tests will run on. Use the GitHub "clone or download" button for other choices. E.g.: 
 
 ```
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
 ```
 
-* Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using vi or other text editor. To scan for pod address requires root (superuser) privilege:
+Edit the file ```podnames``` if you need to add a pod or ID / alias to existing pod using vi or other text editor. To scan for pod address requires root (superuser) privilege:
 
 ```
 $ sudo hcitool lescan
