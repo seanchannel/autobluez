@@ -19,6 +19,8 @@ These scripts use standard Linux bluetooth and shell utilities along with a Tcl/
 
 ### Prerequisites
 
+To prepare a system for these tests you should be familiar with Linux in general and your system's software package management tools.
+
 * the system must be configured with a bluetooth device
 * ```gatttool``` must be installed from the BlueZ system package(s)
 * ```screen``` version 4.06 or newer is required
