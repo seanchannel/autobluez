@@ -65,6 +65,7 @@ There are hard-coded defaults for parameters in the ```runtest``` file source. P
 All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications.
 
 * ```basic_info``` -- check battery, time, and date
+  This is a test comment
   * check battery level is between 5 and 6 volts
   * check a valid time is reported correctly formatted
   * check the date is reported correctly formatted
