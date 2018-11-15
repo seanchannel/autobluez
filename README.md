@@ -65,7 +65,10 @@ There are hard-coded defaults for parameters in the ```runtest``` file source. P
 Here is a list of current scripts, what parameters they use, and what they do. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications.
 
 #### ```basic_info``` 
-check battery, time, and date
+Check battery, time, and date, e.g.:
+```
+$ pod=squid ./runtest basic_info
+```
 * parameters: none
   * check battery level is between 5 and 6 volts
   * check a valid time is reported correctly formatted
@@ -73,12 +76,18 @@ check battery, time, and date
 
 #### ```wifi_reset```
 clear SSID & password
+```
+$ pod=squid ./runtest wifi_reset
+```
 * parameters: none
   * reset SSID and save, then verify
   * reset Wifi password and save, then verify
 
 #### ```wifi_setup``` 
 setup SSID & password
+```
+$ pod=squid ssid=WG2 pswd=clearwater ./runtest wifi_setup
+```
 * parameters: ```ssid```, ```pswd```
   * set the SSID, save, then verify (default: WG2)
   * set the Wifi password, save, then verify (default: clearwater)
@@ -86,16 +95,25 @@ setup SSID & password
 
 #### ```log_upload``` 
 upload the log
+```
+$ pod=squid ./runtest log_upload
+```
 * parameters: none
   * "zlog" command, then verify log upload is confirmed successful
 
 #### ```version_test``` 
 check version
+```
+$ pod=squid version=9.1.14 ./runtest version
+```
 * parameters: ```version```
   * "version" command & verify expected version (default: "9.1") 
 
 #### ```mcu-fw-update``` 
 install MCU firmware
+```
+$ pod=squid env=qa index=qa version=9.1.14 ./runtest mcu-fw-update
+```
 * parameters: ```env```, ```index```, ```version```
   * set the "fw env", then verify (default: prod)
   * set the "fw index", then verify (default: 9.1)
@@ -106,6 +124,9 @@ install MCU firmware
 
 #### ```ble-fw-update``` 
 install BLE firmware
+```
+$ pod=squid env=qa index=qa bleversion=11 ./runtest ble-fw-update
+```
 * parameters: ```bleversion```
   * download BLE firmware and verify it is confirmed successful
   * install the BLE firmware, restart the pod
