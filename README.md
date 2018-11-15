@@ -64,32 +64,38 @@ There are hard-coded defaults for parameters in the ```runtest``` file source. P
 
 Here is a list of current scripts, what parameters they use, and what they do. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications.
 
-#### ```basic_info``` -- check battery, time, and date
+#### ```basic_info``` 
+check battery, time, and date
 * parameters: none
   * check battery level is between 5 and 6 volts
   * check a valid time is reported correctly formatted
   * check the date is reported correctly formatted
 
-#### ```wifi_reset``` -- clear SSID & password
+#### ```wifi_reset```
+clear SSID & password
 * parameters: none
   * reset SSID and save, then verify
   * reset Wifi password and save, then verify
 
-#### ```wifi_setup``` -- setup SSID & password
+#### ```wifi_setup``` 
+setup SSID & password
 * parameters: ```ssid```, ```pswd```
   * set the SSID, save, then verify (default: WG2)
   * set the Wifi password, save, then verify (default: clearwater)
   * run a Wifi test and verify success
 
-#### ```log_upload``` -- upload the log
+#### ```log_upload``` 
+upload the log
 * parameters: none
   * "zlog" command, then verify log upload is confirmed successful
 
-#### ```version_test``` -- check version
+#### ```version_test``` 
+check version
 * parameters: ```version```
   * "version" command & verify expected version (default: "9.1") 
 
-#### ```mcu-fw-update``` -- install MCU firmware
+#### ```mcu-fw-update``` 
+install MCU firmware
 * parameters: ```env```, ```index```, ```version```
   * set the "fw env", then verify (default: prod)
   * set the "fw index", then verify (default: 9.1)
@@ -98,7 +104,8 @@ Here is a list of current scripts, what parameters they use, and what they do. A
   * disconnect and wait 1 minute, then reconnect
   * verify the expected version number reported (default: "9.1")
 
-#### ```ble-fw-update``` -- install BLE firmware
+#### ```ble-fw-update``` 
+install BLE firmware
 * parameters: ```bleversion```
   * download BLE firmware and verify it is confirmed successful
   * install the BLE firmware, restart the pod
