@@ -30,7 +30,7 @@ Setting up a Linux system is a technical task. To prepare a system for these tes
 To install expext-lite on ubuntu requires the "Universe" [repository](https://help.ubuntu.com/community/Repositories#Managing_Repositories) be configured. 
 
 ```
-$ sudo apt install expect-lite
+$ sudo apt install expect-lite screen
 ```
 ### Installing
 
