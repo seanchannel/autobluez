@@ -5,9 +5,9 @@ Scripts to automate firmware testing procedures.
 ### What's in here
 
 * ```podnames``` - list of pod BLE addresses followed by one or more aliases like pod ID or a name
-* ```runtest```  - front-end script used to run test scripts
-* ```tests/``` - directory (folder) containing the test scripts
-* ```logs/``` - logs lf test runs and BLE communications
+* ```runtest```  - main script to run test scripts
+* ```tests/``` - directory (folder) of test scripts
+* ```logs/``` - logs of test runs and BLE communications
 * ```connect.inc``` - common procedures at the start of every test script
 * ```cleanup.inc``` - common procedures at the end of every test script
 * ```screenrc``` - critical settings for the ```screen``` utility
@@ -19,7 +19,7 @@ These scripts use standard Linux bluetooth and shell utilities along with a Tcl/
 
 ### Prerequisites
 
-To prepare a system for these tests you should be familiar with Linux in general and your system's software package management tools.
+Setting up a Linux system is a technical task. To prepare a system for these tests you should be familiar with Linux in general and your system's software package management tools.
 
 * the system must be configured with a bluetooth device
 * ```gatttool``` handles BLE communications and can be installed from the BlueZ system package(s)
@@ -34,7 +34,7 @@ $ sudo apt install expect-lite
 ```
 ### Installing
 
-Clone this repository (or copy) to the Linux system the tests will run on. Use the GitHub "clone or download" button for other choices. E.g.: 
+Clone this repository onto the system the tests will run on (use the GitHub "clone or download" button for choices.) E.g.: 
 
 ```
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
