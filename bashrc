@@ -1,5 +1,10 @@
-
 # WaterGuru tester .profile
+
+# always use "-s 0" with 'tail' for no-delay
+alias tail='tail -s 0'
+
+# translate hex input pasted into the command line up until ^D is pressed
+alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
 
 # send a comman to a pod without waiting for notificatsions
 # e.g. 'blip <mypod> restart' or 'blip <mypod> pad test 2'
@@ -20,7 +25,7 @@ bleep()
         gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
 
-# connect to a pod in gatttool. leaves you at the gatttool prompt until exit / ^D
+# connect to pod BLE in gatttool. leaves you at the gatttool prompt until exit / ^D
 ble()
 {
 	POD=`fgrep -his $1 podnames | awk '{print $1}'`; shift
@@ -34,5 +39,3 @@ dehex()
     echo
 }
 
-# translate hex input pasted into the command line up until ^D is pressed
-alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
