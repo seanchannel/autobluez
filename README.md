@@ -1,6 +1,6 @@
 # wg-firmware-test
 
-Scripts to automate firmware testing procedures. 
+These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). See below for script details.
 
 ### What's in here
 
@@ -50,6 +50,7 @@ $ sudo hcitool lescan
 The scan will repeat every few secconds until Control-c is pressed. Look for the pod in the terminal output and copy/paste into ```podnames``` (the output is not sorted), adding any alias names for convenience.
 
 ## Running the tests
+These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300).
 
 ```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the name of the test script to run. E.g.:
 
@@ -61,6 +62,8 @@ There are hard-coded defaults for parameters in the ```runtest``` file source. P
 
 
 ### BLE Test Scripts
+
+These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). The exact test case ID's and organization of test cases may vary over time when they are improved and updated as needed.
 
 Here is a list of current scripts, what parameters they use, and what they do. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications.
 
