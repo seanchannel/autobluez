@@ -9,11 +9,6 @@
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->connect
--<Error
--<connect error
--<connect: Device or resource busy (16)
-<Connection successful
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification handle = 0x001b value: 54 49 5f 56 45 52 53
