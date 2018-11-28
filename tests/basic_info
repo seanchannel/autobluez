@@ -4,6 +4,31 @@
 
 ##------------------------------------------------------------------##
 
+; ============ $EL_testname: "version" ============
+>cp /dev/null $EL_SCREENLOG-tmp
+>echo -n "version" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>connect
+-<Error
+-<connect error
+-<connect: Device or resource busy (16)
+<Connection successful
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 54 49 5f 56 45 52 53
+>>^A
+>^D
+>
+
+; ============ $EL_testname: Verify "version" ============
+>dehex $EL_SCREENLOG-tmp
+-<Please try again
+-<Unknown
+<$EL_fw_version
+
+##------------------------------------------------------------------##
+
 ; ============ $EL_testname: Test "get volt" ============
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "get volt" | xxd -ps
@@ -61,6 +86,26 @@
 -<Please try again
 -<Unknown
 <UTC date: 201[8-9]/[1-9][0-9]?/[0-9][0-9]?
+
+##------------------------------------------------------------------##
+
+; ============ $EL_testname: Test "pod rdid" ============
+>cp /dev/null $EL_SCREENLOG-tmp
+>echo -n "pod rdid" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 50 4f 44 20 49 44 20 3d
+>>^A
+>^D
+>
+
+; ============ $EL_testname: Verify "get date" e.g. "UTC date: 2018/10/02" ============
+>dehex $EL_SCREENLOG-tmp
+-<Please try again
+-<Unknown
+<POD ID = [1-9][0-9]+
 
 ##------------------------------------------------------------------##
 
