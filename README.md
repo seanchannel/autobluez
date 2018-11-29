@@ -67,25 +67,10 @@ These scripts are intended to automate the [firmware regression test suite in Te
 
 Here is a list of scripts and what parameters you can specify with defaults shown below. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications. Please see the test case documentation linked below for more info about what the script does.
 
-#### [TC14](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130492)  ```basic_info```
-Checks for valid firmware version, battery, time, and date, and pod ID.
-```
-$ pod=testpod version=9.1.14 bleversion=9 podid=22 ./runtest basic_info
-```
 #### [TC27](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2134981) ```wifi_setup```, ```wifi_reset``` 
 Clear and setup SSID & password, test wifi. (```wifi_setup``` also runs ```wifi_reset```)
 ```
 $ pod=testpod ssid=WG2 pswd=clearwater ./runtest wifi_setup
-```
-#### [TC15](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130494) ```log_upload``` 
-upload the log
-```
-$ pod=testpod ./runtest log_upload
-```
-#### ```version_test``` 
-check version reported against expected
-```
-$ pod=testpod version=9.1.14 ./runtest version_test
 ```
 #### [TC13](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130489) ```mcu-fw-update``` 
 Download and install MCU firmware
@@ -97,5 +82,24 @@ Download and install BLE firmware
 ```
 $ pod=testpod env=prod index=9.1 bleversion=9 ./runtest ble-fw-update
 ```
-
+#### [TC14](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130492)  ```basic_info```
+Checks for valid firmware version, battery, time, and date, and pod ID.
+```
+$ pod=testpod version=9.1.14 bleversion=9 podid=22 ./runtest basic_info
+```
+#### [TC15](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130494) ```log_upload``` 
+upload the log
+```
+$ pod=testpod ./runtest log_upload
+```
+#### [TC105](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2262327) ```mode_test```
+Check mode setting
+```
+$ pod=testpod mode=Sense ./runtest mode_test
+```
+#### ```version_test``` 
+check version reported against expected
+```
+$ pod=testpod version=9.1.14 ./runtest version_test
+```
 
