@@ -65,17 +65,14 @@ There are hard-coded defaults for parameters in the ```runtest``` file source. P
 
 These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). The exact test case ID's and organization of test cases may vary over time when they are improved and updated as needed.
 
-Here is a list of current scripts, what parameters they use, and what they do. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications.
+Here is a list of scripts and what parameters you can specify with defaults shown below. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications. Please see the test case documentation linked below for more info about what the script does.
 
-#### ```basic_info``` 
-Check battery, time, and date, e.g.:
+#### ```[basic_info]https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130492``` 
+Checks for valid firmware version, battery, time, and date, and pod ID.
 ```
 $ pod=squid ./runtest basic_info
 ```
 * parameters: none
-  * check battery level is between 5 and 6 volts
-  * check a valid time is reported correctly formatted
-  * check the date is reported correctly formatted
 
 #### ```wifi_reset```
 clear SSID & password
