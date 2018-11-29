@@ -61,7 +61,7 @@ $ pod=220 ssid=Barnacle pswd=clearwater ./runtest wifi_setup
 There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax. All of these may be specified as above on the command line.
 
 
-### BLE Test Scripts
+### Test Scripts
 
 These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). The exact test case ID's and organization of test cases may vary over time when they are improved and updated as needed.
 
@@ -72,16 +72,6 @@ Checks for valid firmware version, battery, time, and date, and pod ID.
 ```
 $ pod=testpod version=9.1.14 bleversion=9 podid=22 ./runtest basic_info
 ```
-
-#### ```wifi_reset```
-clear SSID & password
-```
-$ pod=squid ./runtest wifi_reset
-```
-* parameters: none
-  * reset SSID and save, then verify
-  * reset Wifi password and save, then verify
-
 #### ```wifi_setup``` 
 setup SSID & password
 ```
@@ -91,6 +81,15 @@ $ pod=squid ssid=WG2 pswd=clearwater ./runtest wifi_setup
   * set the SSID, save, then verify (default: WG2)
   * set the Wifi password, save, then verify (default: clearwater)
   * run a Wifi test and verify success
+
+#### ```wifi_reset```
+clear SSID & password
+```
+$ pod=squid ./runtest wifi_reset
+```
+* parameters: none
+  * reset SSID and save, then verify
+  * reset Wifi password and save, then verify
 
 #### ```log_upload``` 
 upload the log
