@@ -5,6 +5,10 @@ $test_in_progress=1
 
 ##-------------------------------------------------------------------##
 
+~tests/wifi_reset
+
+##-------------------------------------------------------------------##
+
 ; ============ $EL_testname: "ssid set" ============
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "ssid set $EL_ssid" | xxd -ps
