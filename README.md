@@ -67,12 +67,11 @@ These scripts are intended to automate the [firmware regression test suite in Te
 
 Here is a list of scripts and what parameters you can specify with defaults shown below. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications. Please see the test case documentation linked below for more info about what the script does.
 
-#### ```[basic_info]https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130492``` 
+#### [TC14](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130492) ```basic_info```
 Checks for valid firmware version, battery, time, and date, and pod ID.
 ```
-$ pod=squid ./runtest basic_info
+$ pod=testpod version=9.1.14 bleversion=9 podid=22 ./runtest basic_info
 ```
-* parameters: none
 
 #### ```wifi_reset```
 clear SSID & password
