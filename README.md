@@ -72,8 +72,8 @@ Checks for valid firmware version, battery, time, and date, and pod ID.
 ```
 $ pod=testpod version=9.1.14 bleversion=9 podid=22 ./runtest basic_info
 ```
-#### ```wifi_setup``` 
-setup SSID & password
+#### [TC27](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2134981)```wifi_reset``` and ```wifi_setup``` 
+Clear and setup SSID & password, test wifi.
 ```
 $ pod=squid ssid=WG2 pswd=clearwater ./runtest wifi_setup
 ```
