@@ -20,7 +20,7 @@
 >dehex $EL_SCREENLOG-tmp
 -<Please try again
 -<Unknown
-<Pod Mode = Sense
+<Pod Mode = $EL_mode
 
 ##------------------------------------------------------------------##
 
