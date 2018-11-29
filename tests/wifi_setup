@@ -126,7 +126,6 @@
 
 ; ============ $EL_testname: "wifi test" ============
 >cp /dev/null $EL_SCREENLOG-tmp
-@40
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname

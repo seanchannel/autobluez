@@ -5,7 +5,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: download "fw dwld ble" ============
-@120
+:$EL_delay
 >cp /dev/null $EL_SCREENLOG-tmp
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
@@ -16,7 +16,7 @@
 >>^A
 >^D
 >
-@$EL_timeout
+:$EL_timeout
 
 ; ============ $EL_testname: Verify download "fw dwld ble" ============
 >dehex $EL_SCREENLOG-tmp
