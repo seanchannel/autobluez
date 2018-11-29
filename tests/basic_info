@@ -1,11 +1,12 @@
 #!/usr/bin/env expect-lite
 
 ? $test_in_progress != 1 ? ~connect.inc
-$test_in_progress=1
 
 ##------------------------------------------------------------------##
 
+$test_in_progress=1
 ~tests/version_test
+$test_in_progress=0
 
 ##------------------------------------------------------------------##
 
