@@ -1,8 +1,6 @@
 #!/usr/bin/env expect-lite
 
-~connect.inc
-
-$version=$EL_fw_version
+? $test_in_progress != 1 ?  ~connect.inc
 
 ##------------------------------------------------------------------##
 
@@ -23,7 +21,7 @@ Notification handle = 0x001b value: 54 49 5f 56 45 52 53
 >dehex $EL_SCREENLOG-tmp
 -<Please try again
 -<Unknown
-<$version
+<$EL_fw_version
 
 ##------------------------------------------------------------------##
 
