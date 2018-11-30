@@ -130,7 +130,17 @@
 
 ##------------------------------------------------------------------##
 
+$test_in_progress=1
+>cp /dev/null $EL_SCREENLOG-tmp
+>screen -r $EL_testname
+>connect
+-<Error
+-<connect error
+-<connect: Device or resource busy (16)
+<Connection successful
+
 ~tests/version_test
+$test_in_progress=0
 
 ##------------------------------------------------------------------##
 
