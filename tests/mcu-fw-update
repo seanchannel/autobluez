@@ -93,7 +93,7 @@
 >^M
 >char-write-req 0x001b $cmd
 #<Characteristic value was written successfully
-<Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73 
+<Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73
 >>^A
 >^D
 >
@@ -114,7 +114,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 #<Characteristic value was written successfully
-<Notification handle = 0x001b value: 52 65 73 74 61 72 74 69 6e 67 2e 2e 2e 00 00 00 00 00 00 00 
+<Notification handle = 0x001b value: 52 65 73 74 61 72 74 69 6e 67 2e 2e 2e
 >disconnect
 >>^A
 >^D
