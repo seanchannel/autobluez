@@ -52,10 +52,10 @@ The scan will repeat every few secconds until Control-c is pressed. Look for the
 ## Running the tests
 These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300).
 
-```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the name of the test script to run. E.g.:
+```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the name of the test script to run. E.g. to run all the tests:
 
 ```
-$ pod=220 ssid=Barnacle pswd=clearwater ./runtest wifi_setup
+$ pod=testpod ./runtest wifi_setup mcu-fw-update ble-fw-update basic_info log_upload mode_test
 ```
 
 There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax. All of these may be specified as above on the command line.
