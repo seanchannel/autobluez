@@ -6,12 +6,12 @@
 
 ; ============ $EL_testname: download "fw dwld ble" ============
 @$EL_delay
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73
 >
 >>^A
@@ -20,7 +20,7 @@
 @$EL_timeout
 
 ; ============ $EL_testname: Verify download "fw dwld ble" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <Bytes to go: 0 bytes
@@ -28,7 +28,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: "fw ble" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -44,7 +44,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: "restart" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -54,7 +54,7 @@
 -<connect: Device or resource busy (16)
 <Connection successful
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 52 65 73 74 61 72 74 69 6e 67 2e 2e 2e
 >
 >>disconnect
@@ -63,7 +63,7 @@
 >
 
 ; ============ $EL_testname: Verify "restart" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <Restarting
@@ -73,7 +73,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: BLE "version" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -83,7 +83,7 @@
 -<connect: Device or resource busy (16)
 <Connection successful
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 54 49 5f 56 45 52 53 20 3d
 >
 >>^A
@@ -91,7 +91,7 @@
 >
 
 ; ============ $EL_testname: Verify BLE "version" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <TI_VERS = $EL_fw_bleversion

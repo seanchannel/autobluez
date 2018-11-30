@@ -21,5 +21,3 @@
 >>^A
 >^D
 
-# temporary log file cache used by tests
->tail -s 0 -f $EL_SCREENLOG >> $EL_SCREENLOG-tmp &

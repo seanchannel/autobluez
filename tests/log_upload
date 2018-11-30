@@ -5,12 +5,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "zlog" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "zlog" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 55 70 6c 6f 61 64 20 4f 4b 3b 20 6c 6f 67 20 72 65 73 65 74 
 >
 >>^A
@@ -18,7 +18,7 @@
 >
 
 ; ============ $EL_testname: Verify e.g. "Upload OK; log reset" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND

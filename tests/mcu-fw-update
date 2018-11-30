@@ -5,12 +5,12 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: set "fw env" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw env $EL_fw_env" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 65 6e 76 20 73 65 74 20 74 6f 20
 >
 >>^A
@@ -18,7 +18,7 @@
 >
 
 ; ============ $EL_testname: Verify set "fw env" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <env set to \'$EL_fw_env\'
@@ -26,12 +26,12 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: show "fw env" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw env" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 65 6e 76 20 3d 20
 >
 >>^A
@@ -39,7 +39,7 @@
 >
 
 ; ============ $EL_testname: Verify show "fw env" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <env = $EL_fw_env
@@ -47,12 +47,12 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: set "fw index" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw index $EL_fw_index" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification
 >
 >>^A
@@ -60,7 +60,7 @@
 >
 
 ; ============ $EL_testname: Verify set "fw index" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <$EL_fw_index
@@ -68,12 +68,12 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: show "fw index" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw index" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification
 >
 >>^A
@@ -81,7 +81,7 @@
 >
 
 ; ============ $EL_testname: Verify show "fw index" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <$EL_fw_index
@@ -90,13 +90,13 @@
 
 ; ============ $EL_testname: download "fw dwld" ============
 @$EL_delay
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw dwld" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >^M
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73
 >
 >>^A
@@ -105,7 +105,7 @@
 @$EL_timeout
 
 ; ============ $EL_testname: Verify download "fw dwld" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <Bytes to go: 0 bytes
@@ -113,12 +113,12 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: "fw inst" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "fw inst" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 52 65 73 74 61 72 74 69 6e 67 2e 2e 2e
 >
 >disconnect
@@ -127,7 +127,7 @@
 >
 
 ; ============ $EL_testname: Verify "fw inst" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <Restarting
@@ -137,7 +137,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: "version" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -147,7 +147,7 @@
 -<connect: Device or resource busy (16)
 <Connection successful
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 54 49 5f 56 45 52 53
 >
 >>^A
@@ -155,7 +155,7 @@
 >
 
 ; ============ $EL_testname: Verify "version" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <$EL_fw_version

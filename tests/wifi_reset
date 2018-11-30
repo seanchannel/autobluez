@@ -5,12 +5,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "ssid reset" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "ssid reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 73 73 69 64 20 63 68 61 72 73 20 3d 20 30
 >
 >>^A
@@ -18,7 +18,7 @@
 >
 
 ; ============ $EL_testname: Verify "ssid reset" e.g. "ssid chars = 0" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <ssid chars = 0
@@ -26,7 +26,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "ssid save" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -39,7 +39,7 @@
 >
 
 ; ============ $EL_testname: Verify "ssid save" e.g. "ssid saved" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <ssid saved
@@ -47,12 +47,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "ssid show" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "ssid show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 73 73 69 64 20 3d 
 >
 >>^A
@@ -61,7 +61,7 @@
 
 ; ============ $EL_testname: Verify "ssid show" e.g. "ssid =" ============
 >
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <ssid =\s+\n
@@ -69,12 +69,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "pswd reset" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "pswd reset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 70 73 77 64 20 63 68 61 72 73 20 3d 20 30
 >
 >>^A
@@ -82,7 +82,7 @@
 >
 
 ; ============ $EL_testname: Verify "pswd reset" e.g. "pswd chars = 0" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <pswd chars = 0
@@ -90,12 +90,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "pswd save" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 70 73 77 64 20 73 61 76 65 64
 >
 >>^A
@@ -103,7 +103,7 @@
 >
 
 ; ============ $EL_testname: Verify "pswd save" e.g. "pswd saved" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <pswd saved
@@ -111,12 +111,12 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "pswd show" ============
->cp /dev/null $EL_SCREENLOG-tmp
+>cp /dev/null $EL_SCREENLOG
 >echo -n "pswd show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-#<Characteristic value was written successfully
+<Characteristic value was written successfully
 <Notification handle = 0x001b value: 70 73 77 64 20 3d
 >
 >>^A
@@ -124,7 +124,7 @@
 >
 
 ; ============ $EL_testname: Verify "pswd show" e.g. "pswd =" ============
->dehex $EL_SCREENLOG-tmp
+>dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <pswd =\s+\n
