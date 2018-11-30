@@ -6,8 +6,6 @@
 ## $ ssid=Barnacle pswd=clearwater timeout=100 ./runtest tests/wifi_setup
 ##
 
-set -x
-
 export EL_pod=${pod:-testpod}
 export EL_address=`fgrep -his $EL_pod podnames | awk '{print $1}'`
 export EL_mode=${mode:-Sense}
@@ -22,7 +20,6 @@ export EL_pswd=${pswd:-clearwater}
 export EL_ssid_len=`echo -n $EL_ssid | wc -c`
 export EL_pswd_len=`echo -n $EL_pswd | wc -c`
 
-set +x
 ##------------------------------------------------------------------##
 
 export EL_timeout=${timeout:-30}
