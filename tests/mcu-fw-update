@@ -50,7 +50,7 @@
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
@@ -70,7 +70,7 @@
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification
 >>^A
 >^D
