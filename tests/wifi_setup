@@ -16,7 +16,7 @@ $test_in_progress=0
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 73 73 69 64 20 63 68 61 72 73 20 3d
 >>^A
 >^D
@@ -36,7 +36,7 @@ $test_in_progress=0
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 73 73 69 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
 >>^A
 >^D
@@ -56,7 +56,7 @@ $test_in_progress=0
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 73 73 69 64 20 3d
 >>^A
 >^D
@@ -76,7 +76,7 @@ $test_in_progress=0
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 70 73 77 64 20 63 68 61 72 73 20 3d
 >>^A
 >^D
@@ -96,7 +96,7 @@ $test_in_progress=0
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 70 73 77 64 20 73 61 76 65 64 00 00 00 00 00 00 00 00 00 00 
 >>^A
 >^D
@@ -116,7 +116,7 @@ $test_in_progress=0
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 70 73 77 64 20 3d
 >>^A
 >^D
@@ -136,7 +136,7 @@ $test_in_progress=0
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 57 49 2d 46 49 20 4f 4b 00 00 00 00 00 00 00 00 00 00 00 00
 >>^A
 >^D

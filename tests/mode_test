@@ -10,7 +10,7 @@
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
-<Characteristic value was written successfully
+#<Characteristic value was written successfully
 <Notification handle = 0x001b value: 50 6f 64 20 4d 6f 64 65 20 3d 20 53 65 6e 73 65
 >>^A
 >^D

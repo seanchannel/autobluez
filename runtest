@@ -38,7 +38,9 @@ for test in $*; do
     export EL_SCREENLOG=logs/${EL_pod}-`basename $test`-ble.log
     export EL_testname=${EL_pod}-`basename $test`
 
+    sleep 10
     $test
+
     case $? in
         0) echo PASS: "$EL_testname" ;;
         *) echo FAIL: "$EL_testname" ;;
