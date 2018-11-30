@@ -5,6 +5,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "zlog" ============
+@$EL_delay
 >cp /dev/null $EL_SCREENLOG
 >echo -n "zlog" | xxd -ps
 +$cmd=\n(.*)
@@ -16,6 +17,7 @@
 >>^A
 >^D
 >
+@$EL_timeout
 
 ; ============ $EL_testname: Verify e.g. "Upload OK; log reset" ============
 >dehex $EL_SCREENLOG
