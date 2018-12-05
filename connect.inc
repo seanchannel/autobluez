@@ -18,6 +18,8 @@
 -<connect error
 -<connect: Device or resource busy (16)
 <Connection successful
+>
 >>^A
 >^D
+>
 
