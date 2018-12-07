@@ -1,0 +1,57 @@
+#!/usr/bin/env expect-lite
+
+? $test_in_progress != 1 ? ~connect.inc
+
+##-------------------------------------------------------------------##
+
+; ============ $EL_testname: "cloud check log upload" ============
+@$EL_delay
+>cp /dev/null $EL_SCREENLOG
+>echo -n "cloud check" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 55 70 6c 6f 61 64 20 4f 4b 3b 20 6c 6f 67 20 72 65 73 65 74 
+>
+>>^A
+>^D
+>
+@$EL_timeout
+
+; ============ $EL_testname: Verify e.g. "Upload OK; log reset" ============
+>dehex $EL_SCREENLOG
+-<Please try again
+-<Unknown
+-<SSID NOT FOUND
+<Upload OK; log reset
+
+##-------------------------------------------------------------------##
+
+; ============ $EL_testname: "cloud check no log upload" ============
+:$EL_timeout
+@$EL_delay
+>cp /dev/null $EL_SCREENLOG
+>echo -n "cloud check" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 43 6c 6f 75 64 20 63 68 65 63 6b 20 64 6f 6e 65
+>
+>>^A
+>^D
+>
+@$EL_timeout
+
+; ============ $EL_testname: Verify e.g. "Cloud check done" ============
+>dehex $EL_SCREENLOG
+-<Please try again
+-<Unknown
+-<SSID NOT FOUND
+-<Upload OK; log reset
+<Cloud check done
+
+##-------------------------------------------------------------------##
+
+? $test_in_progress != 1 ? ~cleanup.inc

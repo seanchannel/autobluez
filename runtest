@@ -23,7 +23,7 @@ export EL_pswd_len=`echo -n $EL_pswd | wc -c`
 ##------------------------------------------------------------------##
 
 export EL_timeout=${timeout:-30}
-export EL_delay=${delay:-90}
+export EL_delay=${delay:-120}
 export EL_DELAY_WAIT_FOR_HOST=${EL_timeout}00
 export EL_SCREENRC=screenrc
 export EL_SHELL=/bin/sh
