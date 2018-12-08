@@ -25,5 +25,25 @@
 
 ##------------------------------------------------------------------##
 
-? $test_in_progress != 1 ? ~cleanup.inc
+; ============ $EL_testname: BLE "version" ============
+>cp /dev/null $EL_SCREENLOG
+>echo -n "version" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 54 49 5f 56 45 52 53
+>
+>>^A
+>^D
+>
 
+; ============ $EL_testname: Verify BLE "version" ============
+>dehex $EL_SCREENLOG
+-<Please try again
+-<Unknown
+<TI_VERS = $EL_fw_bleversion
+
+##------------------------------------------------------------------##
+
+? $test_in_progress != 1 ? ~cleanup.inc
