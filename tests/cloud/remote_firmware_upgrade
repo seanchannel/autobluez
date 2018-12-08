@@ -1,6 +1,6 @@
 #!/usr/bin/env expect-lite
 
-~connect.inc
+? $test_in_progress != 1 ? ~cleanup.inc
 
 ##-------------------------------------------------------------------##
 
@@ -19,7 +19,7 @@
 >
 @$EL_timeout
 
-; ============ $EL_testname: Verify e.g. "Upload OK; log reset" ============
+; ============ $EL_testname: Verify e.g. "Bytes to go: 0 bytes" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
