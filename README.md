@@ -55,7 +55,7 @@ These scripts are intended to automate the [firmware regression test suite in Te
 ```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the list of test script to run. E.g. to run all the tests:
 
 ```
-$ pod=testpod ./runtest wifi_setup mcu-fw-update ble-fw-update basic_info log_upload mode_test
+$ pod=testpod ./runtest wifi_setup mcu-fw-update ble-fw-update basic_info log_upload mode_check
 ```
 
 There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax. All of these may be specified as above on the command line.
