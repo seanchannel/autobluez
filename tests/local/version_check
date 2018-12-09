@@ -4,7 +4,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: "version" ============
+; ============ $EL_testname: fw version ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
@@ -17,7 +17,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify "version" ============
+; ============ $EL_testname: Verify fw version "$EL_fw_version" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -25,7 +25,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: BLE "version" ============
+; ============ $EL_testname: BLE version ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
@@ -38,7 +38,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify BLE "version" ============
+; ============ $EL_testname: Verify BLE version "$EL_fw_bleversion" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

@@ -154,7 +154,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify "version" ============
+; ============ $EL_testname: Verify "$EL_fw_version" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

@@ -90,7 +90,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify BLE "version" ============
+; ============ $EL_testname: Verify BLE "$EL_fw_bleversion" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
