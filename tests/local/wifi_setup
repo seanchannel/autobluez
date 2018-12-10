@@ -1,6 +1,6 @@
 #!/usr/bin/env expect-lite
 
-? $test_in_progress != 1 ? ~connect.inc
+? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
 
@@ -158,5 +158,5 @@ $test_in_progress=0
 
 ##-------------------------------------------------------------------##
 
-? $test_in_progress != 1 ? ~cleanup.inc
+? $test_in_progress != 1 ? ~tests/cleanup.inc
 

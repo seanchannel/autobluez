@@ -34,7 +34,7 @@ export EL_delay=${delay:-120}
 export EL_DELAY_WAIT_FOR_HOST=${EL_timeout}00
 export EL_SCREENRC=screenrc
 export EL_SHELL=/bin/sh
-export PATH=.:./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
+export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
 
 # run each argument as a test script
 for test in $*; do

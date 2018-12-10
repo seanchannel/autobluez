@@ -4,7 +4,7 @@
 ## regular cloud check with no firmware download or log upload
 ##
 
-? $test_in_progress != 1 ? ~connect.inc
+? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
 
@@ -32,4 +32,4 @@
 
 ##-------------------------------------------------------------------##
 
-? $test_in_progress != 1 ? ~cleanup.inc
+? $test_in_progress != 1 ? ~tests/cleanup.inc

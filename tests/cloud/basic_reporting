@@ -3,6 +3,7 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
+##-------------------------------------------------------------------##
 
 $test_in_progress=1
 ~tests/cloud/cloud_check
@@ -107,11 +108,11 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify "flow show" e.g. "dt = #" ============
+; ============ $EL_testname: Verify "flow show" e.g. "dt = $EL_flow_delta" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
-<dt =
+<dt = $EL_flow_delta
 
 ##-------------------------------------------------------------------##
 
