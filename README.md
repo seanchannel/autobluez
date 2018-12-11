@@ -13,7 +13,7 @@ These scripts are intended to automate the [firmware regression test suite in Te
 
 ## Getting Started
 
-Any mainstream standard Linux server distro should support all prerequisites. Each linux distro has it's own software ecosystem, You should be familiar with your system's software management tools and configuration. In general most systems require the extended / community repositories for that platform be activated to fully access the needed software with the native packaging system. For example, to install expext-lite on ubuntu requires the ["Universe" repository](https://help.ubuntu.com/community/Repositories#Managing_Repositories) be enabled, and on RPM-based systems you might need the ["EPEL" repository](https://fedoraproject.org/wiki/EPEL).
+Any mainstream Linux server should support all prerequisites. Each linux distro has it's own software ecosystem, You should be familiar with your system's software management tools and configuration. In general most systems require the extended / community repositories for that platform be activated to fully access the needed software with the native packaging system. For example, to install expext-lite on ubuntu requires the ["Universe" repository](https://help.ubuntu.com/community/Repositories#Managing_Repositories) be enabled, and on RPM-based systems you might need the ["EPEL" repository](https://fedoraproject.org/wiki/EPEL).
 
 ### Prerequisites
 
@@ -32,7 +32,7 @@ $ sudo apt install git bluez bluez-tools screen expect-lite
 ```
 ### Installing
 
-Clone this repository onto the system or use the GitHub "clone or download" button for choices.) E.g.: 
+Clone this repository onto the system or use the GitHub "clone or download" button for choices. E.g.: 
 
 ```
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
@@ -48,14 +48,13 @@ The scan will continue until Control-c is pressed. Look for the address in the t
 
 ## Running the tests
 
-```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the list of test script to run. E.g. to run all the tests:
+```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the list of test script to run. E.g. to run all the local operation test section (with default parameters):
 
 ```
 $ pod=testpod ./runtest wifi_setup mcu-fw-update ble-fw-update basic_info log_upload mode_check
 ```
 
-There are hard-coded defaults for parameters in the ```runtest``` file source. Parameters are named according to the ble command syntax. All of these may be specified as above on the command line.
-
+The default parameters are in the ```runtest``` script. Parameters are named according to the ble command syntax. All of these may be specified on the command line. Examples for each script are below.
 
 ### Test Scripts
 
