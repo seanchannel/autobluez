@@ -51,7 +51,7 @@ The scan will continue until Control-c is pressed. Look for the address in the t
 ```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the list of test script to run. E.g. to run all the [local operation](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#suite_section_140046) test section (with default parameters):
 
 ```
-$ pod=testpod ./runtest wifi_setup mcu-fw-update ble-fw-update basic_info log_upload mode_check
+$ pod=testpod ./runtest wifi_connect mcu-fw-update ble-fw-update basic_info log_upload mode_check
 ```
 
 The default parameters are in the ```runtest``` script. Parameters are named according to the ble command syntax. All of these may be specified on the command line. Examples for each script are below.
@@ -62,10 +62,12 @@ These scripts are intended to automate the [firmware regression test suite in Te
 
 Here is a list of scripts and what parameters you can specify with defaults shown below. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications. Please see the test case documentation linked below for more info about what the script does.
 
-##### [TC27](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2134981) ```wifi_setup```, ```wifi_reset``` 
-Clear and setup SSID & password, test wifi. (```wifi_setup``` also runs ```wifi_reset```)
+#### Local Operations Scripts
+
+##### [TC27](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2134981) ```wifi_connect```, ```wifi_reset``` 
+Clear and setup SSID & password, test wifi. (```wifi_connect``` also runs ```wifi_reset```)
 ```
-$ pod=testpod ssid=WG2 pswd=clearwater ./runtest wifi_setup
+$ pod=testpod ssid=WG2 pswd=clearwater ./runtest wifi_connect
 ```
 ##### [TC13](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130489) ```mcu-fw-update``` 
 Download and install MCU firmware
@@ -87,16 +89,16 @@ upload the log
 ```
 $ pod=testpod ./runtest log_upload
 ```
-##### [TC105](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2262327) ```mode_test```
+##### [TC105](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2262327) ```sensor_mode```
 Check mode setting
 ```
-$ pod=testpod mode=Sense ./runtest mode_test
+$ pod=testpod mode=Sense ./runtest sensor_mode
 ```
-##### ```version_test``` 
+##### ```version_check``` 
 check version reported against expected
 ```
-$ pod=testpod version=9.1.14 ./runtest version_test
+$ pod=testpod version=9.1.14 ./runtest version_check
 ```
 
-## Tips & Tricks
-* ls -altr logs
+#### Cloud Scripts
+
