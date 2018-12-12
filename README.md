@@ -26,13 +26,13 @@ Software requirements:
 
 Additionally, the system must be configured with a bluetooth hardware device.
 
-Example Ubuntu package installation, with repositories configured::
+Example Ubuntu package installation, with repositories configured:
 ```
 $ sudo apt install git bluez bluez-tools screen expect-lite
 ```
 ### Installing
 
-Clone this repository onto the system or use the GitHub "clone or download" button for choices. E.g.: 
+Clone this repository onto the system or use the GitHub "clone or download" button for other options. E.g.: 
 
 ```
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
@@ -48,19 +48,13 @@ The scan will continue until Control-c is pressed. Look for the address in the t
 
 ## Running the tests
 
-```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod name / ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after ```runtest``` is the list of test script to run. E.g. to run all the [local operation](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#suite_section_140046) test section (with default parameters):
+```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after is the list of test script to run. E.g. to run all the [local operation](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#suite_section_140046) test section (with default parameters):
 
 ```
 $ pod=testpod ./runtest wifi_connect mcu-fw-update ble-fw-update basic_info log_upload mode_check
 ```
-
-The default parameters are in the ```runtest``` script. Parameters are named according to the ble command syntax. All of these may be specified on the command line. Examples for each script are below.
-
 ### Test Scripts
-
-These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). The exact test case ID's and organization of test cases may vary over time when they are improved and updated as needed.
-
-Here is a list of scripts and what parameters you can specify with defaults shown below. All of these scripts send commands over BLE, verify the command is sent, and verify the pod returns expected notifications. Please see the test case documentation linked below for more info about what the script does.
+The default parameters are in the ```runtest``` script. All of these may be specified on the command line. Examples for each script are below with default values. Parameters may be left out if the test is only using the default. Please see the test case documentation linked below for more info about each.
 
 #### Local Operations Scripts
 
@@ -79,7 +73,7 @@ Download and install BLE firmware
 ```
 $ pod=testpod env=prod index=9.1 bleversion=9 ./runtest ble-fw-update
 ```
-##### [TC14](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130492)  ```basic_info```
+##### [TC14](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2130492) ```basic_info```
 Checks for valid firmware version, battery, time, and date, and pod ID.
 ```
 $ pod=testpod version=9.1.14 bleversion=9 podid=22 ./runtest basic_info
@@ -95,7 +89,7 @@ Check mode setting
 $ pod=testpod mode=Sense ./runtest sensor_mode
 ```
 ##### ```version_check``` 
-check version reported against expected
+check version reported against expected (used by other scripts)
 ```
 $ pod=testpod version=9.1.14 ./runtest version_check
 ```
