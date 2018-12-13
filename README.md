@@ -56,7 +56,7 @@ $ pod=testpod ./runtest wifi_connect mcu-fw-update ble-fw-update basic_info log_
 ### Test Scripts
 The default parameters are in the ```runtest``` script. All of these may be specified on the command line. Examples for each script are below with default values. Parameters may be left out if the test is only using the default. Please see the test case documentation linked below for more info about each.
 
-#### Local Operations Scripts
+#### Local Operations
 
 ##### [TC27](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#case_2134981) ```wifi_connect```, ```wifi_reset``` 
 Clear and setup SSID & password, test wifi. (```wifi_connect``` also runs ```wifi_reset```)
@@ -93,6 +93,34 @@ check version reported against expected (used by other scripts)
 ```
 $ pod=testpod version=9.1.14 ./runtest version_check
 ```
-
-#### Cloud Scripts
-
+#### Cloud Operations
+##### [TC16](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140047#case_2130495) ```remote_firmware_upgrade```
+do a cloud check and download / install a new firmware version
+```
+$ pod=testpod ./runtest remote_firmware_upgrade
+```
+##### [TC18](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140047#case_2134970) ```cloud_log_upload```
+upload the log once on a cloud check
+```
+$ pod=testpod ./runtest cloud_log_upload
+```
+##### [TC30](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140047#case_2134984) ```pool_parameters```
+verify pool parameters are set after a cloud check
+```
+$ pod=testpod ./runtest pool_parameters
+```
+##### [TC52](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140047#case_2140180) ```basic_reporting```
+verify basic info is reported to the cloud
+```
+$ pod=testpod ./runtest basic_reporting
+```
+##### [TC77](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140047#case_2147118) ```pool_data_reporting```
+verify pool measurement data is reported to the cloud
+```
+$ pod=testpod ./runtest pool_data_reporting
+```
+##### ```cloud_check```
+do a cloud check (used by other scripts)
+```
+$ pod=testpod ./runtest cloud_check
+```
