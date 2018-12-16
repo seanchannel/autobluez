@@ -86,7 +86,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify "get date" e.g. "UTC date: 2018/10/02" ============
+; ============ $EL_testname: Verify pod ID e.g. $EL_podid ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
