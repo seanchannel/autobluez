@@ -1,5 +1,7 @@
 # WaterGuru tester .profile
 
+export PATH=.:./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
+
 # always use "-s 0" with 'tail' for no-delay
 alias tail='tail -s 0'
 
