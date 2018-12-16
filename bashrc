@@ -3,7 +3,7 @@
 # always use "-s 0" with 'tail' for no-delay
 alias tail='tail -s 0'
 
-# translate hex input pasted into the command line up until ^D is pressed
+# translate hex input pasted into the terminal until ^D is pressed
 alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
 
 # send a comman to a pod without waiting for notificatsions
@@ -32,10 +32,17 @@ ble()
         gatttool -I --listen -b $POD 
 }
 
-# convert a gatt log from hex into ascii
+# "dehex <FILE>" convert a gatt log from hex into ascii
 dehex()
 {
     cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
     echo
+}
+
+# "s3log <PODID>" -- get a copy of the latest log on aws s3 for the pod ID
+s3log()
+{
+    awslog=`aws --profile qa s3 ls qa-log.waterguru.com/pod/$1/ | tail --lines=1 | awk '{print $4}'`
+    aws --profile=qa s3 cp s3://qa-log.waterguru.com/pod/$1/$awslog ${2}_$awslog
 }
 
