@@ -21,11 +21,12 @@ export EL_ssid_len=`echo -n $EL_ssid | wc -c`
 export EL_pswd_len=`echo -n $EL_pswd | wc -c`
 
 export EL_gallons=${gal:-10000}
-export EL_fc_target=${fc_target:-3.0}
-export EL_fc_limit=${fc_limit:-1.0}
-export EL_ph_target=${ph:-7.5}
-export EL_pump_time=${measure:-10000}
-export EL_flow_delta=${flow:-9.0}
+#export EL_fc_target=${fc_target:-3.0}
+#export EL_fc_limit=${fc_limit:-1.0}
+#export EL_ph_target=${ph:-7.5}
+export EL_pump_hour=${pump_hour:-3}
+export EL_pump_min=${pump_minute:-10}
+#export EL_flow_delta=${flow:-9.0}
 
 ##------------------------------------------------------------------##
 
