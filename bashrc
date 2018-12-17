@@ -44,7 +44,5 @@ dehex()
 # "s3log <PODID>" -- get a copy of the latest log on aws s3 for the pod ID
 s3log()
 {
-    awslog=`aws --profile qa s3 ls qa-log.waterguru.com/pod/$1/ | tail --lines=1 | awk '{print $4}'`
-    aws --profile=qa s3 cp s3://qa-log.waterguru.com/pod/$1/$awslog ${2}_$awslog
+    aws --profile qa s3 cp s3://qa-log.waterguru.com/pod/$1/`aws --profile qa s3 ls qa-log.waterguru.com/pod/$1/ | tail --lines=1 | awk '{print $4}'` - | grep $2
 }
-
