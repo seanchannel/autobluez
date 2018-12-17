@@ -42,7 +42,6 @@ for test in $*; do
     export EL_testname=${EL_pod}-`basename $test`
     export EL_log=logs/${EL_testname}.log
     export EL_SCREENLOG=logs/${EL_testname}-ble.log
-    export EL_awslog=logs/${EL_testname}-aws.log
 
     $test
 
