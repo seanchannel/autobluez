@@ -3,13 +3,15 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
-# XXX should we re-set parameters before this?
+# XXX re-set parameters on the pod before this
 ##-------------------------------------------------------------------##
 
 $test_in_progress=1
 ~tests/cloud/cloud_check
 $test_in_progress=0
 
+##-------------------------------------------------------------------##
+# now see what we have set locally, and compare to what the cloud says
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: Test "pool gal rd" ============
@@ -31,49 +33,9 @@ $test_in_progress=0
 -<Unknown
 <Gallons: $EL_gallons
 
-# ##------------------------------------------------------------------##
-# 
-# ; ============ $EL_testname: Test "zfcset" ============
-# >cp /dev/null $EL_SCREENLOG
-# >echo -n "zfcset" | xxd -ps
-# +$cmd=\n(.*)
-# >screen -r $EL_testname
-# >char-write-req 0x001b $cmd
-# <Characteristic value was written successfully
-# <Notification handle = 0x001b value: 46 43 20 73 65 74 20 3d
-# >
-# >>^A
-# >^D
-# >
-# 
-# ; ============ $EL_testname: Verify "zfcset" e.g. "FC set = $EL_fc_target" ============
-# >dehex $EL_SCREENLOG
-# -<Please try again
-# -<Unknown
-# <FC set = $EL_fc_target
-# 
-# ##------------------------------------------------------------------##
-# 
-# ; ============ $EL_testname: Test "get fcdosemax" ============
-# >cp /dev/null $EL_SCREENLOG
-# >echo -n "get fcdosemax" | xxd -ps
-# +$cmd=\n(.*)
-# >screen -r $EL_testname
-# >char-write-req 0x001b $cmd
-# <Characteristic value was written successfully
-# <Notification handle = 0x001b value: 64 6f 73 65 20 46 43 20 6d 61 78 20 3d
-# >
-# >>^A
-# >^D
-# >
-# 
-# ; ============ $EL_testname: Verify "get fcdosemax" e.g. "dose FC max = $EL_fc_limit" ============
-# >dehex $EL_SCREENLOG
-# -<Please try again
-# -<Unknown
-# <dose FC max = $EL_fc_limit
-# 
-# ##------------------------------------------------------------------##
+##------------------------------------------------------------------##
+# XXX now see what the cloud says 
+##------------------------------------------------------------------##
 
 ; ============ $EL_testname: Test "zfctime" ============
 >cp /dev/null $EL_SCREENLOG
@@ -94,7 +56,9 @@ $test_in_progress=0
 -<Unknown
 <Dose time = $EL_pump_hour:$EL_pump_min
 
-##-------------------------------------------------------------------##
+##------------------------------------------------------------------##
+# XXX now see what the cloud says 
+##------------------------------------------------------------------##
 
 ; ============ $EL_testname: Test "flow show" ============
 >cp /dev/null $EL_SCREENLOG
@@ -118,5 +82,8 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 # XXX get flow delta from log messages after last reboot here
 ##-------------------------------------------------------------------##
+##------------------------------------------------------------------##
+# XXX now see what the cloud says 
+##------------------------------------------------------------------##
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc
