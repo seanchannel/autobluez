@@ -3,7 +3,7 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
-# XXX set "upload log" flag for the pod on OpsGuru here in this space
+# XXX set "upload log" flag for the pod on OpsGuru here
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "set log $EL_logmark" ============
