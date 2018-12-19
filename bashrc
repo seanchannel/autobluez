@@ -1,3 +1,4 @@
+
 # WaterGuru tester .profile
 
 export PATH=.:./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
@@ -41,8 +42,27 @@ dehex()
     echo
 }
 
-# "s3log <PODID>" -- get a copy of the latest log on aws s3 for the pod ID
+# search for a keyword in the latest pod log, case insensitive
+# s3log <podId> <keyword>
 s3log()
 {
-    aws --profile qa s3 cp s3://qa-log.waterguru.com/pod/$1/`aws --profile qa s3 ls qa-log.waterguru.com/pod/$1/ | tail --lines=1 | awk '{print $4}'` - | grep $2
+    logfile=`aws --profile qa s3 ls qa-log.waterguru.com/pod/$1/ \
+        | tail --lines=1 \
+        | awk '{print $4}'`
+
+    aws --profile qa s3 cp s3://qa-log.waterguru.com/pod/$1/$logfile - \
+        | fgrep -i $2
 }
+
+# get pod details (record) and save to the file '<podId>-podRec.json' or a different filename if given.
+# podRec <podId> [<filename>]
+podrec()
+{
+    payload="'`jo podId=168 crudOp=READ returnRec=true`'"
+    outfile=${2:-$1-podRec.json} 
+
+    eval aws --profile qa lambda invoke --function-name qa-managePod --invocation-type RequestResponse \
+        --payload ${payload} $outfile
+}
+
+
