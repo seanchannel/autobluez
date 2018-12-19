@@ -3,6 +3,8 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
+# XXX setup a firmware download via OpsGuru
+##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "remote MCU firmware upgrade" ============
 @$EL_delay
@@ -33,6 +35,7 @@ $test_in_progress=1
 $test_in_progress=0
 
 ##-------------------------------------------------------------------##
+# this will fail if there is another download
 
 $test_in_progress=1
 ~tests/cloud/cloud_check
