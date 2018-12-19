@@ -3,6 +3,8 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
+# XXX should we re-set parameters before this?
+##-------------------------------------------------------------------##
 
 $test_in_progress=1
 ~tests/cloud/cloud_check
@@ -113,6 +115,8 @@ $test_in_progress=0
 -<Unknown
 <dt =
 
+##-------------------------------------------------------------------##
+# XXX get flow delta from log messages after last reboot here
 ##-------------------------------------------------------------------##
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc
