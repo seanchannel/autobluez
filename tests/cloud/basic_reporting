@@ -3,117 +3,44 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
-##-------------------------------------------------------------------##
 
 $test_in_progress=1
 ~tests/cloud/cloud_check
 $test_in_progress=0
 
-##-------------------------------------------------------------------##
-
-; ============ $EL_testname: Test "pool gal rd" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "pool gal rd" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 47 61 6c 6c 6f 6e 73 3a
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "pool gal rd" e.g. "Gallons: $EL_gallons" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<Gallons: $EL_gallons
+>podrec $EL_pod logs/$EL_testname.json
+<"StatusCode": 200
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "zfcset" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "zfcset" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 46 43 20 73 65 74 20 3d
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "zfcset" e.g. "FC set = $EL_fc_target" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<FC set = $EL_fc_target
+#; ============ $EL_testname: Verify battery e.g. "5.67" ============
+#>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
+#<$EL_gallons,
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "get fcdosemax" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "get fcdosemax" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 64 6f 73 65 20 46 43 20 6d 61 78 20 3d
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "get fcdosemax" e.g. "dose FC max = $EL_fc_limit" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<dose FC max = $EL_fc_limit
+#; ============ $EL_testname: Verify time e.g. "UTC time: 17:53:47" ============
+#>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
+#<$EL_gallons,
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "zfctime" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "zfctime" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 44 6f 73 65 20 74 69 6d 65 20 3d
->
->>^A
->^D
->
+#; ============ $EL_testname: Verify date e.g. "UTC date: 2018/10/02" ============
+#>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
+#<$EL_gallons,
 
-; ============ $EL_testname: Verify "zfctime" e.g. "Dose time = $EL_pump_time" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<Dose time = $EL_pump_time
+##------------------------------------------------------------------##
 
-##-------------------------------------------------------------------##
+; ============ $EL_testname: Verify fw version "$EL_fw_version" ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
+<$EL_gallons,
 
-; ============ $EL_testname: Test "flow show" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "flow show" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 64 74 20 3d 20 30 2e
->
->>^A
->^D
->
+##------------------------------------------------------------------##
 
-; ============ $EL_testname: Verify "flow show" e.g. "dt = $EL_flow_delta" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<dt = $EL_flow_delta
+; ============ $EL_testname: Verify BLE version "$EL_fw_bleversion" ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
+<$EL_gallons,
 
-##-------------------------------------------------------------------##
+##------------------------------------------------------------------##
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc
