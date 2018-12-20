@@ -7,7 +7,6 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "set log $EL_logmark" ============
-@$EL_delay
 >cp /dev/null $EL_SCREENLOG
 >echo -n "set log $EL_logmark" | xxd -ps
 +$cmd=\n(.*)
