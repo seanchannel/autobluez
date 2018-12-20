@@ -3,10 +3,14 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
+# do a cloud check and download the pod details
 
 $test_in_progress=1
 ~tests/cloud/cloud_check
 $test_in_progress=0
+
+>podrec $EL_pod logs/$EL_testname.json
+<"StatusCode": 200
 
 ##-------------------------------------------------------------------##
 
@@ -30,9 +34,7 @@ $test_in_progress=0
 <Gallons: $EL_gallons
 
 ; ============ $EL_testname: Verify "pool gallons in cloud" e.g. "$EL_gallons," ============
->podrec $EL_pod logs/$EL_testname.json
-<"StatusCode": 200
->cat $EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
+>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
 <$EL_gallons,
 
 ##------------------------------------------------------------------##
@@ -56,26 +58,36 @@ $test_in_progress=0
 -<Unknown
 <FC set = $EL_fc_target
 
+; ============ $EL_testname: Verify FCl target in cloud e.g. "$EL_fc_target," ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep freeClTarget | awk '{print $2}'
+<$EL_fc_target,
+
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "get fcdosemax" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "get fcdosemax" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 64 6f 73 65 20 46 43 20 6d 61 78 20 3d
->
->>^A
->^D
->
+; ============ $EL_testname: Verify PH target in cloud e.g. "$EL_ph_target," ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep phTarget | awk '{print $2}'
+<$EL_ph_target,
 
-; ============ $EL_testname: Verify "get fcdosemax" e.g. "dose FC max = $EL_fc_limit" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<dose FC max = $EL_fc_limit
+##------------------------------------------------------------------##
+
+# ; ============ $EL_testname: Test "get fcdosemax" ============
+# >cp /dev/null $EL_SCREENLOG
+# >echo -n "get fcdosemax" | xxd -ps
+# +$cmd=\n(.*)
+# >screen -r $EL_testname
+# >char-write-req 0x001b $cmd
+# <Characteristic value was written successfully
+# <Notification handle = 0x001b value: 64 6f 73 65 20 46 43 20 6d 61 78 20 3d
+# >
+# >>^A
+# >^D
+# >
+# 
+# ; ============ $EL_testname: Verify "get fcdosemax" e.g. "dose FC max = $EL_fc_limit" ============
+# >dehex $EL_SCREENLOG
+# -<Please try again
+# -<Unknown
+# <dose FC max = $EL_fc_limit
 
 ##------------------------------------------------------------------##
 
@@ -92,32 +104,24 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify "zfctime" e.g. "Dose time = $EL_pump_time" ============
+; ============ $EL_testname: Verify "zfctime" e.g. "Dose time = $EL_pod_meas_hr:$EL_meas_min" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
-<Dose time = $EL_pump_time
+<Dose time = $EL_pod_meas_hr:$EL_meas_min
+
+; ============ $EL_testname: Verify cloud measure hour e.g. "$EL_meas_hr" ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep measDoseHr | awk '{print $2}'
+<$EL_meas_hr,
+
+; ============ $EL_testname: Verify cloud measure minute e.g. "$EL_meas_min" ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep measDoseMin | awk '{print $2}'
+<$EL_meas_min,
 
 ##-------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "flow show" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "flow show" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 64 74 20 3d 20 30 2e
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "flow show" e.g. "dt = #" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<dt =
+; ============ $EL_testname: Test "flow delta threshold" ============
+# XXX TODO
 
 ##-------------------------------------------------------------------##
 
