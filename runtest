@@ -25,9 +25,9 @@ export EL_gallons=${gal:-10000}
 export EL_fc_target=${fc_target:-3.0}
 export EL_fc_limit=${fc_limit:-1.0}
 export EL_ph_target=${ph:-7.5}
-export EL_flow_hour=${flow_hour:-3}
-export EL_flow_min=${flow_minute:-10}
-#export EL_flow_delta=${flow:-9.0}
+export EL_meas_hour=${meas_hour:-3}
+export EL_meas_min=${meas_minute:-10}
+export EL_flow_delta=${delta:-9.0}
 
 ##------------------------------------------------------------------##
 
