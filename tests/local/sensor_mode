@@ -17,7 +17,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify "sensor mode" ============
+; ============ $EL_testname: Verify E.g. "Pod Mode = $EL_mode" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
