@@ -53,7 +53,7 @@
 ##-------------------------------------------------------------------##
 # check the latest log on s3 for our test mark
 
->s3log $EL_podid $EL_logmark
+>s3log $EL_pod $EL_logmark
 <$EL_logmark
 
 ##-------------------------------------------------------------------##
