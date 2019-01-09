@@ -1,13 +1,16 @@
 
-# WaterGuru tester .profile
+# WaterGuru tester handy bash aliases
 
-export PATH=.:./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
-
-# always use "-s 0" with 'tail' for no-delay
-alias tail='tail -s 0'
-
-# translate hex input pasted into the terminal until ^D is pressed
+# translate BLE hex copy/pasted in the terminal until ^D is pressed - diagnostic
 alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
+
+# same thing but work on a file, like a log file - used by tests
+# e.g. 'dehex <FILENAME>' 
+dehex()
+{
+    cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
+    echo
+}
 
 # send a comman to a pod without waiting for notificatsions
 # e.g. 'blip <mypod> restart' or 'blip <mypod> pad test 2'
@@ -35,26 +38,21 @@ ble()
     gatttool -I --listen -b $POD 
 }
 
-# "dehex <FILE>" convert a gatt log from hex into ascii
-dehex()
-{
-    cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
-    echo
-}
-
 # search for a keyword in the latest pod log, case insensitive
 # s3log <podId> <keyword>
 s3log()
 {
+    # the last file listed is the most recent log file uploaded
     logfile=`aws --profile qa s3 ls qa-log.waterguru.com/pod/$1/ \
         | tail --lines=1 \
         | awk '{print $4}'`
 
+    # dump the log file and search for the given keyword
     aws --profile qa s3 cp s3://qa-log.waterguru.com/pod/$1/$logfile - \
         | fgrep -i $2
 }
 
-# get pod details (record) and save to the file '<podId>-podRec.json' or a different filename if given.
+# get a pod record and save to the file '<podId>-podRec.json' (or a different filename if given.)
 # podRec <podId> [<filename>]
 podrec()
 {
@@ -64,5 +62,3 @@ podrec()
     eval aws --profile qa lambda invoke --function-name qa-managePod --invocation-type RequestResponse \
         --payload ${payload} $outfile
 }
-
-
