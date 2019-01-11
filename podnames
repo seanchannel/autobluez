@@ -2,7 +2,8 @@
 C8:DF:84:FC:26:55 WaterGuru:FC2655 507 220 136 bench
 C8:DF:84:FC:1E:AF WaterGuru:FC1EAF 168 207 199 176 173 163 squid
 7C:01:0A:FC:C7:8E WaterGuru:FCC78E 603 602 274 273 262 269 senso
-7C:01:0A:FC:CA:C9 WaterGuru:FCCAC9 1199 boxy
+7C:01:0A:FC:CA:C9 WaterGuru:FCCAC9 1199 sense-beta foccacia
+C8:DF:84:FC:1E:FF WaterGuru:FC1EFF eff
 # others
 D0:B5:C2:B8:09:6C WaterGuru:B8096C 86
 D0:B5:C2:B8:04:89 WaterGuru:B80489 hamed1
