@@ -46,11 +46,12 @@ for test in $*; do
     export EL_SCREENLOG=logs/${EL_testname}-ble.log
 
     $test
+    return=$?
 
-    case $? in
+    case $return in
         0) echo PASS: "$EL_testname" ;;
         *) echo FAIL: "$EL_testname" 
-           exit $? ;;
+           return $return ;;
     esac
 
 done
