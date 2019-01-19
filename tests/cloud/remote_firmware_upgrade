@@ -7,7 +7,6 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "remote MCU firmware upgrade" ============
-:$EL_delay
 @$EL_delay
 >cp /dev/null $EL_SCREENLOG
 >echo -n "cloud check" | xxd -ps
@@ -15,12 +14,12 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
+:$EL_delay
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73
 >
 >>^A
 >^D
 >
-@$EL_timeout
 
 ; ============ $EL_testname: Verify e.g. "Bytes to go: 0 bytes" ============
 >dehex $EL_SCREENLOG
