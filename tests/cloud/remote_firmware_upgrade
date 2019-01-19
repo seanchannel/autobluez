@@ -7,6 +7,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "remote MCU firmware upgrade" ============
+:$EL_delay
 @$EL_delay
 >cp /dev/null $EL_SCREENLOG
 >echo -n "cloud check" | xxd -ps
