@@ -28,6 +28,7 @@
 -<SSID NOT FOUND
 <Bytes to go: 0 bytes
 
+:$EL_delay
 ##-------------------------------------------------------------------##
 
 $test_in_progress=1
