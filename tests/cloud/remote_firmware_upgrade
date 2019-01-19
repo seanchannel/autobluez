@@ -14,7 +14,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-:$EL_delay
+:$EL_timeout
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73
 >
 >>^A
