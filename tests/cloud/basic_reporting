@@ -9,7 +9,7 @@ $test_in_progress=1
 $test_in_progress=0
 
 >podrec $EL_pod logs/$EL_testname.json
-<"StatusCode": 200
+<<"StatusCode": 200
 
 ##------------------------------------------------------------------##
 
