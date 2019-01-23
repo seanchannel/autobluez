@@ -30,6 +30,8 @@ export EL_meas_hr=${meas_hr:-10}
 export EL_meas_min=${meas_min:-11}
 export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 
+export EL_pads=${pads:-1}
+
 ##------------------------------------------------------------------##
 
 export EL_timeout=${timeout:-20}
