@@ -21,3 +21,24 @@
 >^D
 >
 
+##-------------------------------------------------------------------##
+
+; ============ $EL_testname: "set log $EL_logmark" ============
+>cp /dev/null $EL_SCREENLOG
+>echo -n "set log $EL_logmark" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 4c 4f 47 47 45 44 3a
+>
+>>^A
+>^D
+>
+
+; ============ $EL_testname: Verify e.g. "LOGGED: $EL_logmark" ============
+>dehex $EL_SCREENLOG
+-<Please try again
+-<Unknown
+<LOGGED: $EL_logmark
+
