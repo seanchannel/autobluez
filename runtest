@@ -9,7 +9,7 @@
 export EL_pod=${pod:-testpod}
 export EL_address=`fgrep -his $EL_pod podnames | awk '{print $1}'`
 export EL_mode=${mode:-Sense}
-export EL_logmark=${logmark:-TEST_SCRIPT}
+export EL_logmark=${logmark:-"TEST $pod"}
 
 export EL_fw_env=${env:-qa}
 export EL_fw_index=${index:-qa}
