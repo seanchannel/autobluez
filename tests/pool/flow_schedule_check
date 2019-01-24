@@ -3,65 +3,27 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
-# XXX set "upload log" flag for the pod on OpsGuru here
-##-------------------------------------------------------------------##
 
-; ============ $EL_testname: "set log $EL_logmark" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "set log $EL_logmark" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 4c 4f 47 47 45 44 3a
->
->>^A
->^D
->
-@$EL_timeout
-
-; ============ $EL_testname: Verify e.g. "LOGGED: $EL_logmark" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<LOGGED: $EL_logmark
-
-##-------------------------------------------------------------------##
-
-; ============ $EL_testname: "cloud check log upload" ============
-@$EL_delay
->cp /dev/null $EL_SCREENLOG
->echo -n "cloud check" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 55 70 6c 6f 61 64 20 4f 4b 3b 20 6c 6f 67 20 72 65 73 65 74 
->
->>^A
->^D
->
-@$EL_timeout
-
-; ============ $EL_testname: Verify e.g. "Upload OK; log reset" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
--<SSID NOT FOUND
-<Upload OK; log reset
-
-##-------------------------------------------------------------------##
-# check the latest log on s3 for our test mark
-
->s3log $EL_pod $EL_logmark
-<$EL_logmark
-
-##-------------------------------------------------------------------##
-# will fail here if there is another log upload
-
-$test_in_progress=1
-~tests/cloud/cloud_check
-$test_in_progress=0
+# boilerplate
+# ; ============ $EL_testname: "set log $EL_logmark" ============
+# >cp /dev/null $EL_SCREENLOG
+# >echo -n "set log $EL_logmark" | xxd -ps
+# +$cmd=\n(.*)
+# >screen -r $EL_testname
+# >char-write-req 0x001b $cmd
+# <Characteristic value was written successfully
+# <Notification handle = 0x001b value: 4c 4f 47 47 45 44 3a
+# >
+# >>^A
+# >^D
+# >
+# @$EL_timeout
+# 
+# ; ============ $EL_testname: Verify e.g. "LOGGED: $EL_logmark" ============
+# >dehex $EL_SCREENLOG
+# -<Please try again
+# -<Unknown
+# <LOGGED: $EL_logmark
 
 ##-------------------------------------------------------------------##
 
