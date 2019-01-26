@@ -4,6 +4,9 @@
 # translate BLE hex copy/pasted in the terminal until ^D is pressed - diagnostic
 alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
 
+# podserial [--logfile <FILE>] /dev/<USB/SERIAL>
+alias podserial="picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset"
+
 # same thing but work on a file, like a log file - used by tests
 # e.g. 'dehex <FILENAME>' 
 dehex()
