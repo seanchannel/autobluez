@@ -1,8 +1,5 @@
 # wg-firmware-test
 
-
-THIS IS A JUNK LINE
-
 These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). See below for details about using these scripts.
 
 ### What's in here
