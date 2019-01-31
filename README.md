@@ -23,6 +23,7 @@ Software requirements:
 * ```screen``` version 4.06 or newer is used for the interactive BLE and/or serial sessions
 * ```Expect``` is the automation engine written in Tcl/Tk
 * [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is a compact front-end for ```Expect``` and the main script interpreter
+* ```Dash``` is a minimal POSIX-compliant shell with no bash features installed as /bin/sh on Ubuntu systems
 
 Additionally, the system must be configured with a bluetooth hardware device.
 
