@@ -6,6 +6,8 @@ C8:DF:84:FC:1E:AF WaterGuru:FC1EAF 168 207 199 176 173 163 squid
 C8:DF:84:FC:1E:FF WaterGuru:FC1EFF eff
 # others
 C8:DF:84:FC:23:F2 WaterGuru:FC23F2 testpod
+# Richard - bad wifi?
+7C:01:0A:FC:C9:E0 WaterGuru:FCC9E0 1080
 # chamber orchestra
 7C:01:0A:FC:C4:58 WaterGuru:FCC458 239
 7C:01:0A:FC:C5:05 WaterGuru:FCC505
