@@ -5,7 +5,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "zlog" ============
-@$EL_DELAY_WAIT_FOR_HOST
+@$EL_delay
 >cp /dev/null $EL_SCREENLOG
 >echo -n "zlog" | xxd -ps
 +$cmd=\n(.*)
@@ -24,6 +24,7 @@
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND
+-<Upload failed
 <Upload OK; log reset
 
 ##-------------------------------------------------------------------##
