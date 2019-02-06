@@ -5,7 +5,7 @@
 ##-------------------------------------------------------------------##
 
 ; ============ $EL_testname: "zlog" ============
-@$EL_delay
+@$EL_DELAY_WAIT_FOR_HOST
 >cp /dev/null $EL_SCREENLOG
 >echo -n "zlog" | xxd -ps
 +$cmd=\n(.*)
