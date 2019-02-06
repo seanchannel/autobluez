@@ -3,125 +3,27 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ##-------------------------------------------------------------------##
-# do a cloud check and download the pod details
 
-$test_in_progress=1
-~tests/cloud/cloud_check
-$test_in_progress=0
-
->podrec $EL_pod logs/$EL_testname.json
-<<"StatusCode": 200
-
-##-------------------------------------------------------------------##
-
-; ============ $EL_testname: Test "pool gal rd" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "pool gal rd" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 47 61 6c 6c 6f 6e 73 3a
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "pool gal rd" e.g. "Gallons: $EL_gallons" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<Gallons: $EL_gallons
-
-; ============ $EL_testname: Verify "pool gallons in cloud" e.g. "$EL_gallons," ============
->cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
-<$EL_gallons,
-
-##------------------------------------------------------------------##
-
-; ============ $EL_testname: Test "zfcset" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "zfcset" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 46 43 20 73 65 74 20 3d
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "zfcset" e.g. "FC set = $EL_fc_target" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<FC set = $EL_fc_target
-
-; ============ $EL_testname: Verify FCl target in cloud e.g. "$EL_fc_target," ============
->cat logs/$EL_testname.json | jo -a -p | fgrep freeClTarget | awk '{print $2}'
-<$EL_fc_target,
-
-##------------------------------------------------------------------##
-
-; ============ $EL_testname: Verify PH target in cloud e.g. "$EL_ph_target," ============
->cat logs/$EL_testname.json | jo -a -p | fgrep phTarget | awk '{print $2}'
-<$EL_ph_target,
-
-##------------------------------------------------------------------##
-
-# ; ============ $EL_testname: Test "get fcdosemax" ============
+# boilerplate
+# ; ============ $EL_testname: "set log $EL_logmark" ============
 # >cp /dev/null $EL_SCREENLOG
-# >echo -n "get fcdosemax" | xxd -ps
+# >echo -n "set log $EL_logmark" | xxd -ps
 # +$cmd=\n(.*)
 # >screen -r $EL_testname
 # >char-write-req 0x001b $cmd
 # <Characteristic value was written successfully
-# <Notification handle = 0x001b value: 64 6f 73 65 20 46 43 20 6d 61 78 20 3d
+# <Notification handle = 0x001b value: 4c 4f 47 47 45 44 3a
 # >
 # >>^A
 # >^D
 # >
+# @$EL_timeout
 # 
-# ; ============ $EL_testname: Verify "get fcdosemax" e.g. "dose FC max = $EL_fc_limit" ============
+# ; ============ $EL_testname: Verify e.g. "LOGGED: $EL_logmark" ============
 # >dehex $EL_SCREENLOG
 # -<Please try again
 # -<Unknown
-# <dose FC max = $EL_fc_limit
-
-##------------------------------------------------------------------##
-
-; ============ $EL_testname: Test "zfctime" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "zfctime" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 44 6f 73 65 20 74 69 6d 65 20 3d
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "zfctime" e.g. "Dose time = $EL_pod_meas_hr:$EL_meas_min" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<Dose time = $EL_pod_meas_hr:$EL_meas_min
-
-; ============ $EL_testname: Verify cloud measure hour e.g. "$EL_meas_hr" ============
->cat logs/$EL_testname.json | jo -a -p | fgrep measDoseHr | awk '{print $2}'
-<$EL_meas_hr,
-
-; ============ $EL_testname: Verify cloud measure minute e.g. "$EL_meas_min" ============
->cat logs/$EL_testname.json | jo -a -p | fgrep measDoseMin | awk '{print $2}'
-<$EL_meas_min,
-
-##-------------------------------------------------------------------##
-
-; ============ $EL_testname: Test "flow delta threshold" ============
-# XXX TODO
+# <LOGGED: $EL_logmark
 
 ##-------------------------------------------------------------------##
 
