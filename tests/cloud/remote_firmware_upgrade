@@ -1,10 +1,10 @@
 #!/usr/bin/env expect-lite
 
-? $test_in_progress != 1 ? ~tests/connect.inc
-
 ##-------------------------------------------------------------------##
 # XXX setup a firmware download via OpsGuru
 ##-------------------------------------------------------------------##
+
+? $test_in_progress != 1 ? ~tests/connect.inc
 
 ; ============ $EL_testname: "remote MCU firmware upgrade" ============
 @$EL_DELAY_WAIT_FOR_HOST
@@ -14,7 +14,6 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-@90
 <Notification handle = 0x001b value: 42 79 74 65 73 20 74 6f 20 67 6f 3a 20 30 20 62 79 74 65 73
 >disconnect
 >>^A
@@ -33,29 +32,9 @@
 
 ##-------------------------------------------------------------------##
 
-; ============ $EL_testname: "version" ============
->cp /dev/null $EL_SCREENLOG
->echo -n "version" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->connect
--<Error
--<connect error
--<connect: Device or resource busy (16)
-<Connection successful
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 54 49 5f 56 45 52 53
->
->>^A
->^D
->
-
-; ============ $EL_testname: Verify "$EL_fw_version" ============
->dehex $EL_SCREENLOG
--<Please try again
--<Unknown
-<$EL_fw_version
+$test_in_progress=1
+~tests/version_check
+$test_in_progress=0
 
 ##-------------------------------------------------------------------##
 # this will fail if there is another download
