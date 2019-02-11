@@ -19,27 +19,20 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-#; ============ $EL_testname: Verify time e.g. "UTC time: 17:53:47" ============
-#>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
-#<$EL_gallons,
+; ============ $EL_testname: Verify fw series e.g. "$EL_fw_index" ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep fwSeries | awk '{print $2}'
+<<"$EL_fw_index",
 
 ##------------------------------------------------------------------##
 
-#; ============ $EL_testname: Verify date e.g. "UTC date: 2018/10/02" ============
-#>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
-#<$EL_gallons,
-
-##------------------------------------------------------------------##
-
-; ============ $EL_testname: Verify fw version "$EL_fw_version" ============
->cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
-<$EL_gallons,
-
+; ============ $EL_testname: Verify FW version "$EL_fw_version" ============
+>cat logs/$EL_testname.json | jo -a -p | fgrep fwUpdateVersion | awk '{print $2}'
+<"$EL_fw_version.*",
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: Verify BLE version "$EL_fw_bleversion" ============
->cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
-<$EL_gallons,
+>cat logs/$EL_testname.json | jo -a -p | fgrep fwBleVersion | awk '{print $2}'
+<<"$EL_fw_bleversion",
 
 ##------------------------------------------------------------------##
 
