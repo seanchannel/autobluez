@@ -5,7 +5,7 @@
 @$EL_timeout
 
 # add shell aliases for converting BLE output logs from hex to ascii
->>. ./bash_aliases
+>>. ./bashrc
 >
 
 ; ============ $EL_testname: Connect to pod ============ 
