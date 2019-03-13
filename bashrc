@@ -9,6 +9,13 @@ alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
 # podserial [--logfile <FILE>] /dev/<USB/SERIAL>
 alias podserial="picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset"
 
+# logserial <LOGFILE> <DEVICE>
+logserial()
+{
+    screen -L -Logfile $1 -S $1 \
+    picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset $2
+}
+
 # same thing but work on a file, like a log file e.g. 'dehex <FILENAME>' 
 dehex()
 {
