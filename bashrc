@@ -62,8 +62,7 @@ s3log()
         | awk '{print $4}'`
 
     # dump the log file and search for the given keyword
-    aws --profile qa s3 cp s3://qa-log.waterguru.com/pod/$1/$logfile - \
-        | fgrep -i $2
+    aws --profile qa s3 cp s3://qa-log.waterguru.com/pod/$1/$logfile - 
 }
 
 # get a pod record and save to the file '<podId>-podRec.json' (or a different filename if given.)
