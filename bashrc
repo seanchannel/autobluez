@@ -1,6 +1,9 @@
 
 # WaterGuru tester handy bash aliases
 
+# add a timestamp to the shell prompts
+alias timestamp='export PROMPT_COMMAND="echo -n \$(date +%H:%M:%S)\ "'
+
 # podserial [--logfile <FILE>] /dev/<USB/SERIAL>
 alias podserial="picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset"
 
