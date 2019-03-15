@@ -1,6 +1,4 @@
 
-export PROMPT_COMMAND="echo -n `date +%H:%M:%S`\ "
-
 # WaterGuru tester handy bash aliases
 
 # podserial [--logfile <FILE>] /dev/<USB/SERIAL>
