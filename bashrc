@@ -3,9 +3,6 @@ export PROMPT_COMMAND="echo -n `date +%H:%M:%S`\ "
 
 # WaterGuru tester handy bash aliases
 
-# translate BLE hex copy/pasted in the terminal until ^D is pressed - diagnostic
-alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
-
 # podserial [--logfile <FILE>] /dev/<USB/SERIAL>
 alias podserial="picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset"
 
@@ -16,15 +13,15 @@ logserial()
     picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset $2
 }
 
+# translate BLE hex copy/pasted in the terminal until ^D is pressed - diagnostic
+alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
+
 # same thing but work on a file, like a log file e.g. 'dehex <FILENAME>' 
 dehex()
 {
     cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
     echo
 }
-
-# podserial [--logfile <FILE>] /dev/<USB/SERIAL>
-alias podserial="picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset"
 
 # send a comman to a pod without waiting for notificatsions
 # e.g. 'blip <mypod> restart' or 'blip <mypod> pad test 2'
