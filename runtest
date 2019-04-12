@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env dash
 
 ##
 ## Default parameterss for testing. Set on the command line to change, e.g.:
