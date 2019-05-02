@@ -2,8 +2,6 @@
 
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
-? $test_in_progress != 1 ? ~tests/connect-power.inc
-
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: Test "get temp" ============
@@ -67,7 +65,7 @@ $test_in_progress=0
 >>^A
 >^D
 >
-:$EL_timeout
+:20
 ### 80
 >echo -n "80" | xxd -ps
 +$cmd=\n(.*)

@@ -8,7 +8,7 @@
 >>. ./bashrc
 >
 
-; ============ $EL_testname: Connect to pod ============ 
+; ============ $EL_testname: Connect to BLE ============ 
 */[$EL_address][LE]>/
 >screen -c screenrc -L -Logfile $EL_SCREENLOG -S $EL_testname gatttool -I --listen -b $EL_address
 >connect
@@ -20,6 +20,18 @@
 >>^A
 >^D
 >
+
+; ============ $EL_testname: Connect to Power Supply ============ 
+
+? $EL_powerdev == NONE ? %SKIP_POWER_LOG
+>>screen -c screenrc -L -Logfile $EL_POWERLOG -S power-${EL_testname} picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_powerdev
+<<Terminal ready
+>>*IDN?
+<<B&K Precision, 9201
+>>^A
+>^D
+>
+%SKIP_POWER_LOG
 
 ##-------------------------------------------------------------------##
 
