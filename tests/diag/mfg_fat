@@ -2,6 +2,8 @@
 
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
+? $test_in_progress != 1 ? ~tests/connect-power.inc
+
 ##------------------------------------------------------------------##
 
 ; ============ $EL_testname: Test "get temp" ============
