@@ -39,7 +39,7 @@ $test_in_progress=0
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 72 65 74 63 6f 64 65 20 3d 09 30
+<Notification handle = 0x001b value: 72 65 74 63 6f 64 65 20 3d 09 30 00
 >
 >>^A
 >^D
@@ -66,6 +66,7 @@ $test_in_progress=0
 >^D
 >
 :$EL_timeout
+### 80
 >echo -n "80" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
