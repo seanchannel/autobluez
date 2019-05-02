@@ -13,7 +13,7 @@ export EL_logmark=${logmark:-"TEST$pod"}
 
 export EL_fw_env=${env:-qa}
 export EL_fw_index=${index:-qa}
-export EL_fw_version=${version:-v9.1}
+export EL_fw_version=${version:-v9.1.17}
 export EL_fw_bleversion=${bleversion:-11}
 
 export EL_ssid=${ssid:-WG2}
