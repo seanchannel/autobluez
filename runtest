@@ -34,7 +34,7 @@ export EL_pads=${pads:-1}
 
 ##------------------------------------------------------------------##
 
-export EL_timeout=${timeout:-20}
+export EL_timeout=${timeout:-30}
 export EL_delay=${delay:-60}
 export EL_DELAY_WAIT_FOR_HOST=${EL_timeout}00
 export EL_SCREENRC=screenrc
