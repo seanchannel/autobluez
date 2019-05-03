@@ -6,9 +6,23 @@
 ## $ ssid=Barnacle pswd=clearwater timeout=100 ./runtest tests/wifi_setup
 ##
 
-export EL_pod=${pod:-FCC314}
+if [ -z $EL_user ]; then
+    echo -n "Please enter User ID: "
+    read EL_user
+fi
+export EL_user
 
-export EL_logmark=${logmark:-"TEST$pod"}
+if [ -z $EL_mfg ]; then
+    echo -n "Please enter MFG Batch ID: "
+    read EL_mfg
+fi
+export EL_mfg
+
+if [ -z $EL_pod ]; then
+    echo -n "Please enter Pod ID: "
+    read EL_pod
+fi
+export EL_pod
 
 export EL_fw_mode=${mode:-Sense}
 export EL_fw_env=${env:-qa}
