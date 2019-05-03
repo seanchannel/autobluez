@@ -1,28 +1,29 @@
 #!/usr/bin/env dash
 
-##
-## Default parameterss for testing. Set on the command line to change, e.g.:
-##
-## $ ssid=Barnacle pswd=clearwater timeout=100 ./runtest tests/wifi_setup
-##
-
-if [ -z $EL_user ]; then
+## get User ID, Mfg batch, and Pod ID
+if [ -z $user ]; then
     echo -n "Please enter User ID: "
-    read EL_user
+    read user
 fi
-export EL_user
+export EL_user=$user
 
-if [ -z $EL_mfg ]; then
-    echo -n "Please enter MFG Batch ID: "
-    read EL_mfg
+if [ -z $mfg ]; then
+    echo -n "Please enter S/N or MFG Batch ID: "
+    read mfg
 fi
-export EL_mfg
+export EL_mfg=$mfg
 
-if [ -z $EL_pod ]; then
+if [ -z $pod ]; then
     echo -n "Please enter Pod ID: "
-    read EL_pod
+    read pod
 fi
-export EL_pod
+export EL_pod=$pod
+
+## export serial and power console if set
+export EL_serial={$serial:-NONE}
+export EL_power=${power:-NONE}
+
+## Defaults for tests
 
 export EL_fw_mode=${mode:-Sense}
 export EL_fw_env=${env:-qa}
@@ -46,9 +47,7 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 
 export EL_pads=${pads:-1}
 
-export EL_powerdev=${usbdev:-NONE}
-
-##------------------------------------------------------------------##
+## test execution setup
 
 export EL_timeout=${timeout:-40}
 export EL_delay=${delay:-60}
@@ -57,7 +56,8 @@ export EL_SCREENRC=screenrc
 export EL_SHELL=/bin/sh
 export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
 
-# run each argument as a test script
+## run each test given on the command line
+
 for test in $*; do
     export EL_testname=${EL_pod}-`basename $test`
     export EL_log=logs/${EL_testname}.log

@@ -10,10 +10,10 @@
 
 ; ============ $EL_testname: Connect to BLE ============ 
 
->>hcitool lescan > lescan
+>hcitool lescan >> logs/blescan
 :5
 >^C
->fgrep $EL_pod lescan
+> sort -u logs/blescan | fgrep $EL_pod
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
 >
 
@@ -31,8 +31,8 @@
 
 ; ============ $EL_testname: Connect to Power Supply ============ 
 
-? $EL_powerdev == NONE ? %SKIP_POWER_LOG
->>screen -c screenrc -L -Logfile $EL_POWERLOG -S power-${EL_testname} picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_powerdev
+? $EL_power == NONE ? %SKIP_POWER_LOG
+>>screen -c screenrc -L -Logfile $EL_POWERLOG -S power-${EL_testname} picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_power
 <<Terminal ready
 >>*IDN?
 <<B&K Precision, 9201
