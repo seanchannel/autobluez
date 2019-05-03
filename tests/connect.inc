@@ -9,8 +9,16 @@
 >
 
 ; ============ $EL_testname: Connect to BLE ============ 
-*/[$EL_address][LE]>/
->screen -c screenrc -L -Logfile $EL_SCREENLOG -S $EL_testname gatttool -I --listen -b $EL_address
+
+>>hcitool lescan > lescan
+:5
+>^C
+>fgrep $EL_pod lescan
++$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
+>
+
+*/[$address][LE]>/
+>screen -c screenrc -L -Logfile $EL_SCREENLOG -S $EL_testname gatttool -I --listen -b $address
 >connect
 -<Error
 -<connect error

@@ -6,8 +6,7 @@
 ## $ ssid=Barnacle pswd=clearwater timeout=100 ./runtest tests/wifi_setup
 ##
 
-export EL_pod=${pod:-testpod}
-export EL_address=`fgrep -his $EL_pod podnames | awk '{print $1}'`
+export EL_pod=${pod:-FCC314}
 
 export EL_logmark=${logmark:-"TEST$pod"}
 
