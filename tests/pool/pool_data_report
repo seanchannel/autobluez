@@ -5,9 +5,9 @@
 ##-------------------------------------------------------------------##
 
 # boilerplate
-# ; ============ $EL_testname: "set log $EL_logmark" ============
+# ; ============ $EL_testname: "set log $EL_testname" ============
 # >cp /dev/null $EL_SCREENLOG
-# >echo -n "set log $EL_logmark" | xxd -ps
+# >echo -n "set log $EL_testname" | xxd -ps
 # +$cmd=\n(.*)
 # >screen -r $EL_testname
 # >char-write-req 0x001b $cmd
@@ -19,11 +19,11 @@
 # >
 # @$EL_timeout
 # 
-# ; ============ $EL_testname: Verify e.g. "LOGGED: $EL_logmark" ============
+# ; ============ $EL_testname: Verify e.g. "LOGGED: $EL_testname" ============
 # >dehex $EL_SCREENLOG
 # -<Please try again
 # -<Unknown
-# <LOGGED: $EL_logmark
+# <LOGGED: $EL_testname
 
 ##-------------------------------------------------------------------##
 

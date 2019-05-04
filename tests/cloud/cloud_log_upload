@@ -34,8 +34,8 @@
 ##-------------------------------------------------------------------##
 # check the latest log on s3 for our test mark
 
->s3log $EL_pod $EL_logmark
-<$EL_logmark
+>s3log $EL_pod $EL_testname
+<$EL_testname
 
 ##-------------------------------------------------------------------##
 # will fail here if there is another log upload
