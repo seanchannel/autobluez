@@ -5,7 +5,7 @@
 ##-------------------------------------------------------------------##
 
 # boilerplate
-# ; ============ $EL_testname: "set log $EL_testname" ============
+# ; ============ WaterGuru $EL_pod $EL_testname: "set log $EL_testname" ============
 # >cp /dev/null $EL_SCREENLOG
 # >echo -n "set log $EL_testname" | xxd -ps
 # +$cmd=\n(.*)
@@ -19,7 +19,7 @@
 # >
 # @$EL_timeout
 # 
-# ; ============ $EL_testname: Verify e.g. "LOGGED: $EL_testname" ============
+# ; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "LOGGED: $EL_testname" ============
 # >dehex $EL_SCREENLOG
 # -<Please try again
 # -<Unknown

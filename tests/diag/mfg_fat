@@ -4,7 +4,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "get temp" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "get temp" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "get temp" | xxd -ps
 +$cmd=\n(.*)
@@ -18,7 +18,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify output "get temp" e.g. "water temp = 67.0" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify output "get temp" e.g. "water temp = 67.0" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -32,7 +32,7 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "pad dist 10000" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "pad dist 10000" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "pad dist 10000" | xxd -ps
 +$cmd=\n(.*)
@@ -45,7 +45,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify output "pad dist 10000" e.g. "retcode = 0" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify output "pad dist 10000" e.g. "retcode = 0" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -53,7 +53,7 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "820B46FF (RGB lights)" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "820b46ff" | xxd -ps
 +$cmd=\n(.*)
@@ -78,7 +78,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify output "820B46FF (RGB lights)" e.g. "EXECUTED 0x820B46FF" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify output "820B46FF (RGB lights)" e.g. "EXECUTED 0x820B46FF" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

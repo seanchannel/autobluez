@@ -4,7 +4,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: set "fw env" ============
+; ============ WaterGuru $EL_pod $EL_testname: set "fw env" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "fw env $EL_fw_env" | xxd -ps
 +$cmd=\n(.*)
@@ -17,7 +17,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify set "fw env" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify set "fw env" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -25,7 +25,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: show "fw env" ============
+; ============ WaterGuru $EL_pod $EL_testname: show "fw env" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "fw env" | xxd -ps
 +$cmd=\n(.*)
@@ -38,7 +38,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify show "fw env" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify show "fw env" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -46,7 +46,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: set "fw index" ============
+; ============ WaterGuru $EL_pod $EL_testname: set "fw index" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "fw index $EL_fw_index" | xxd -ps
 +$cmd=\n(.*)
@@ -59,7 +59,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify set "fw index" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify set "fw index" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -67,7 +67,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: show "fw index" ============
+; ============ WaterGuru $EL_pod $EL_testname: show "fw index" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "fw index" | xxd -ps
 +$cmd=\n(.*)
@@ -80,7 +80,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify show "fw index" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify show "fw index" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -88,7 +88,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: download "fw dwld" ============
+; ============ WaterGuru $EL_pod $EL_testname: download "fw dwld" ============
 @$EL_DELAY_WAIT_FOR_HOST
 >cp /dev/null $EL_SCREENLOG
 >echo -n "fw dwld" | xxd -ps
@@ -104,7 +104,7 @@
 >
 @$EL_timeout
 
-; ============ $EL_testname: Verify download "fw dwld" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify download "fw dwld" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -114,7 +114,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: "fw inst" ============
+; ============ WaterGuru $EL_pod $EL_testname: "fw inst" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "fw inst" | xxd -ps
 +$cmd=\n(.*)
@@ -127,7 +127,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify "fw inst" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "fw inst" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -137,7 +137,7 @@
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: "version" ============
+; ============ WaterGuru $EL_pod $EL_testname: "version" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
@@ -155,7 +155,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify "$EL_fw_version" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "$EL_fw_version" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

@@ -4,7 +4,7 @@
 
 ##-------------------------------------------------------------------##
 
-; ============ $EL_testname: "zlog" ============
+; ============ WaterGuru $EL_pod $EL_testname: "zlog" ============
 @$EL_delay
 >cp /dev/null $EL_SCREENLOG
 >echo -n "zlog" | xxd -ps
@@ -19,7 +19,7 @@
 >
 @$EL_timeout
 
-; ============ $EL_testname: Verify e.g. "Upload OK; log reset" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "Upload OK; log reset" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

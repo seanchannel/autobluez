@@ -6,7 +6,7 @@
 
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
-; ============ $EL_testname: "remote MCU firmware upgrade" ============
+; ============ WaterGuru $EL_pod $EL_testname: "remote MCU firmware upgrade" ============
 @$EL_DELAY_WAIT_FOR_HOST
 >cp /dev/null $EL_SCREENLOG
 >echo -n "cloud check" | xxd -ps
@@ -21,7 +21,7 @@
 >
 @$EL_timeout
 
-; ============ $EL_testname: Verify e.g. "Bytes to go: 0 bytes" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "Bytes to go: 0 bytes" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

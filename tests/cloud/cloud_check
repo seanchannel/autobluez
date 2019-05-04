@@ -8,7 +8,7 @@
 
 ##-------------------------------------------------------------------##
 
-; ============ $EL_testname: "cloud check" ============
+; ============ WaterGuru $EL_pod $EL_testname: "cloud check" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "cloud check" | xxd -ps
 +$cmd=\n(.*)
@@ -21,7 +21,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify e.g. "Cloud check done" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "Cloud check done" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

@@ -8,7 +8,7 @@
 >>. ./bashrc
 >
 
-; ============ $EL_testname: Connect to WaterGuru $EL_pod ============ 
+; ============ WaterGuru $EL_pod $EL_testname: Connect to WaterGuru $EL_pod ============ 
 
 >hcitool lescan >> logs/blescan
 :5
@@ -30,7 +30,7 @@
 >
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
-; ============ $EL_testname: Connect to Power Supply $EL_power ============ 
+; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
 >>screen -c screenrc -L -Logfile $EL_POWERLOG -S power-${EL_testname} picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_power
 <<Terminal ready
 >>*IDN?
@@ -42,9 +42,9 @@
 
 ##-------------------------------------------------------------------##
 
-; ============ $EL_testname: log test start ============
+; ============ WaterGuru $EL_pod $EL_testname: log test start ============
 >cp /dev/null $EL_SCREENLOG
->echo -n "set log $EL_testname" | xxd -ps
+>echo -n "set log \"$EL_testname\"" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
@@ -55,7 +55,7 @@
 >^D
 >
 
-; ============ $EL_testname: Verify e.g. "LOGGED: $EL_testname" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "LOGGED: $EL_testname" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

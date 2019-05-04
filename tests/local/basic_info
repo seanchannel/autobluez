@@ -10,7 +10,7 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "get volt" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "get volt" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "get volt" | xxd -ps
 +$cmd=\n(.*)
@@ -23,7 +23,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify "get volt" e.g. "Vbat =  5.67" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "get volt" e.g. "Vbat =  5.67" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -31,7 +31,7 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "get time" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "get time" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "get time" | xxd -ps
 +$cmd=\n(.*)
@@ -44,7 +44,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify "get time" e.g. "UTC time: 17:53:47" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "get time" e.g. "UTC time: 17:53:47" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -52,7 +52,7 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "get date" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "get date" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "get date" | xxd -ps
 +$cmd=\n(.*)
@@ -65,7 +65,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify "get date" e.g. "UTC date: 2019/01/07" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "get date" e.g. "UTC date: 2019/01/07" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -73,7 +73,7 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-; ============ $EL_testname: Test "pod rdid" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "pod rdid" ============
 >cp /dev/null $EL_SCREENLOG
 >echo -n "pod rdid" | xxd -ps
 +$cmd=\n(.*)
@@ -86,7 +86,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ $EL_testname: Verify pod ID e.g. $EL_podid ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify pod ID e.g. $EL_podid ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown

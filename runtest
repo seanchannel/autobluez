@@ -59,10 +59,10 @@ export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
 ## run each test given on the command line
 
 for test in $*; do
-    export EL_testname=${EL_pod}-`basename $test`
-    export EL_log=logs/${EL_testname}.log
-    export EL_SCREENLOG=logs/${EL_testname}-ble.log
-    export EL_POWERLOG=logs/${EL_testname}-power.log
+    export EL_testname=`basename $test`
+    export EL_log=logs/${EL_pod}-${EL_testname}.log
+    export EL_SCREENLOG=logs/${EL_pod}-${EL_testname}-ble.log
+    export EL_POWERLOG=logs/${EL_pod}-${EL_testname}-power.log
 
     $test
     return=$?
