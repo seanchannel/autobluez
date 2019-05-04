@@ -8,7 +8,7 @@
 >>. ./bashrc
 >
 
-; ============ WaterGuru $EL_pod $EL_testname: Connect to WaterGuru $EL_pod ============ 
+; ============ WaterGuru $EL_pod $EL_testname: Connect to BLE ============ 
 
 >hcitool lescan >> logs/blescan
 :5

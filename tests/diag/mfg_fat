@@ -18,7 +18,7 @@
 >^D
 >
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify output "get temp" e.g. "water temp = 67.0" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "get temp" e.g. "water temp = 67.0" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -45,7 +45,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify output "pad dist 10000" e.g. "retcode = 0" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" e.g. "retcode = 0" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -78,7 +78,7 @@ $test_in_progress=0
 >^D
 >
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify output "820B46FF (RGB lights)" e.g. "EXECUTED 0x820B46FF" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)" e.g. "EXECUTED 0x820B46FF" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
