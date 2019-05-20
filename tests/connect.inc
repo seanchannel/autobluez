@@ -35,6 +35,10 @@
 <<Terminal ready
 >>*IDN?
 <<B&K Precision, 9201
+# loop here measuring current used
+#
+# >>MEAS:VOLT?
+#
 >>^A
 >^D
 >
