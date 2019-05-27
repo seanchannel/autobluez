@@ -1,4 +1,5 @@
 
+HISTTIMEFORMAT='%d/%m/%y %T '
 # WaterGuru tester handy bash aliases
 
 # add a timestamp to the shell prompts
