@@ -1,0 +1,34 @@
+
+# log, timeout, and screen defaults file
+# *NOCOLOR
+*NOLOG
+# @$EL_timeout
+
+; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
+>>picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_power
+<<Terminal ready
+>>*IDN?
+<<B&K Precision, 9201
+
+# loop here measuring current used
+#
+# >>MEAS:VOLT?
+#
+
+; ======== Incrementing Loop ========
+$max=5
+$count=3
+%REPEAT_INC_LOOP
+	>echo $count
+	# increment variable
+	+$count
+?if $count <= $max ?%REPEAT_INC_LOOP
+
+; === while loop with sleep
+$eth_status=DOWN
+[ $eth_status == DOWN 
+	>ip link show dev eth0
+        +$eth_status=(DOWN|UP)
+	:1
+]  
+

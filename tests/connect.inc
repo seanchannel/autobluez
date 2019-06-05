@@ -29,20 +29,20 @@
 >^D
 >
 
-? $EL_power == NONE ? %SKIP_POWER_LOG
-; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
->>screen -c screenrc -L -Logfile $EL_POWERLOG -S power-${EL_testname} picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_power
-<<Terminal ready
->>*IDN?
-<<B&K Precision, 9201
-# loop here measuring current used
-#
-# >>MEAS:VOLT?
-#
->>^A
->^D
->
-%SKIP_POWER_LOG
+# ? $EL_power == NONE ? %SKIP_POWER_LOG
+# ; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
+# >>screen -c screenrc -L -Logfile $EL_POWERLOG -S power-${EL_testname} picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_power
+# <<Terminal ready
+# >>*IDN?
+# <<B&K Precision, 9201
+# # loop here measuring current used
+# #
+# # >>MEAS:VOLT?
+# #
+# >>^A
+# >^D
+# >
+# %SKIP_POWER_LOG
 
 ##-------------------------------------------------------------------##
 
