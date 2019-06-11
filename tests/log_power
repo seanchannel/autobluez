@@ -1,37 +1,21 @@
 #!/usr/bin/env expect-lite
 
-# log, timeout, and screen defaults file
-#*NOCOLOR
-#*NOLOG
-#*NOINFO
+*NOINFO
 #*NOWARN
-#*NODEBUG
 #*TIMESTAMP
 */\n/
-#*EOLS CRLF
 
-# ; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
+; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
 
 >>picocom --baud 9600 --echo --omap crcrlf --imap lfcrlf -r $EL_power
 <<Terminal ready
 >>*IDN?
 <B&K Precision, 9201(.*)\n
 
-# ; === while loop
 $count=0
 [ $count < 3
-    >MEAS:CURR?
+    >>MEAS:CURR?
     <[0-9](.*)\n
-    +$count
-    :1
+    :2
 ]     
 
-# ; ======== Incrementing Loop ========
-# $max=5
-# $count=0
-# %REPEAT_INC_LOOP
-#     >>MEAS:CURR?
-#     <[0-9](.*)\n
-#     +$count
-#     :1
-# ?if $count <= $max ?%REPEAT_INC_LOOP
