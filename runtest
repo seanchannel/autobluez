@@ -63,6 +63,7 @@ for test in $*; do
     export EL_log=logs/${EL_pod}-${EL_testname}.log
     export EL_SCREENLOG=logs/${EL_pod}-${EL_testname}-ble.log
     export EL_POWERLOG=logs/${EL_pod}-${EL_testname}-power.log
+    export EL_SCANLOG=logs/${EL_pod}-${EL_testname}-blescan.log
 
     $test
     return=$?

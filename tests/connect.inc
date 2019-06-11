@@ -10,7 +10,7 @@
 
 ; ============ WaterGuru $EL_pod $EL_testname: Connect to BLE ============ 
 
->hcitool lescan >> logs/blescan
+>hcitool lescan >> $EL_SCANLOG
 :5
 >^C
 > sort -u logs/blescan | fgrep $EL_pod
