@@ -13,7 +13,7 @@
 >hcitool lescan >> $EL_SCANLOG
 :5
 >^C
-> sort -u logs/blescan | fgrep $EL_pod
+> sort -u $EL_SCANLOG | fgrep $EL_pod
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
 >
 
@@ -48,20 +48,22 @@
 
 ; ============ WaterGuru $EL_pod $EL_testname: log test start ============
 >cp /dev/null $EL_SCREENLOG
->echo -n "set log \"$EL_testname\"" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 4c 4f 47 47 45 44 3a
->
->>^A
->^D
->
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n set log start | xxd -ps`\015"
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "LOGGED: $EL_testname" ============
+#>echo -n "set log \"$EL_testname\"" | xxd -ps
+#+$cmd=\n(.*)
+#>screen -r $EL_testname
+#>char-write-req 0x001b $cmd
+#<Characteristic value was written successfully
+#<Notification handle = 0x001b value: 4c 4f 47 47 45 44 3a
+#>
+#>>^A
+#>^D
+#>
+
+; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "LOGGED: start" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
-<LOGGED: $EL_testname
+<LOGGED: start
 

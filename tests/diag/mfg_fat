@@ -1,22 +1,15 @@
 #!/usr/bin/env expect-lite
 
-? $test_in_progress != 1 ? ~tests/connect.inc
+# *NOINFO
+
+~tests/connect.inc
 
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "get temp" ============
 >cp /dev/null $EL_SCREENLOG
->echo -n "get temp" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 77 61 74 65 72 20 74 65 6d 70
-
->
->>^A
->^D
->
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
+:10
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "get temp" e.g. "water temp = 67.0" ============
 >dehex $EL_SCREENLOG
@@ -26,57 +19,41 @@
 
 ##------------------------------------------------------------------##
 
-$test_in_progress=1
-~tests/version_check
-$test_in_progress=0
+; ============ WaterGuru $EL_pod $EL_testname: test BLE and MCU version ============
+>cp /dev/null $EL_SCREENLOG
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
+:5
+
+; ============ WaterGuru $EL_pod $EL_testname: Verify BLE and MCU firmware versions ============
+>dehex $EL_SCREENLOG
+-<Please try again
+-<Unknown
+<TI_VERS = $EL_fw_bleversion
+<$EL_fw_version
 
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "pad dist 10000" ============
 >cp /dev/null $EL_SCREENLOG
->echo -n "pad dist 10000" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 72 65 74 63 6f 64 65 20 3d 09 30 00
->
->>^A
->^D
->
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
+:40
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" e.g. "retcode = 0" ============
+; ============ WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" output ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
+<vbat =
 <retcode =
+<mAs=
 
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)" ============
 >cp /dev/null $EL_SCREENLOG
->echo -n "820b46ff" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 45 58 45 43 55 54 49 4e 47 20 30 78 38 32 30 42 34 36 46 46
->
->>^A
->^D
->
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
 :20
-### 80
->echo -n "80" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 45 58 45 43 55 54 45 44 20 30 78 38 32 30 42 34 36 46 46 00
->
->>^A
->^D
->
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 80 | xxd -ps`\015"
+:5
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)" e.g. "EXECUTED 0x820B46FF" ============
 >dehex $EL_SCREENLOG

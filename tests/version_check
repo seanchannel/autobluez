@@ -4,20 +4,23 @@
 
 ##------------------------------------------------------------------##
 
-; ============ WaterGuru $EL_pod $EL_testname: fw version ============
+; ============ WaterGuru $EL_pod $EL_testname: test BLE and MCU version ============
 >cp /dev/null $EL_SCREENLOG
->echo -n "version" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 54 49 5f 56 45 52 53
->
->>^A
->^D
->
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
+:5
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify MCU and BLE firmware version ============
+#>echo -n "version" | xxd -ps
+#+$cmd=\n(.*)
+#>screen -r $EL_testname
+#>char-write-req 0x001b $cmd
+#<Characteristic value was written successfully
+#<Notification handle = 0x001b value: 54 49 5f 56 45 52 53
+#>
+#>>^A
+#>^D
+#>
+
+; ============ WaterGuru $EL_pod $EL_testname: Verify BLE and MCU firmware versions ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
