@@ -1,7 +1,7 @@
 
 # log, timeout, and screen defaults file
 *NOCOLOR
-*LOG $EL_log
+*LOGAPPEND $EL_log
 @$EL_timeout
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_SCREENLOG
