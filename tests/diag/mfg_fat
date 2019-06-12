@@ -1,13 +1,12 @@
 #!/usr/bin/env expect-lite
 
-# *NOINFO
-
 ~tests/connect.inc
+# *NOINFO
 
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "get temp" ============
->cp /dev/null $EL_SCREENLOG
+#>cp /dev/null $EL_SCREENLOG
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :10
 
@@ -20,7 +19,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: test BLE and MCU version ============
->cp /dev/null $EL_SCREENLOG
+#>cp /dev/null $EL_SCREENLOG
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 :5
 
@@ -34,7 +33,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "pad dist 10000" ============
->cp /dev/null $EL_SCREENLOG
+#>cp /dev/null $EL_SCREENLOG
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :40
 
@@ -49,7 +48,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)" ============
->cp /dev/null $EL_SCREENLOG
+#>cp /dev/null $EL_SCREENLOG
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
 :20
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 80 | xxd -ps`\015"
@@ -63,4 +62,7 @@
 
 ##------------------------------------------------------------------##
 
-? $test_in_progress != 1 ? ~tests/cleanup.inc
+; ============ WaterGuru $EL_pod $EL_testname: log test end and cleanup ============
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n set log start | xxd -ps`\015"
+>screen -r $EL_testname -S -X stuff 'exit\015'
+>killall screen
