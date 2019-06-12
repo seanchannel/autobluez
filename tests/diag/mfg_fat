@@ -1,9 +1,8 @@
 #!/usr/bin/env expect-lite
 
+*TIMESTAMP
 ~tests/connect.inc
 # *NOINFO
-
-##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "get temp" ============
 #>cp /dev/null $EL_SCREENLOG
@@ -16,7 +15,8 @@
 -<Unknown
 <water temp = [1-9][0-9]*\.[0-9]
 
-##------------------------------------------------------------------##
+; ============ WaterGuru $EL_pod $EL_testname: Verify "get temp" power consumption ============
+>tail -10 $EL_POWERLOG
 
 ; ============ WaterGuru $EL_pod $EL_testname: test BLE and MCU version ============
 #>cp /dev/null $EL_SCREENLOG
@@ -30,7 +30,8 @@
 <TI_VERS = $EL_fw_bleversion
 <$EL_fw_version
 
-##------------------------------------------------------------------##
+; ============ WaterGuru $EL_pod $EL_testname: Verify BLE and MCU firmware version power consumption  ============
+>tail -5 $EL_POWERLOG
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "pad dist 10000" ============
 #>cp /dev/null $EL_SCREENLOG
@@ -45,7 +46,8 @@
 <retcode =
 <mAs=
 
-##------------------------------------------------------------------##
+; ============ WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" power consumption ============
+>tail -40 $EL_POWERLOG
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)" ============
 #>cp /dev/null $EL_SCREENLOG
@@ -59,8 +61,9 @@
 -<Please try again
 -<Unknown
 <EXECUTED 0x820B46FF
-
-##------------------------------------------------------------------##
+ 
+; ============ WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)" power consumption ============
+>tail -25 $EL_POWERLOG
 
 ; ============ WaterGuru $EL_pod $EL_testname: log test end and cleanup ============
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n set log end | xxd -ps`\015"

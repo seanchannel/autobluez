@@ -2,7 +2,7 @@
 
 *NOINFO
 #*NOWARN
-#*TIMESTAMP
+*TIMESTAMP
 */\n/
 
 ; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
