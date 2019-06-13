@@ -52,8 +52,8 @@ export EL_pads=${pads:-1}
 export EL_timeout=${timeout:-40}
 export EL_delay=${delay:-60}
 export EL_DELAY_WAIT_FOR_HOST=3000
-export EL_SCREENRC=screenrc
-export EL_SHELL=/bin/sh
+export EL_SCREENRC=.screenrc
+export EL_SHELL=/bin/dash
 export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
 
 ## run each test given on the command line

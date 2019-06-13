@@ -5,7 +5,7 @@
 @$EL_timeout
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_SCREENLOG
->>. ./bashrc
+>>. ./.bashrc
 
 ; ============ WaterGuru $EL_pod $EL_testname: Connect to BLE ============ 
 
@@ -17,7 +17,7 @@
 >
 
 */[$address][LE]>/
->screen -c screenrc -L -Logfile $EL_SCREENLOG -S $EL_testname gatttool -I --listen -b $address
+>screen -c $EL_SCREENRC -L -Logfile $EL_SCREENLOG -S $EL_testname gatttool -I --listen -b $address
 >connect
 -<Error
 -<connect error
@@ -30,7 +30,7 @@
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
 ; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
->screen -c screenrc -L -Logfile $EL_POWERLOG -S ${EL_testname}_power -d -m tests/log_power
+>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}_power -d -m tests/log_power
 # %SKIP_POWER_LOG
 
 ##-------------------------------------------------------------------##

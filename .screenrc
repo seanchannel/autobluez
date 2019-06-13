@@ -5,4 +5,4 @@ startup_message off
 logfile flush 0
 
 # use a basic POSIX shell, not bash
-shell /bin/sh
+shell /bin/dash
