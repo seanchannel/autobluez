@@ -29,7 +29,7 @@ dehex()
 # e.g. 'blip <mypod> restart' or 'blip <mypod> pad test 2'
 blip()
 {
-    POD=`fgrep -his $1 logs/.keep | awk '{print $1}'`; shift
+    POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
     COMMAND=`echo -n $* | xxd -ps`
 
     gatttool -b $POD --char-write-req --handle=0x001b --value=$COMMAND
@@ -39,7 +39,7 @@ blip()
 # same syntax as above, but stays connected until you press Control-c.
 bleep()
 {
-    POD=`fgrep -his $1 logs/.keep | awk '{print $1}'`; shift
+    POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
     COMMAND=`echo -n $* | xxd -ps`
     gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
@@ -47,7 +47,7 @@ bleep()
 # connect to pod BLE in gatttool. leaves you at the gatttool prompt until exit
 ble()
 {
-    POD=`fgrep -his $1 logs/.keep | awk '{print $1}'`; shift
+    POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
     gatttool -I --listen -b $POD 
 }
 

@@ -20,7 +20,7 @@ fi
 export EL_pod=$pod
 
 ## export serial and power console if set
-export EL_serial={$serial:-NONE}
+export EL_serial=${serial:-NONE}
 export EL_power=${power:-NONE}
 
 ## Defaults for tests
