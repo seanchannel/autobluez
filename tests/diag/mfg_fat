@@ -1,6 +1,7 @@
 #!/usr/bin/env expect-lite
 
 *TIMESTAMP
+*~tests/cleanup.inc
 ~tests/connect.inc
 # *NOINFO
 
