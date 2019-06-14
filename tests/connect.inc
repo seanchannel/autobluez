@@ -7,7 +7,7 @@
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_SCREENLOG
 >>. ./.bashrc
 
-; ============ WaterGuru $EL_pod $EL_testname: Connect to BLE ============ 
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Connect
 
 >hcitool lescan >> $EL_SCANLOG
 :10
@@ -29,17 +29,12 @@
 >
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
-; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
 >screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}_power -d -m tests/log_power
 # %SKIP_POWER_LOG
 
-##-------------------------------------------------------------------##
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: log test start 
 
-; ============ WaterGuru $EL_pod $EL_testname: log test start ============
-#>cp /dev/null $EL_SCREENLOG
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n set log start | xxd -ps`\015"
-
-; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "LOGGED: start" ============
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
