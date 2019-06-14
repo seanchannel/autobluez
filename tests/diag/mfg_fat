@@ -4,39 +4,42 @@
 *~tests/cleanup.inc
 ~tests/connect.inc
 # *NOINFO
+~=5
 
-; ============ WaterGuru $EL_pod $EL_testname: Test "get temp" ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "get temp" 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
-:10
+:2
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "get temp" e.g. "water temp = 67.0" ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "get temp"
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <water temp = [1-9][0-9]*\.[0-9]
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "get temp" power consumption ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "get temp" power use
 >tail -10 $EL_POWERLOG
+~<0.010(5)
 
-; ============ WaterGuru $EL_pod $EL_testname: test BLE and MCU version ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: test firmware version
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
-:5
+:2
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify BLE and MCU firmware versions ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify firmware version
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <TI_VERS = $EL_fw_bleversion
 <$EL_fw_version
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify BLE and MCU firmware version power consumption  ============
->tail -5 $EL_POWERLOG
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify firmware version power use
+>tail -10 $EL_POWERLOG
+~<0.06(1)
 
-; ============ WaterGuru $EL_pod $EL_testname: Test "pad dist 10000" ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "pad dist 10000"
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
-:40
+:20
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" output ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000"
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
@@ -44,22 +47,23 @@
 <retcode =
 <mAs=
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" power consumption ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" power use
 >tail -40 $EL_POWERLOG
+~<0.3(5)
 
-; ============ WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)" ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)"
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
 :20
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 80 | xxd -ps`\015"
 :5
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)" e.g. "EXECUTED 0x820B46FF" ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)"
 >dehex $EL_SCREENLOG
 -<Please try again
 -<Unknown
 <EXECUTED 0x820B46FF
  
-; ============ WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)" power consumption ============
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)" power use 
 >tail -25 $EL_POWERLOG
 
 ; ============ WaterGuru $EL_pod $EL_testname: log test end and cleanup ============
