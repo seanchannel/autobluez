@@ -4,7 +4,6 @@
 *~../cleanup.inc
 ~tests/connect.inc
 # *NOINFO
-~=5
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "get temp" 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
@@ -18,7 +17,7 @@
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "get temp" power use
 >tail -10 $EL_POWERLOG
-~<0.010(5)
+<0.010[3-9]
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: test firmware version
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
