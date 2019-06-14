@@ -1,8 +1,7 @@
 #!/usr/bin/env expect-lite
 
 *NOINFO
-#*NOWARN
-*TIMESTAMP
+#*TIMESTAMP
 */\n/
 
 ; ============ WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power ============ 
@@ -16,6 +15,6 @@ $count=0
 [ $count < 3
     >>MEAS:CURR?
     <[0-9](.*)\n
-    :2
+    :1.5
 ]     
 
