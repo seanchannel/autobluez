@@ -1,14 +1,14 @@
 #!/usr/bin/env expect-lite
 
 *TIMESTAMP
-*~tests/cleanup.inc
+*~../cleanup.inc
 ~tests/connect.inc
 # *NOINFO
 ~=5
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "get temp" 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
-:2
+:3
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "get temp"
 >dehex $EL_SCREENLOG
@@ -16,7 +16,7 @@
 -<Unknown
 <water temp = [1-9][0-9]*\.[0-9]
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "get temp" power use
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "get temp" power use
 >tail -10 $EL_POWERLOG
 ~<0.010(5)
 
@@ -31,13 +31,13 @@
 <TI_VERS = $EL_fw_bleversion
 <$EL_fw_version
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify firmware version power use
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check firmware version power use
 >tail -10 $EL_POWERLOG
-~<0.06(1)
+<0.06
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "pad dist 10000"
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
-:20
+:30
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000"
 >dehex $EL_SCREENLOG
@@ -47,9 +47,9 @@
 <retcode =
 <mAs=
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000" power use
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "pad dist 10000" power use
 >tail -40 $EL_POWERLOG
-~<0.3(5)
+<0.3[0-5]
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)"
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
@@ -63,7 +63,7 @@
 -<Unknown
 <EXECUTED 0x820B46FF
  
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)" power use 
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "820B46FF (RGB lights)" power use 
 >tail -25 $EL_POWERLOG
 
 ; ============ WaterGuru $EL_pod $EL_testname: log test end and cleanup ============
