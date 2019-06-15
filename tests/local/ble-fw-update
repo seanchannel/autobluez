@@ -6,7 +6,7 @@
 
 ; ============ WaterGuru $EL_pod $EL_testname: download "fw dwld ble" ============
 @$EL_DELAY_WAIT_FOR_HOST
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "fw dwld ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -20,7 +20,7 @@
 @$EL_timeout
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify download "fw dwld ble" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <Bytes to go: 0 bytes
@@ -28,7 +28,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "fw ble" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "fw ble" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -44,7 +44,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "restart" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "restart" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -62,7 +62,7 @@
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "restart" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <Restarting
@@ -72,7 +72,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: BLE "version" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -90,7 +90,7 @@
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify BLE "$EL_fw_bleversion" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <TI_VERS = $EL_fw_bleversion

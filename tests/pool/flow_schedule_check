@@ -6,7 +6,7 @@
 
 # boilerplate
 # ; ============ WaterGuru $EL_pod $EL_testname: "set log $EL_testname" ============
-# >cp /dev/null $EL_SCREENLOG
+# >cp /dev/null $EL_BLELOG
 # >echo -n "set log $EL_testname" | xxd -ps
 # +$cmd=\n(.*)
 # >screen -r $EL_testname
@@ -20,7 +20,7 @@
 # @$EL_timeout
 # 
 # ; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "LOGGED: $EL_testname" ============
-# >dehex $EL_SCREENLOG
+# >dehex $EL_BLELOG
 # -<Please try again
 # -<Unknown
 # <LOGGED: $EL_testname

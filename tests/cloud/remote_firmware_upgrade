@@ -8,7 +8,7 @@
 
 ; ============ WaterGuru $EL_pod $EL_testname: "remote MCU firmware upgrade" ============
 @$EL_DELAY_WAIT_FOR_HOST
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "cloud check" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -22,7 +22,7 @@
 @$EL_timeout
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "Bytes to go: 0 bytes" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND

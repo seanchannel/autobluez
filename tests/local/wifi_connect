@@ -11,7 +11,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "ssid set" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "ssid set $EL_ssid" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -24,7 +24,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "ssid set $EL_ssid" e.g. "ssid chars = $EL_ssid_len" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <ssid chars = $EL_ssid_len
@@ -32,7 +32,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "ssid save" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "ssid save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -45,7 +45,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "ssid save" e.g. "ssid saved" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <ssid saved
@@ -53,7 +53,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "ssid show" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "ssid show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -66,7 +66,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "ssid show" e.g. "$EL_ssid" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <$EL_ssid
@@ -74,7 +74,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "pswd set" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "pswd set $EL_pswd" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -87,7 +87,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "pswd set $EL_pswd" e.g. "pswd chars = $EL_pswd_len" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <pswd chars = $EL_pswd_len
@@ -95,7 +95,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "pswd save" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "pswd save" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -108,7 +108,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "pswd save" e.g. "pswd saved" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <pswd saved
@@ -116,7 +116,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "pswd show" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "pswd show" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -129,7 +129,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "pswd show" e.g. "$EL_pswd" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <$EL_pswd
@@ -137,7 +137,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "wifi test" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "wifi test" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -150,7 +150,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "wifi test" e.g. "WI-FI OK" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND

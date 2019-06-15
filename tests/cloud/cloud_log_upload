@@ -11,7 +11,7 @@
 
 ; ============ WaterGuru $EL_pod $EL_testname: "cloud check log upload" ============
 @$EL_delay
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "cloud check" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -25,7 +25,7 @@
 @$EL_timeout
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "Upload OK; log reset" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND

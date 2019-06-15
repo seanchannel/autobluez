@@ -9,7 +9,7 @@
 :3
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "get temp"
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <water temp = [1-9][0-9]*\.[0-9]
@@ -23,7 +23,7 @@
 :2
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify firmware version
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <TI_VERS = $EL_fw_bleversion
@@ -38,7 +38,7 @@
 :30
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000"
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <vbat =
@@ -57,7 +57,7 @@
 :5
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)"
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <EXECUTED 0x820B46FF
@@ -65,7 +65,7 @@
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "820B46FF (RGB lights)" power use 
 >tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.021'
-<2[5-9]
+<[2-3][5-9]
 
 ~tests/cleanup.inc
 

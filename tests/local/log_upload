@@ -6,7 +6,7 @@
 
 ; ============ WaterGuru $EL_pod $EL_testname: "zlog" ============
 @$EL_delay
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "zlog" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -20,7 +20,7 @@
 @$EL_timeout
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "Upload OK; log reset" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND

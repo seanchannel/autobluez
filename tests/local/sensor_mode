@@ -5,7 +5,7 @@
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: "sensor mode" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "set mode" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -18,7 +18,7 @@
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify E.g. "Pod Mode = $EL_fw_mode" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <Pod Mode = $EL_fw_mode

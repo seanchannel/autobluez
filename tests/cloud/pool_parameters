@@ -15,7 +15,7 @@ $test_in_progress=0
 ##-------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "pool gal rd" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "pool gal rd" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -28,7 +28,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "pool gal rd" e.g. "Gallons: $EL_gallons" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <Gallons: $EL_gallons
@@ -40,7 +40,7 @@ $test_in_progress=0
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "zfcset" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "zfcset" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -53,7 +53,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "zfcset" e.g. "FC set = $EL_fc_target" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <FC set = $EL_fc_target
@@ -71,7 +71,7 @@ $test_in_progress=0
 ##------------------------------------------------------------------##
 
 # ; ============ WaterGuru $EL_pod $EL_testname: Test "get fcdosemax" ============
-# >cp /dev/null $EL_SCREENLOG
+# >cp /dev/null $EL_BLELOG
 # >echo -n "get fcdosemax" | xxd -ps
 # +$cmd=\n(.*)
 # >screen -r $EL_testname
@@ -84,7 +84,7 @@ $test_in_progress=0
 # >
 # 
 # ; ============ WaterGuru $EL_pod $EL_testname: Verify "get fcdosemax" e.g. "dose FC max = $EL_fc_limit" ============
-# >dehex $EL_SCREENLOG
+# >dehex $EL_BLELOG
 # -<Please try again
 # -<Unknown
 # <dose FC max = $EL_fc_limit
@@ -92,7 +92,7 @@ $test_in_progress=0
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Test "zfctime" ============
->cp /dev/null $EL_SCREENLOG
+>cp /dev/null $EL_BLELOG
 >echo -n "zfctime" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
@@ -105,7 +105,7 @@ $test_in_progress=0
 >
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify "zfctime" e.g. "Dose time = $EL_pod_meas_hr:$EL_meas_min" ============
->dehex $EL_SCREENLOG
+>dehex $EL_BLELOG
 -<Please try again
 -<Unknown
 <Dose time = $EL_pod_meas_hr:$EL_meas_min
