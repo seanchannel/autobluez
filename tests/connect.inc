@@ -36,7 +36,7 @@
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
 >screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}_power -d -m tests/log_power
-# %SKIP_POWER_LOG
+%SKIP_POWER_LOG
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: log test start 
 

@@ -1,31 +1,12 @@
 #!/usr/bin/env dash
 
-## get User ID, Mfg batch, and Pod ID
-#
-if [ -z $pod ]; then
-    echo -n "Please enter User ID: "
-    read user
-    export EL_user=$user
-    echo -n "Please enter S/N or MFG Batch ID: "
-    read mfg
-    export EL_mfg=$mfg
-    echo -n "Please enter Pod ID: "
-    read pod
-fi
-export EL_pod=$pod
+## Defaults for test environment
 
-## export serial and power console if set
-export EL_serial=${serial:-NONE}
-export EL_power=${power:-NONE}
-
-## Defaults for tests
-
-export EL_fw_mode=${mode:-Sense}
 export EL_fw_env=${env:-qa}
 export EL_fw_index=${index:-qa}
 export EL_fw_version=${version:-v9.1.17}
 export EL_fw_bleversion=${bleversion:-11}
-
+export EL_fw_mode=${mode:-Sense}
 export EL_ssid=${ssid:-WG2}
 export EL_pswd=${pswd:-clearwater}
 export EL_ssid_len=`echo -n $EL_ssid | wc -c`
@@ -42,7 +23,21 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 
 export EL_pads=${pads:-1}
 
-## test execution setup
+## Prompt for these if pod is not set on command line
+
+if [ -z $pod ]; then
+    echo -n "Please enter User ID: "
+    read user
+    export EL_user=$user
+    echo -n "Please enter S/N or MFG Batch ID: "
+    read mfg
+    export EL_mfg=$mfg
+    echo -n "Please enter Pod ID: "
+    read pod
+fi
+export EL_pod=$pod
+
+## test runtime configuration
 
 export EL_timeout=${timeout:-40}
 export EL_delay=${delay:-60}
@@ -50,6 +45,8 @@ export EL_DELAY_WAIT_FOR_HOST=3000
 export EL_SCREENRC=.screenrc
 export EL_SHELL=/bin/dash
 export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
+export EL_serial=${serial:-NONE}
+export EL_power=${power:-NONE}
 
 ## run each test given on the command line
 
