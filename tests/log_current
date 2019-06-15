@@ -1,0 +1,24 @@
+#!/usr/bin/env expect-lite
+
+*NOINFO
+#*TIMESTAMP
+*/\n/
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power 
+
+>>picocom --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
+<<Terminal ready
+>>*IDN?
+<B&K Precision, 9201(.*)\n
+>>SYST:REM
+>>VOLT 6.0
+>>CURR 2.0
+>>OUTP 1
+
+$count=0
+[ $count < 3
+    >>MEAS:CURR?
+    <[0-9](.*)\n
+    :1.5
+]     
+
