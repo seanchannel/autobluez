@@ -65,7 +65,7 @@
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "820B46FF (RGB lights)" power use 
 >tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.02'
-<[2-3][5-9]
+<[2-3][0-9]
 
 ~tests/cleanup.inc
 

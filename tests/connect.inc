@@ -1,6 +1,6 @@
 
 # log, timeout, and screen defaults file
-*NOCOLOR
+#*NOCOLOR
 *LOGAPPEND $EL_log
 @$EL_timeout
 
