@@ -47,7 +47,7 @@
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "pad dist 10000" power use
 >tail -60 $EL_POWERLOG 
->tail -60 $EL_POWERLOG | egrep -c '0\.3[1-9]'
+>tail -60 $EL_POWERLOG | egrep -c '0\.3'
 <4[0-9]
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)"
@@ -64,7 +64,7 @@
  
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "820B46FF (RGB lights)" power use 
 >tail -60 $EL_POWERLOG 
->tail -60 $EL_POWERLOG | egrep -c '0\.021'
+>tail -60 $EL_POWERLOG | egrep -c '0\.02'
 <[2-3][5-9]
 
 ~tests/cleanup.inc

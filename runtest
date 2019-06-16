@@ -27,19 +27,21 @@ export EL_pads=${pads:-1}
 
 if [ -z $pod ]; then
     echo -n "Please enter User ID: "
-    read user
-    export EL_user=$user
+    read EL_user
+
     echo -n "Please enter S/N or MFG Batch ID: "
-    read mfg
-    export EL_mfg=$mfg
+    read EL_mfg
+
     echo -n "Please enter Pod ID: "
     read pod
+
+    export EL_user EL_mfg
 fi
 export EL_pod=$pod
 
 ## test runtime configuration
 
-export EL_timeout=${timeout:-40}
+export EL_timeout=${timeout:-30}
 export EL_delay=${delay:-60}
 export EL_DELAY_WAIT_FOR_HOST=3000
 export EL_SCREENRC=.screenrc

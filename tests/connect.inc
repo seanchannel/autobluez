@@ -4,24 +4,30 @@
 *LOGAPPEND $EL_log
 @$EL_timeout
 
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Setup
+
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG
-# >>. ./.bashrc
+>. ./.bashrc
 
->>dehex()
->>{
->>    cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
->>    echo
->>}
+? $EL_power == NONE ? %SKIP_POWER_LOG
+; connect to power supply
+>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}-power -d -m tests/log_power
+; pod startup
+:30
+%SKIP_POWER_LOG
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Connect
-
->hcitool lescan >> $EL_SCANLOG
-:10
+; scan for BLE address
+>>hcitool lescan >> $EL_SCANLOG
+:5
 >^C
 > sort -u $EL_SCANLOG | fgrep $EL_pod
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
 >
 
+# catch __NO_STRING_CAPTURED__
+
+; connect to BLE
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect
@@ -33,10 +39,6 @@
 >>^A
 >^D
 >
-
-? $EL_power == NONE ? %SKIP_POWER_LOG
->screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}_power -d -m tests/log_power
-%SKIP_POWER_LOG
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: log test start 
 

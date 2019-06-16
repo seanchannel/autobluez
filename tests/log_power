@@ -4,8 +4,6 @@
 #*TIMESTAMP
 */\n/
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Connect to Power Supply $EL_power 
-
 >>picocom --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
 <<Terminal ready
 >>*IDN?
