@@ -9,9 +9,9 @@
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG
 >. ./.bashrc
+>
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
-; connect to power supply
 >screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}-power -d -m tests/log_power
 ; pod startup
 :30

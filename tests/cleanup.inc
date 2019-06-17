@@ -8,7 +8,8 @@
 >screen -r $EL_testname-power
 >^C
 >
->screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}-power tests/kill_power
+>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}-power tests/stop_power
 %SKIP_POWER_STOP
 
 # station log goes here
+>echo `date +%C%y%m%d:%H%m%S`, FAT, $EL_mfg, $EL_user, current, 0, 0mA, $result >> $EL_stationlog

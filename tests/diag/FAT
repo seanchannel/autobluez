@@ -1,71 +1,56 @@
 #!/usr/bin/env expect-lite
 
-*~../cleanup.inc
+*~../cleanup.inc result=FAIL
 ~tests/connect.inc
-#~=7
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "get temp" 
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current 90-100mA
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
+>
 :3
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "get temp"
 >dehex $EL_BLELOG
--<Please try again
--<Unknown
 <water temp = [1-9][0-9]*\.[0-9]
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "get temp" power use
 >tail -10 $EL_POWERLOG
-<0.0[0-1][09][1-9]
+<0.0[0-1][09][0-9]
+# XXX this will also match all-zero. need proper comparison here.
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: test firmware version
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test version current 60-69mA
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
+>
 :2
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify firmware version
 >dehex $EL_BLELOG
--<Please try again
--<Unknown
 <TI_VERS = $EL_fw_bleversion
 <$EL_fw_version
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check firmware version power use
 >tail -10 $EL_POWERLOG
 <0.06
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "pad dist 10000"
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
-:30
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "pad dist 10000"
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current ~300-399mA
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
+>
+:30
 >dehex $EL_BLELOG
--<Please try again
--<Unknown
 <vbat =
 <retcode =
 <mAs=
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "pad dist 10000" power use
 >tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.3'
 <4[0-9]
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test "820B46FF (RGB lights)"
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current ~20mA
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
+>
 :25
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 80 | xxd -ps`\015"
+>
 :5
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Verify "820B46FF (RGB lights)"
 >dehex $EL_BLELOG
--<Please try again
--<Unknown
 <EXECUTED 0x820B46FF
- 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Check "820B46FF (RGB lights)" power use 
 >tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.02'
 <[2-3][0-9]
 
-~tests/cleanup.inc
+~tests/cleanup.inc result=PASS
 

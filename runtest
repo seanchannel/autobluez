@@ -52,6 +52,8 @@ export EL_power=${power:-NONE}
 
 ## run each test given on the command line
 
+export EL_stationlog=logs/all_results.log
+
 for test in $*; do
     export EL_testname=`basename $test`
     export EL_log=logs/${EL_pod}-${EL_testname}.log
