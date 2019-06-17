@@ -12,4 +12,4 @@
 %SKIP_POWER_STOP
 
 # station log goes here
->echo `date +%C%y%m%d:%H%m%S`, FAT, $EL_mfg, $EL_user, current, 0, 0mA, $result >> $EL_stationlog
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $result >> $EL_stationlog

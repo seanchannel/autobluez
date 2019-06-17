@@ -6,6 +6,7 @@
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Setup
+*~cleanup.inc result=FAIL testitem=$testitem testcond=$testcond testvalue=$testvalue
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG
 >. ./.bashrc
