@@ -24,15 +24,17 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 export EL_pads=${pads:-1}
 
 ## Prompt for these if pod is not set on command line
+export EL_user=${user:-NONE}
+export EL_mfg=${mfg:-NONE}
 
 if [ -z $pod ]; then
-    echo -n "Please enter User ID: "
+    echo -n "Please scan User ID: "
     read EL_user
 
-    echo -n "Please enter S/N or MFG Batch ID: "
+    echo -n "Please scan Serial Number: "
     read EL_mfg
 
-    echo -n "Please enter Pod ID: "
+    echo -n "Please scan Pod ID: "
     read pod
 
     export EL_user EL_mfg
