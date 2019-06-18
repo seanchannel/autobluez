@@ -2,9 +2,11 @@
 
 #*~../cleanup.inc result=FAIL testitem=$testitem testcond=$testcond testvalue=$testvalue
 ~tests/connect.inc
+*~../cleanup.inc
+$result=FAIL
 
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current 90-100mA
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current 9-10mA
 $testitem=tempCurrent
 $testcond=0
 $testvalue=100mA
@@ -20,6 +22,10 @@ $testvalue=100mA
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test version current 60-69mA
+$testitem=versionCurrent
+$testcond=0
+$testvalue=60mA
+
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 >
 :2
@@ -31,6 +37,10 @@ $testvalue=100mA
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current ~300-399mA
+$testitem=padMotorCurrent
+$testcond=0
+$testvalue=399mA
+
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 >
 :30
@@ -44,6 +54,10 @@ $testvalue=100mA
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current ~20mA
+$testitem=RGBCurrent
+$testcond=0
+$testvalue=21mA
+
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
 >
 :25
@@ -56,5 +70,7 @@ $testvalue=100mA
 >tail -60 $EL_POWERLOG | egrep -c '0\.02'
 <[2-3][0-9]
 
+# static overall pass log
+$result=PASS
 ~tests/cleanup.inc result=PASS testitem=all testcond=current testvalue=mA
 
