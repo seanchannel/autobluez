@@ -49,7 +49,7 @@ $testvalue=399mA
 <mAs=
 >tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.3'
-<[3-4][0-9]
+#<[3-4][0-9]
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current ~20mA
@@ -67,7 +67,7 @@ $testvalue=21mA
 <EXECUTED 0x820B46FF
 >tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.02'
-<[2-3][0-9]
+#<[2-3][0-9]
 
 # static overall pass log
 $result=PASS

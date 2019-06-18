@@ -5,10 +5,9 @@
 >screen -r $EL_testname -X stuff 'exit\015'
 
 ? $EL_power == NONE ? %SKIP_POWER_STOP
->screen -r $EL_testname-power
+>screen -r power-$EL_testname
 >^C
->
->screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}-power tests/stop_power
+>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/stop_power
 %SKIP_POWER_STOP
 
 # station log goes here

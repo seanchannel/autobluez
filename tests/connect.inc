@@ -17,7 +17,7 @@ $testvalue=connect
 >
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
->screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S ${EL_testname}-power -d -m tests/log_power
+>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
 ; pod startup
 :30
 %SKIP_POWER_LOG
