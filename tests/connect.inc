@@ -3,10 +3,14 @@
 #*NOCOLOR
 *LOGAPPEND $EL_log
 @$EL_timeout
+*~../cleanup.inc
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Setup
-#*~cleanup.inc
+$result=FAIL
+$testitem=testSetup
+$testcond=0
+$testvalue=connect
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG
 >. ./.bashrc
@@ -24,9 +28,8 @@
 >^C
 > sort -u $EL_SCANLOG | fgrep $EL_pod
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
+? $address == __NO_STRING_CAPTURED__ ? *FAIL
 >
-
-# catch __NO_STRING_CAPTURED__
 
 ; connect to BLE
 */[$address][LE]>/

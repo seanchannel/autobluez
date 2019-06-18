@@ -1,8 +1,7 @@
 #!/usr/bin/env expect-lite
 
-*~../cleanup.inc
-#*~../cleanup.inc result=FAIL testitem=$testitem testcond=$testcond testvalue=$testvalue
 ~tests/connect.inc
+*~../cleanup.inc
 $result=FAIL
 
 
