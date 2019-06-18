@@ -20,7 +20,7 @@
 
 ; scan for BLE address
 >>hcitool lescan >> $EL_SCANLOG
-:5
+:10
 >^C
 > sort -u $EL_SCANLOG | fgrep $EL_pod
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
