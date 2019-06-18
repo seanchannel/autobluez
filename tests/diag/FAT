@@ -1,6 +1,6 @@
 #!/usr/bin/env expect-lite
 
-*~../cleanup.inc result=FAIL testitem=$testitem testcond=$testcond testvalue=$testvalue
+#*~../cleanup.inc result=FAIL testitem=$testitem testcond=$testcond testvalue=$testvalue
 ~tests/connect.inc
 
 
@@ -15,7 +15,7 @@ $testvalue=100mA
 >dehex $EL_BLELOG
 <water temp = [1-9][0-9]*\.[0-9]
 >tail -10 $EL_POWERLOG
-<1.0[0-1][09][0-9]
+<0.0[0-1][09][0-9]
 # XXX this will also match all-zero. need proper comparison here.
 
 
@@ -40,7 +40,7 @@ $testvalue=100mA
 <mAs=
 >tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.3'
-<4[0-9]
+<[3-4][0-9]
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current ~20mA
