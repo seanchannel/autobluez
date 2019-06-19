@@ -1,0 +1,20 @@
+#!/usr/bin/env expect-lite
+
+~tests/connect.inc
+*~../cleanup.inc
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current 9-10mA
+$testitem=tempCurrent
+$result:
+
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
+:3
+>dehex $EL_BLELOG
+<water temp = [1-9][0-9]*\.[0-9]
+>tail -10 $EL_POWERLOG
++$result=\n(0.0[0-1][09][0-9])\n
+
+# XXX this will also match all-zero. need proper comparison here.
+
+~tests/cleanup.inc result=$result testitem=$testitem testcond=0 testvalue=$testvalue
+
