@@ -5,10 +5,8 @@
 >screen -r $EL_testname -X stuff 'exit\015'
 
 ? $EL_power == NONE ? %SKIP_POWER_STOP
->screen -r power-$EL_testname
->^C
->screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/stop_power
+>>screen -r power-$EL_testname
+>>^C
+>>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} tests/stop_power
+#>killall screen
 %SKIP_POWER_STOP
-
-# station log goes here
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $result >> $EL_stationlog

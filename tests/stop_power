@@ -1,7 +1,9 @@
 #!/usr/bin/env expect-lite
 
->>picocom --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
+:2
+>>picocom --nolock --noreset --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
 <<Terminal ready
 >>OUTP 0
 >>SYST:LOC
->^C
+>>^C
+>

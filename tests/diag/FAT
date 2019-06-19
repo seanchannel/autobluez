@@ -2,60 +2,74 @@
 
 ~tests/connect.inc
 *~../cleanup.inc
-$result=FAIL
+*NOFAIL
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current 9-10mA
 $testitem=tempCurrent
 $testcond=0
-$testvalue=10mA
+$testvalue=NONE
+$teststatus=WARN
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
->
 :3
->dehex $EL_BLELOG
-<water temp = [1-9][0-9]*\.[0-9]
 >tail -10 $EL_POWERLOG
-<0.0[0-1][09][0-9]
-# XXX this will also match all-zero. need proper comparison here.
++$testvalue=\n(0\.01.*\n|0\.009.*\n)
+? $testvalue > 0.01 ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < 0.009 ? $teststatus=FAIL :: $teststatus=PASS
+>
+
+; $EL_testname $testitem $teststatus
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test version current 60-69mA
 $testitem=versionCurrent
 $testcond=0
-$testvalue=60mA
+$testvalue=NONE
+$teststatus=WARN
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
->
 :2
->dehex $EL_BLELOG
-<TI_VERS = $EL_fw_bleversion
-<$EL_fw_version
 >tail -10 $EL_POWERLOG
-<0.06
++$testvalue=\n(0\.06.*\n)
+? $testvalue > 0.06i ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < 0.059 ? $teststatus=FAIL :: $teststatus=PASS
+>
+
+; $EL_testname $testitem $teststatus
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current ~300-399mA
 $testitem=padMotorCurrent
 $testcond=0
-$testvalue=399mA
+$testvalue=NONE
+$teststatus=WARN
+
+; running... (30s)
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
->
 :30
->dehex $EL_BLELOG
-<vbat =
-<retcode =
-<mAs=
->tail -60 $EL_POWERLOG 
->tail -60 $EL_POWERLOG | egrep -c '0\.3'
-#<[3-4][0-9]
+>tail -60 $EL_POWERLOG | egrep '0\.[3-4]' > logs/$EL_pod-$EL_testname-$testitem-sample.log
+>wc -l logs/$EL_pod-$EL_testname-$testitem-sample.log
++$count=\n([0-9].*\n)
+>
+
+; $EL_testname $testitem $teststatus
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current ~20mA
 $testitem=RGBCurrent
 $testcond=0
-$testvalue=21mA
+$testvalue=NONE
+$teststatus=WARN
+
+; running... (25s)
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
 >
@@ -63,13 +77,13 @@ $testvalue=21mA
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 80 | xxd -ps`\015"
 >
 :5
->dehex $EL_BLELOG
-<EXECUTED 0x820B46FF
->tail -60 $EL_POWERLOG 
 >tail -60 $EL_POWERLOG | egrep -c '0\.02'
++$count=\n([0-9].*\n)
+>
 #<[2-3][0-9]
 
-# static overall pass log
-$result=PASS
-~tests/cleanup.inc result=PASS testitem=all testcond=current testvalue=mA
+; $EL_testname $testitem $teststatus
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>
 
+~tests/cleanup.inc
