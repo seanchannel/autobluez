@@ -6,7 +6,7 @@
 *~../cleanup.inc
 
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current 9-10mA
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
 $testitem=tempCurrent
 $testcond=0
 $testvalue=NONE
@@ -25,7 +25,7 @@ $teststatus=WARN
 >
 
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test version current 60-69mA
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test version current
 $testitem=versionCurrent
 $testcond=0
 $testvalue=NONE
@@ -44,7 +44,7 @@ $teststatus=WARN
 >
 
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current ~300-399mA
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current
 $testitem=padMotorCurrent
 $testcond=0
 $testvalue=NONE
@@ -55,17 +55,27 @@ $teststatus=WARN
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
 >tail -60 $EL_POWERLOG > logs/$EL_pod-$EL_testname-$testitem-sample.log
-#>egrep '0\.[3-4]' .... logs/$EL_pod-$EL_testname-$testitem-sample.log
->wc -l logs/$EL_pod-$EL_testname-$testitem-sample.log
-+$count=\n([0-9].*\n)
->
 
+>egrep -v '0.000|1e' logs/$EL_pod-$EL_testname-$testitem-sample | wc -l
++$count=\n([0-9].*\n)
+; $count samples over 30 sec.
+
+>egrep -v '0.000|1e' logs/$EL_pod-$EL_testname-$testitem-sample | sed 's/^/+ /g' | xargs echo 0 | bc
++$total=\n([0-9].*\n)
+>awk "BEGIN { print $total / $count }"
++$testvalue=\n([0-9].*\n)
+; $average current $testvalue
+
+? $testvalue < 0.4 ? $teststatus=PASS :: $teststatus=FAIL
+? $testvalue < 0.2 ? $teststatus=WARN
+? $testvalue < 0.1 ? $teststatus=FAIL
 ; $EL_testname $testitem $teststatus
+
 >echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current ~20mA
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current
 $testitem=RGBCurrent
 $testcond=0
 $testvalue=NONE
