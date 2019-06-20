@@ -5,8 +5,9 @@
 >screen -r $EL_testname -X stuff 'exit\015'
 
 ? $EL_power == NONE ? %SKIP_POWER_STOP
->>screen -r power-$EL_testname
->>^C
->>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} tests/stop_power
-#>killall screen
+>killall screen
+>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} tests/stop_power
+>
 %SKIP_POWER_STOP
+
+; Thank you and have a nice day!

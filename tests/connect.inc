@@ -1,28 +1,24 @@
 
 # log, timeout, and screen defaults file
-*NOINFO
+#*NOINFO
 *LOGAPPEND $EL_log
 @$EL_timeout
 *~../cleanup.inc
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Setup
-$result=FAIL
-$testitem=testSetup
-$testcond=0
-$testvalue=connect
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG
 >. ./.bashrc
 >
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
->screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
+>>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
 ; pod startup... (30 sec.)
 :30
 %SKIP_POWER_LOG
 
-; scan for BLE address... (10 sec.)
+; searching for BLE address... (10 sec.)
 >>hcitool lescan >> $EL_SCANLOG
 :10
 >^C
@@ -34,19 +30,16 @@ $testvalue=connect
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect
--<Error
--<connect error
--<connect: Device or resource busy
 <Connection successful
 >
 >>^A
 >^D
+>
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: log test start 
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n set log start | xxd -ps`\015"
+:2
 >dehex $EL_BLELOG
--<Please try again
--<Unknown
 <LOGGED: start
 

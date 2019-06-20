@@ -4,7 +4,7 @@
 #*TIMESTAMP
 #*/\n/
 
->>picocom --nolock --noreset --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
+>>picocom --nolock --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
 <<Terminal ready
 >>*IDN?
 <B&K Precision, 9201(.*)\n
