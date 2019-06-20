@@ -1,8 +1,10 @@
 #!/usr/bin/env expect-lite
 
+*NOINFO
+*NOFAIL
+*TIMESTAMP
 ~tests/connect.inc
 *~../cleanup.inc
-*NOFAIL
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current 9-10mA

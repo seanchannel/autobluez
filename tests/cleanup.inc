@@ -5,9 +5,18 @@
 >screen -r $EL_testname -X stuff 'exit\015'
 
 ? $EL_power == NONE ? %SKIP_POWER_STOP
->killall screen
->screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} tests/stop_power
+>screen -r power-$EL_testname
+>>^C
+<<[screen is terminating]
+:2
 >
-%SKIP_POWER_STOP
 
-; Thank you and have a nice day!
+>picocom --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
+<Terminal ready
+>>OUTP 0
+>>SYST:LOC
+>>^A
+>^X
+<Thanks for using picocom
+%SKIP_POWER_STOP
+>

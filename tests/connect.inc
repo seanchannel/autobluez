@@ -14,11 +14,11 @@
 
 ? $EL_power == NONE ? %SKIP_POWER_LOG
 >>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
-; pod startup... (30 sec.)
+; waiting 30 sec. for pod startup...
 :30
 %SKIP_POWER_LOG
 
-; searching for BLE address... (10 sec.)
+; searching 10 sec. for BLE address...
 >>hcitool lescan >> $EL_SCANLOG
 :10
 >^C
@@ -26,7 +26,7 @@
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
 ? $address == __NO_STRING_CAPTURED__ ? *FAIL
 
-; connect to BLE...
+; connecting to BLE...
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect
