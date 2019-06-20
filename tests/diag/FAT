@@ -2,7 +2,6 @@
 
 *NOINFO
 *NOFAIL
-*TIMESTAMP
 ~tests/connect.inc
 *~../cleanup.inc
 
@@ -55,7 +54,8 @@ $teststatus=WARN
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
->tail -60 $EL_POWERLOG | egrep '0\.[3-4]' > logs/$EL_pod-$EL_testname-$testitem-sample.log
+>tail -60 $EL_POWERLOG > logs/$EL_pod-$EL_testname-$testitem-sample.log
+#>egrep '0\.[3-4]' .... logs/$EL_pod-$EL_testname-$testitem-sample.log
 >wc -l logs/$EL_pod-$EL_testname-$testitem-sample.log
 +$count=\n([0-9].*\n)
 >

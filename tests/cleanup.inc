@@ -11,7 +11,7 @@
 :2
 >
 
->picocom --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
+>picocom --echo --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
 <Terminal ready
 >>OUTP 0
 >>SYST:LOC
