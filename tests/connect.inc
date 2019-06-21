@@ -8,7 +8,7 @@
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Setup
 
->rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG
+>rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG logs/*sample.log
 >. ./.bashrc
 >
 

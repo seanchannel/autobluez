@@ -6,8 +6,7 @@
 
 ? $EL_power == NONE ? %SKIP_POWER_STOP
 >screen -r power-$EL_testname
->>^C
-<<[screen is terminating]
+>^C
 :2
 >
 
