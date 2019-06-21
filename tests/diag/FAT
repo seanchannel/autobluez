@@ -7,17 +7,30 @@
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
+
 $testitem=tempCurrent
 $testcond=0
 $testvalue=NONE
 $teststatus=WARN
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
-:3
->tail -10 $EL_POWERLOG
-+$testvalue=\n(0\.01.*\n|0\.009.*\n)
-? $testvalue > 0.01 ? $teststatus=FAIL :: $teststatus=PASS
-? $testvalue < 0.009 ? $teststatus=FAIL :: $teststatus=PASS
+:4
+
+>tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+>dos2unix logs/$EL_pod-$EL_testname-sample.log
+>cat logs/$EL_pod-$EL_testname-sample.log
+>egrep -v '0.000|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
++$count=\n([0-9].*)\n
+; $count samples over 10 sec.
+
+>egrep -v '0.000|1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
++$total=\n(.*)\n
+>awk "BEGIN { print 0$total / $count }"
++$testvalue=\n([0-9].*)\n
+; $average current $testvalue
+
+? $testvalue > 0.012 ? $teststatus=FAIL
+? $testvalue < 0.008 ? $teststatus=FAIL :: $teststatus=PASS
 >
 
 ; $EL_testname $testitem $teststatus
@@ -32,11 +45,23 @@ $testvalue=NONE
 $teststatus=WARN
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
-:2
->tail -10 $EL_POWERLOG
-+$testvalue=\n(0\.06.*\n)
-? $testvalue > 0.06i ? $teststatus=FAIL :: $teststatus=PASS
-? $testvalue < 0.059 ? $teststatus=FAIL :: $teststatus=PASS
+:3
+
+>tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+>dos2unix logs/$EL_pod-$EL_testname-sample.log
+>cat logs/$EL_pod-$EL_testname-sample.log
+>egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
++$count=\n([0-9].*)\n
+; $count samples over 10 sec.
+
+>egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
++$total=\n(.*)\n
+>awk "BEGIN { print 0$total / $count }"
++$testvalue=\n([0-9].*)\n
+; $average current $testvalue
+
+? $testvalue > 0.0619 ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < 0.0590 ? $teststatus=FAIL :: $teststatus=PASS
 >
 
 ; $EL_testname $testitem $teststatus
