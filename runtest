@@ -34,7 +34,7 @@ if [ -z $pod ]; then
     echo -n "Please scan Serial Number: "
     read EL_mfg
 
-    echo -n "Please scan Pod ID: "
+    echo -n "Please scan BLE ID: "
     read pod
 
     export EL_user EL_mfg
