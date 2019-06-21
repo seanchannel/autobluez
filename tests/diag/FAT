@@ -19,7 +19,7 @@ $teststatus=WARN
 >tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix logs/$EL_pod-$EL_testname-sample.log
 >cat logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.000|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0.00[0-1]|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 10 sec.
 
@@ -30,7 +30,7 @@ $teststatus=WARN
 ; $average current $testvalue
 
 ? $testvalue > 0.012 ? $teststatus=FAIL
-? $testvalue < 0.008 ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < 0.007 ? $teststatus=FAIL :: $teststatus=PASS
 >
 
 ; $EL_testname $testitem $teststatus
@@ -45,7 +45,7 @@ $testvalue=NONE
 $teststatus=WARN
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
-:3
+:4
 
 >tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix logs/$EL_pod-$EL_testname-sample.log
@@ -115,13 +115,13 @@ $teststatus=WARN
 >tail -60 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
-+$count=\n([0-9].*\n)
++$count=\n([0-9].*)\n
 ; $count samples over 30 sec.
 
 >egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
-+$total=\n([0-9].*\n)
->awk "BEGIN { print $total / $count }"
-+$testvalue=\n([0-9].*\n)
++$total=\n(.*)\n
+>awk "BEGIN { print 0$total / $count }"
++$testvalue=\n([0-9].*)\n
 ; $average current $testvalue
 
 ? $testvalue < 0.018 ? $teststatus=WARN
