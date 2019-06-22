@@ -1,7 +1,7 @@
 #!/usr/bin/env expect-lite
 
 *NOINFO
-*NOFAIL
+#*NOFAIL
 ~tests/connect.inc
 *~../cleanup.inc
 
@@ -29,6 +29,7 @@ $teststatus=WARN
 +$testvalue=\n([0-9].*)\n
 ; $average current $testvalue
 
+; expected range $temCurrent_min $temCurrent_max
 ? $testvalue > 0.012 ? $teststatus=FAIL
 ? $testvalue < 0.007 ? $teststatus=FAIL :: $teststatus=PASS
 >
@@ -60,6 +61,7 @@ $teststatus=WARN
 +$testvalue=\n([0-9].*)\n
 ; $average current $testvalue
 
+; expected range: $versionCurrent_min - $versionCurrent_max
 ? $testvalue > 0.0619 ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < 0.0590 ? $teststatus=FAIL :: $teststatus=PASS
 >
@@ -91,6 +93,7 @@ $teststatus=WARN
 +$testvalue=\n([0-9].*\n)
 ; $average current $testvalue
 
+; expected range 200 - 400 mA
 ? $testvalue < 0.4 ? $teststatus=PASS :: $teststatus=FAIL
 ? $testvalue < 0.2 ? $teststatus=WARN
 ? $testvalue < 0.1 ? $teststatus=FAIL
@@ -124,6 +127,7 @@ $teststatus=WARN
 +$testvalue=\n([0-9].*)\n
 ; $average current $testvalue
 
+; expected range: $RGBCurrent_min - $RGBCurrent_max
 ? $testvalue < 0.018 ? $teststatus=WARN
 ? $testvalue > 0.024 ? $teststatus=FAIL :: $teststatus=PASS
 ; $EL_testname $testitem $teststatus
