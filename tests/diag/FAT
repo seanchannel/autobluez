@@ -1,7 +1,7 @@
 #!/usr/bin/env expect-lite
 
 *NOINFO
-#*NOFAIL
+*NOWARN
 ~tests/connect.inc
 *~../cleanup.inc
 
@@ -11,14 +11,13 @@
 $testitem=tempCurrent
 $testcond=0
 $testvalue=NONE
-$teststatus=WARN
+$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :4
 
 >tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix logs/$EL_pod-$EL_testname-sample.log
->cat logs/$EL_pod-$EL_testname-sample.log
+>dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00[0-1]|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 10 sec.
@@ -27,11 +26,11 @@ $teststatus=WARN
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; $average current $testvalue
+; average current $testvalue
+; expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
 
-; expected range $temCurrent_min $temCurrent_max
-? $testvalue > 0.012 ? $teststatus=FAIL
-? $testvalue < 0.007 ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_tempCurrent_min ? $teststatus=WARN
+? $testvalue > $EL_tempCurrent_max ? $teststatus=WARN :: $teststatus=PASS
 >
 
 ; $EL_testname $testitem $teststatus
@@ -43,14 +42,13 @@ $teststatus=WARN
 $testitem=versionCurrent
 $testcond=0
 $testvalue=NONE
-$teststatus=WARN
+$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 :4
 
 >tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix logs/$EL_pod-$EL_testname-sample.log
->cat logs/$EL_pod-$EL_testname-sample.log
+>dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 10 sec.
@@ -59,11 +57,11 @@ $teststatus=WARN
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; $average current $testvalue
+; average current $testvalue
+; expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
 
-; expected range: $versionCurrent_min - $versionCurrent_max
-? $testvalue > 0.0619 ? $teststatus=FAIL :: $teststatus=PASS
-? $testvalue < 0.0590 ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_versionCurrent_min ? $teststatus=WARN
+? $testvalue > $EL_versionCurrent_max ? $teststatus=WARN :: $teststatus=PASS
 >
 
 ; $EL_testname $testitem $teststatus
@@ -75,14 +73,14 @@ $teststatus=WARN
 $testitem=padMotorCurrent
 $testcond=0
 $testvalue=NONE
-$teststatus=WARN
+$teststatus=NONE
 
 ; running... (30s)
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
 >tail -60 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix logs/$EL_pod-$EL_testname-sample.log
+>dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*\n)
 ; $count samples over 30 sec.
@@ -91,16 +89,17 @@ $teststatus=WARN
 +$total=\n([0-9].*\n)
 >awk "BEGIN { print $total / $count }"
 +$testvalue=\n([0-9].*\n)
-; $average current $testvalue
+; average current $testvalue
+; expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
-; expected range 200 - 400 mA
-? $testvalue < 0.4 ? $teststatus=PASS :: $teststatus=FAIL
-? $testvalue < 0.2 ? $teststatus=WARN
-? $testvalue < 0.1 ? $teststatus=FAIL
+? $testvalue < $EL_padMotorCurrent_min ? $teststatus=WARN
+? $testvalue > $EL_padMotorCurrent_max ? $teststatus=WARN :: $teststatus=PASS
+>
+
 ; $EL_testname $testitem $teststatus
-
 >echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
 >
+
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current
 $testitem=RGBCurrent
@@ -116,7 +115,7 @@ $teststatus=WARN
 :5
 
 >tail -60 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix logs/$EL_pod-$EL_testname-sample.log
+>dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 30 sec.
@@ -125,12 +124,12 @@ $teststatus=WARN
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; $average current $testvalue
+; average current $testvalue
+; expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
 
-; expected range: $RGBCurrent_min - $RGBCurrent_max
-? $testvalue < 0.018 ? $teststatus=WARN
-? $testvalue > 0.024 ? $teststatus=FAIL :: $teststatus=PASS
-; $EL_testname $testitem $teststatus
+? $testvalue < $EL_RGBCurrent_min ? $teststatus=WARN
+? $testvalue > $EL_RGBCurrent_max ? $teststatus=WARN :: $teststatus=PASS
+>
 
 ; $EL_testname $testitem $teststatus
 >echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog

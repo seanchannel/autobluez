@@ -22,14 +22,14 @@ export EL_meas_min=${meas_min:-11}
 export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 
 # variables for Manufacturing and diagnostic tests
-export tempCurrent_min=${$tempCurrent_min:-0.007}
-export tempCurrent_max=${tempCurrent_max:-0.012}
-export versionCurrent_min=${$versionCurrent_min:-0.59}
-export versionCurrent_max=${$versionCurrent_max:-0.619}
-export padMotorCurrent_min=${padMotorCurrentMin:-200}
-export padMotorCurrent_max=${padMotorCurrentMax:-400}
-export RGBCurrent_min=${RGBCurrent_min:-0.018}
-export RGBCurrent_max=${RGBCurrent_max:-0.024}
+export EL_tempCurrent_min=${tempCurrent_min:-0.007}
+export EL_tempCurrent_max=${tempCurrent_max:-0.012}
+export EL_versionCurrent_min=${versionCurrent_min:-0.59}
+export EL_versionCurrent_max=${versionCurrent_max:-0.619}
+export EL_padMotorCurrent_min=${padMotorCurrentMin:-0.200}
+export EL_padMotorCurrent_max=${padMotorCurrentMax:-0.400}
+export EL_RGBCurrent_min=${RGBCurrent_min:-0.018}
+export EL_RGBCurrent_max=${RGBCurrent_max:-0.024}
 
 ## Prompt for these if pod is not set on command line
 export EL_user=${user:-NONE}
