@@ -8,7 +8,7 @@ export EL_fw_version=${version:-v9.1.17}
 export EL_fw_bleversion=${bleversion:-11}
 export EL_fw_mode=${mode:-Sense}
 export EL_ssid=${ssid:-WG2}
-export EL_pswd=${pswd:-clearwater}
+export EL_pswd=${pswd:-waterguru}
 export EL_ssid_len=`echo -n $EL_ssid | wc -c`
 export EL_pswd_len=`echo -n $EL_pswd | wc -c`
 
