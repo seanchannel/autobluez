@@ -42,6 +42,8 @@ export EL_serial=${serial:-NONE}
 export EL_power=${power:-NONE}
 export EL_stationlog=logs/all_results.log
 
+cd `dirname $0`
+
 while (true) do
 
 ## Prompt for these on command line
