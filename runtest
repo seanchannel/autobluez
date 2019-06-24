@@ -31,7 +31,20 @@ export EL_padMotorCurrent_max=${padMotorCurrentMax:-0.400}
 export EL_RGBCurrent_min=${RGBCurrent_min:-0.018}
 export EL_RGBCurrent_max=${RGBCurrent_max:-0.024}
 
-## Prompt for these if pod is not set on command line
+# test runtime configuration
+export EL_timeout=${timeout:-30}
+export EL_delay=${delay:-60}
+export EL_DELAY_WAIT_FOR_HOST=3000
+export EL_SCREENRC=.screenrc
+export EL_SHELL=/bin/dash
+export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
+export EL_serial=${serial:-NONE}
+export EL_power=${power:-NONE}
+export EL_stationlog=logs/all_results.log
+
+while (true) do
+
+## Prompt for these on command line
 export EL_user=${user:-NONE}
 export EL_mfg=${mfg:-NONE}
 
@@ -49,21 +62,7 @@ if [ -z $pod ]; then
 fi
 export EL_pod=$pod
 
-## test runtime configuration
-
-export EL_timeout=${timeout:-30}
-export EL_delay=${delay:-60}
-export EL_DELAY_WAIT_FOR_HOST=3000
-export EL_SCREENRC=.screenrc
-export EL_SHELL=/bin/dash
-export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
-export EL_serial=${serial:-NONE}
-export EL_power=${power:-NONE}
-
 ## run each test given on the command line
-
-export EL_stationlog=logs/all_results.log
-
 for test in $*; do
     export EL_testname=`basename $test`
     export EL_log=logs/${EL_pod}-${EL_testname}.log
@@ -73,11 +72,14 @@ for test in $*; do
 
     $test
     return=$?
+    echo
 
     case $return in
-        0) echo PASS: "$EL_testname" ;;
-        *) echo FAIL: "$EL_testname" 
+        0) toilet --gay PASS ;;
+        *) toilet --gay WARN
            return $return ;;
     esac
+
+done
 
 done
