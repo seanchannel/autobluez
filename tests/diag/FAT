@@ -1,9 +1,9 @@
 #!/usr/bin/env expect-lite
 
 *NOINFO
-*NOWARN
+*NOFAIL
 ~tests/connect.inc
-*~../cleanup.inc
+#*~../cleanup.inc
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
@@ -29,8 +29,9 @@ $teststatus=NONE
 ; average current $testvalue
 ; expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
 
-? $testvalue < $EL_tempCurrent_min ? $teststatus=WARN
-? $testvalue > $EL_tempCurrent_max ? $teststatus=WARN :: $teststatus=PASS
+? $testvalue < $EL_tempCurrent_min ? $teststatus=FAIL
+? $testvalue > $EL_tempCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $teststatus=FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
@@ -60,8 +61,9 @@ $teststatus=NONE
 ; average current $testvalue
 ; expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
 
-? $testvalue < $EL_versionCurrent_min ? $teststatus=WARN
-? $testvalue > $EL_versionCurrent_max ? $teststatus=WARN :: $teststatus=PASS
+? $testvalue < $EL_versionCurrent_min ? $teststatus=FAIL
+? $testvalue > $EL_versionCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $teststatus=FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
@@ -92,8 +94,9 @@ $teststatus=NONE
 ; average current $testvalue
 ; expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
-? $testvalue < $EL_padMotorCurrent_min ? $teststatus=WARN
-? $testvalue > $EL_padMotorCurrent_max ? $teststatus=WARN :: $teststatus=PASS
+? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
+? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $teststatus=FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
@@ -105,7 +108,7 @@ $teststatus=NONE
 $testitem=RGBCurrent
 $testcond=0
 $testvalue=NONE
-$teststatus=WARN
+$teststatus=FAIL
 
 ; running... (25s)
 
@@ -127,8 +130,9 @@ $teststatus=WARN
 ; average current $testvalue
 ; expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
 
-? $testvalue < $EL_RGBCurrent_min ? $teststatus=WARN
-? $testvalue > $EL_RGBCurrent_max ? $teststatus=WARN :: $teststatus=PASS
+? $testvalue < $EL_RGBCurrent_min ? $teststatus=FAIL
+? $testvalue > $EL_RGBCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $teststatus=FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
