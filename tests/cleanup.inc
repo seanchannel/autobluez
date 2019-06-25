@@ -10,12 +10,9 @@
 :2
 >
 
->picocom --echo --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power
-<Terminal ready
+>picocom --echo --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power > /dev/null
 >>OUTP 0
 >>SYST:LOC
 >>^A
->^X
-<Thanks for using picocom
+>>^X
 %SKIP_POWER_STOP
->

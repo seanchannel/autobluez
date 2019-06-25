@@ -25,12 +25,11 @@ $teststatus=NONE
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue
-; expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
+; average current $testvalue, expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
 
 ? $testvalue < $EL_tempCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_tempCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
-? $teststatus=FAIL ? *FAIL
+? $teststatus == FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
@@ -56,12 +55,11 @@ $teststatus=NONE
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue
-; expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
+; average current $testvalue, expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
 
 ? $testvalue < $EL_versionCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_versionCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
-? $teststatus=FAIL ? *FAIL
+? $teststatus == FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
@@ -88,12 +86,11 @@ $teststatus=NONE
 +$total=\n([0-9].*\n)
 >awk "BEGIN { print $total / $count }"
 +$testvalue=\n([0-9].*\n)
-; average current $testvalue
-; expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
+; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
-? $teststatus=FAIL ? *FAIL
+? $teststatus == FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
@@ -123,12 +120,11 @@ $teststatus=FAIL
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue
-; expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
+; average current $testvalue, expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
 
 ? $testvalue < $EL_RGBCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_RGBCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
-? $teststatus=FAIL ? *FAIL
+? $teststatus == FAIL ? *FAIL
 >
 
 ; $EL_testname $testitem $teststatus
@@ -136,3 +132,6 @@ $teststatus=FAIL
 >
 
 ~tests/cleanup.inc
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Results
+>tail -4 $EL_stationlog

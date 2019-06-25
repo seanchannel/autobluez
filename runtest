@@ -24,8 +24,8 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 # variables for Manufacturing and diagnostic tests
 export EL_tempCurrent_min=${tempCurrent_min:-0.007}
 export EL_tempCurrent_max=${tempCurrent_max:-0.012}
-export EL_versionCurrent_min=${versionCurrent_min:-0.59}
-export EL_versionCurrent_max=${versionCurrent_max:-0.619}
+export EL_versionCurrent_min=${versionCurrent_min:-0.059}
+export EL_versionCurrent_max=${versionCurrent_max:-0.0619}
 export EL_padMotorCurrent_min=${padMotorCurrentMin:-0.200}
 export EL_padMotorCurrent_max=${padMotorCurrentMax:-0.400}
 export EL_RGBCurrent_min=${RGBCurrent_min:-0.018}
@@ -44,13 +44,13 @@ export EL_stationlog=logs/all_results.log
 
 cd `dirname $0`
 
-while (true) do
+#while (true) do
 
 ## Prompt for these on command line
 export EL_user=${user:-NONE}
 export EL_mfg=${mfg:-NONE}
 
-#if [ -z $pod ]; then
+if [ -z $pod ]; then
     echo -n "Please scan User ID: "
     read EL_user
 
@@ -61,7 +61,7 @@ export EL_mfg=${mfg:-NONE}
     read pod
 
     export EL_user EL_mfg
-#fi
+fi
 export EL_pod=$pod
 
 ## run each test given on the command line
@@ -84,4 +84,4 @@ for test in $*; do
 
 done
 
-done
+#done
