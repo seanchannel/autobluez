@@ -4,7 +4,37 @@
 *NOWARN
 *NOFAIL
 ~tests/connect.inc
-#*~../cleanup.inc
+
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test idle current
+
+$testitem=idleCurrent
+$testvalue=NONE
+$teststatus=NONE
+
+#>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
+:5
+
+>tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+>dos2unix -q logs/$EL_pod-$EL_testname-sample.log
+>egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
++$count=\n([0-9].*)\n
+; $count samples over 5 sec.
+
+>egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
++$total=\n(.*)\n
+>awk "BEGIN { print 0$total / $count }"
++$testvalue=\n([0-9].*)\n
+; average current $testvalue, expected range: $EL_idleCurrent_min - $EL_idleCurrent_max
+
+? $testvalue < $EL_idleCurrent_min ? $teststatus=FAIL
+? $testvalue > $EL_idleCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $teststatus == FAIL ? *FAIL
+>
+
+; $EL_testname $testitem $teststatus
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
