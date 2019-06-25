@@ -44,7 +44,7 @@ export EL_stationlog=logs/all_results.log
 
 cd `dirname $0`
 
-#while (true) do
+while (true) do
 
 ## Prompt for these on command line
 export EL_user=${user:-NONE}
@@ -84,4 +84,4 @@ for test in $*; do
 
 done
 
-#done
+done
