@@ -9,7 +9,6 @@
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
 
 $testitem=tempCurrent
-$testcond=0
 $testvalue=NONE
 $teststatus=NONE
 
@@ -35,13 +34,12 @@ $teststatus=NONE
 >
 
 ; $EL_testname $testitem $teststatus
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test version current
 $testitem=versionCurrent
-$testcond=0
 $testvalue=NONE
 $teststatus=NONE
 
@@ -67,13 +65,12 @@ $teststatus=NONE
 >
 
 ; $EL_testname $testitem $teststatus
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current
 $testitem=padMotorCurrent
-$testcond=0
 $testvalue=NONE
 $teststatus=NONE
 
@@ -100,13 +97,12 @@ $teststatus=NONE
 >
 
 ; $EL_testname $testitem $teststatus
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current
 $testitem=RGBCurrent
-$testcond=0
 $testvalue=NONE
 $teststatus=FAIL
 
@@ -136,7 +132,7 @@ $teststatus=FAIL
 >
 
 ; $EL_testname $testitem $teststatus
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, $testcond, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 ~tests/cleanup.inc
