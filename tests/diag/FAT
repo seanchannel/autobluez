@@ -1,6 +1,7 @@
 #!/usr/bin/env expect-lite
 
 *NOINFO
+*NOWARN
 *NOFAIL
 ~tests/connect.inc
 #*~../cleanup.inc
