@@ -24,6 +24,8 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 # variables for Manufacturing and diagnostic tests
 export EL_idleCurrent_min=${idleCurrent_min:-0.0000}
 export EL_idleCurrent_max=${idleCurrent_max:-0.0003}
+export EL_BLECurrent_min=${BLECurrent_min:-0.0003}
+export EL_BLECurrent_max=${BLECurrent_max:-0.0005}
 export EL_tempCurrent_min=${tempCurrent_min:-0.007}
 export EL_tempCurrent_max=${tempCurrent_max:-0.012}
 export EL_versionCurrent_min=${versionCurrent_min:-0.059}
@@ -42,7 +44,7 @@ export EL_SHELL=/bin/dash
 export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
 export EL_serial=${serial:-NONE}
 export EL_power=${power:-NONE}
-export EL_stationlog=logs/all_results.log
+export EL_stationlog=test_results.log
 
 cd `dirname $0`
 
