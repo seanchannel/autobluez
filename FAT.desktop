@@ -4,6 +4,6 @@
 Version=1.0
 Type=Application
 Terminal=true
-Exec=/home/waterguru/Desktop/wg-firmware-test/runtest FAT
+Exec=/home/waterguru/Desktop/wg-firmware-test-master/runtest FAT
 NAME=FAT
 Comment=Final Acceptance Tests
