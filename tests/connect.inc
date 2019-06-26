@@ -9,11 +9,11 @@
 >. ./bashrc
 >
 
-? $EL_power == NONE ? %SKIP_POWER_LOG
->>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
-; waiting 30 sec. for pod startup...
-:30
-%SKIP_POWER_LOG
+#? $EL_power == NONE ? %SKIP_POWER_LOG
+#>>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
+#; waiting 30 sec. for pod startup...
+#:30
+#%SKIP_POWER_LOG
 
 ; searching 10 sec. for BLE address...
 >>hcitool lescan >> $EL_SCANLOG
