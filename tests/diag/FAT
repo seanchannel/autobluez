@@ -1,10 +1,18 @@
 #!/usr/bin/env expect-lite
 
+*LOGAPPEND $EL_log
+@$EL_timeout
 *NOINFO
 *NOWARN
 *NOFAIL
-~tests/connect.inc
 
+>rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG logs/*sample.log
+>. ./bashrc
+>
+
+>>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
+; waiting 30 sec. for pod startup...
+:30
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test idle current
 
@@ -12,9 +20,9 @@ $testitem=idleCurrent
 $testvalue=NONE
 $teststatus=NONE
 
-#>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :5
 
+>tail -10 $EL_POWERLOG 
 >tail -10 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
@@ -34,6 +42,26 @@ $teststatus=NONE
 
 ; $EL_testname $testitem $teststatus
 >echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>
+
+
+; searching 10 sec. for BLE address...
+>>hcitool lescan >> $EL_SCANLOG
+:10
+>^C
+> sort -u $EL_SCANLOG | fgrep $EL_pod
++$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
+? $address == __NO_STRING_CAPTURED__ ? *FAIL
+
+
+; connecting to BLE...
+*/[$address][LE]>/
+>screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
+>connect
+<Connection successful
+>
+>>^A
+>^D
 >
 
 
@@ -162,7 +190,19 @@ $teststatus=FAIL
 >echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
-~tests/cleanup.inc
+>screen -r $EL_testname -X stuff 'disconnect\015'
+>screen -r $EL_testname -X stuff 'exit\015'
+
+>screen -r power-$EL_testname
+>^C
+:2
+>
+
+>picocom --echo --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power > /dev/null
+>>OUTP 0
+>>SYST:LOC
+>>^A
+>>^X
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Results
->tail -4 $EL_stationlog
+>tail -5 $EL_stationlog

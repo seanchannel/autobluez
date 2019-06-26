@@ -3,10 +3,7 @@
 #*NOINFO
 *LOGAPPEND $EL_log
 @$EL_timeout
-*~../cleanup.inc
 
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Setup
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG logs/*sample.log
 >. ./bashrc
@@ -35,11 +32,3 @@
 >>^A
 >^D
 >
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: log test start 
-
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n set log start | xxd -ps`\015"
-:2
->dehex $EL_BLELOG
-<LOGGED: start
-
