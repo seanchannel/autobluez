@@ -82,8 +82,7 @@ for test in $*; do
 
     case $return in
         0) toilet --gay PASS ;;
-        *) toilet --gay FAIL
-           return $return ;;
+        *) toilet --gay FAIL ;;
     esac
 
 done
