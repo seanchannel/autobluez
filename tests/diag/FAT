@@ -11,8 +11,8 @@
 >
 
 >>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
-; waiting 30 sec. for pod startup...
-:30
+; waiting for pod startup...
+:35
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test idle current
 
@@ -26,6 +26,7 @@ $teststatus=NONE
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
+>cat logs/$EL_pod-$EL_testname-sample.log
 ; $count samples over 5 sec.
 
 >egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
@@ -34,14 +35,16 @@ $teststatus=NONE
 +$testvalue=\n([0-9].*)\n
 ; average current $testvalue, expected range: $EL_idleCurrent_min - $EL_idleCurrent_max
 
-? $testvalue < $EL_idleCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_idleCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_idleCurrent_min ? $teststatus=FAIL
 ? $teststatus == FAIL ? *FAIL
 >
 
 >echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
+
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test BLE current
 
 ; searching 10 sec. for BLE address...
 >>hcitool lescan >> $EL_SCANLOG
@@ -62,9 +65,6 @@ $teststatus=NONE
 >^D
 >
 
-
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test BLE current
-
 $testitem=BLECurrent
 $testvalue=NONE
 $teststatus=NONE
@@ -83,8 +83,8 @@ $teststatus=NONE
 +$testvalue=\n([0-9].*)\n
 ; average current $testvalue, expected range: $EL_BLECurrent_min - $EL_BLECurrent_max
 
-? $testvalue < $EL_BLECurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_BLECurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_BLECurrent_min ? $teststatus=FAIL
 ? $teststatus == FAIL ? *FAIL
 >
 
@@ -112,8 +112,8 @@ $teststatus=NONE
 +$testvalue=\n([0-9].*)\n
 ; average current $testvalue, expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
 
-? $testvalue < $EL_tempCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_tempCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_tempCurrent_min ? $teststatus=FAIL
 ? $teststatus == FAIL ? *FAIL
 >
 
@@ -141,8 +141,8 @@ $teststatus=NONE
 +$testvalue=\n([0-9].*)\n
 ; average current $testvalue, expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
 
-? $testvalue < $EL_versionCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_versionCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_versionCurrent_min ? $teststatus=FAIL
 ? $teststatus == FAIL ? *FAIL
 >
 
@@ -171,8 +171,8 @@ $teststatus=NONE
 +$testvalue=\n([0-9].*\n)
 ; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
-? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
 ? $teststatus == FAIL ? *FAIL
 >
 
@@ -204,8 +204,8 @@ $teststatus=FAIL
 +$testvalue=\n([0-9].*)\n
 ; average current $testvalue, expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
 
-? $testvalue < $EL_RGBCurrent_min ? $teststatus=FAIL
 ? $testvalue > $EL_RGBCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
+? $testvalue < $EL_RGBCurrent_min ? $teststatus=FAIL
 ? $teststatus == FAIL ? *FAIL
 >
 
