@@ -54,7 +54,7 @@ while (true) do
 export EL_user=${user:-NONE}
 export EL_mfg=${mfg:-NONE}
 
-if [ -z $pod ]; then
+#if [ -z $pod ]; then
     echo -n "Please scan User ID: "
     read EL_user
 
@@ -65,7 +65,7 @@ if [ -z $pod ]; then
     read pod
 
     export EL_user EL_mfg
-fi
+#fi
 export EL_pod=$pod
 
 ## run each test given on the command line
