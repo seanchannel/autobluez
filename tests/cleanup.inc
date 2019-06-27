@@ -4,15 +4,15 @@
 >screen -r $EL_testname -X stuff 'disconnect\015'
 >screen -r $EL_testname -X stuff 'exit\015'
 
-? $EL_power == NONE ? %SKIP_POWER_STOP
->screen -r power-$EL_testname
->^C
-:2
->
-
->picocom --echo --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power > /dev/null
->>OUTP 0
->>SYST:LOC
->>^A
->>^X
-%SKIP_POWER_STOP
+#? $EL_power == NONE ? %SKIP_POWER_STOP
+#>screen -r power-$EL_testname
+#>^C
+#:2
+#>
+#
+#>picocom --echo --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power > /dev/null
+#>>OUTP 0
+#>>SYST:LOC
+#>>^A
+#>>^X
+#%SKIP_POWER_STOP
