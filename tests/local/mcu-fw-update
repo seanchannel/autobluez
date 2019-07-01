@@ -54,6 +54,8 @@
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
 <Notification
+<Notification
+<Notification
 >
 >>^A
 >^D
