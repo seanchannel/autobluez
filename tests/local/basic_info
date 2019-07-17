@@ -73,9 +73,9 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
-; ============ WaterGuru $EL_pod $EL_testname: Test "pod rdid" ============
+; ============ WaterGuru $EL_pod $EL_testname: Test "get podid" ============
 >cp /dev/null $EL_BLELOG
->echo -n "pod rdid" | xxd -ps
+>echo -n "get podid" | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
