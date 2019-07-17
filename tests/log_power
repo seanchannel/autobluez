@@ -17,6 +17,6 @@ $count=0
 [ $count < 3
     >>MEAS:CURR?
     <[0-9](.*)\n
-    :1.5
+    :$EL_power_rate
 ]     
 
