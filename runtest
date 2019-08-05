@@ -4,7 +4,7 @@
 
 export EL_fw_env=${env:-qa}
 export EL_fw_index=${index:-qa}
-export EL_fw_version=${version:-v9.1.17}
+export EL_fw_version=${version:-v9.1.19}
 export EL_fw_bleversion=${bleversion:-11}
 export EL_fw_mode=${mode:-Sense}
 export EL_ssid=${ssid:-WG2}
@@ -44,6 +44,7 @@ export EL_SHELL=/bin/dash
 export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
 export EL_serial=${serial:-NONE}
 export EL_power=${power:-/dev/ttyUSB0}
+export EL_power_rate=${power_rate:-1.5}
 export EL_stationlog=test_results.log
 
 cd `dirname $0`
