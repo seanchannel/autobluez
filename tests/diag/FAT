@@ -11,7 +11,7 @@
 >
 
 >>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
-; waiting for pod startup...
+; waiting 35 sec. for pod startup...
 :35
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test idle current
@@ -54,7 +54,6 @@ $teststatus=NONE
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
 ? $address == __NO_STRING_CAPTURED__ ? *FAIL
 
-
 ; connecting to BLE...
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
@@ -88,7 +87,7 @@ $teststatus=NONE
 ? $teststatus == FAIL ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%m%S`, ${EL_pod}-${EL_testname}, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
@@ -156,9 +155,9 @@ $testvalue=NONE
 $teststatus=NONE
 
 ; running... (30s)
-
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
+
 >tail -60 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
