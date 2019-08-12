@@ -3,7 +3,7 @@
 *LOGAPPEND $EL_log
 @$EL_timeout
 *NOINFO
-*NOWARN
+#*NOWARN
 *NOFAIL
 
 >rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG logs/*sample.log
@@ -15,7 +15,6 @@
 :35
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test idle current
-
 $testitem=idleCurrent
 $testvalue=NONE
 $teststatus=NONE
@@ -24,11 +23,11 @@ $teststatus=NONE
 
 >tail -25 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 5 sec.
 
->egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -71,11 +70,11 @@ $teststatus=NONE
 
 >tail -25 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 5 sec.
 
->egrep -v '1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -100,11 +99,11 @@ $teststatus=NONE
 
 >tail -50 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00[0-1]|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0.00[0-1]|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 10 sec.
 
->egrep -v '0.000|1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0.000|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -129,11 +128,11 @@ $teststatus=NONE
 
 >tail -50 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 10 sec.
 
->egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -159,11 +158,11 @@ $teststatus=NONE
 
 >tail -150 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*\n)
 ; $count samples over 30 sec.
 
->egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n([0-9].*\n)
 >awk "BEGIN { print $total / $count }"
 +$testvalue=\n([0-9].*\n)
@@ -171,7 +170,7 @@ $teststatus=NONE
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
-? $count < 35 ? $teststatus=FAIL 
+? $count < 90 ? $teststatus=FAIL 
 ? $teststatus == FAIL ? *FAIL
 >
 
@@ -193,11 +192,11 @@ $teststatus=FAIL
 
 >tail -150 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 30 sec.
 
->egrep -v '0.00|1e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -224,6 +223,7 @@ $teststatus=FAIL
 >>SYST:LOC
 >>^A
 >>^X
+>
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Results
 >tail -6 $EL_stationlog
