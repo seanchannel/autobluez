@@ -30,7 +30,7 @@ $teststatus=NONE
 
 >egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->awk "BEGIN { print 0$total / $count }"
+? $total != 0 ? >awk "BEGIN { print 0$total / $count }" :: >echo $total
 +$testvalue=\n([0-9].*)\n
 ; average current $testvalue, expected range: $EL_idleCurrent_min - $EL_idleCurrent_max
 
