@@ -22,6 +22,7 @@ $teststatus=NONE
 :5
 
 >tail -25 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+#>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
@@ -69,6 +70,7 @@ $teststatus=NONE
 :5
 
 >tail -25 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+#>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
@@ -97,11 +99,12 @@ $teststatus=NONE
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :4
 
->tail -50 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+>tail -29 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+#>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00[0-1]|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
-; $count samples over 10 sec.
+; $count samples over 5 sec.
 
 >egrep -v '0.000|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
@@ -126,7 +129,8 @@ $teststatus=NONE
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 :4
 
->tail -50 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+>tail -20 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+#>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
@@ -157,6 +161,7 @@ $teststatus=NONE
 :30
 
 >tail -150 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+#>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*\n)
@@ -188,9 +193,10 @@ $teststatus=FAIL
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
 :25
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 80 | xxd -ps`\015"
-:5
+#:5
 
->tail -150 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+>tail -100 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
+#>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
