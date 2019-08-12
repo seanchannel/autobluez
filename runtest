@@ -28,7 +28,7 @@ export EL_BLECurrent_min=${BLECurrent_min:-0.0003}
 export EL_BLECurrent_max=${BLECurrent_max:-0.0010}
 export EL_tempCurrent_min=${tempCurrent_min:-0.0070}
 export EL_tempCurrent_max=${tempCurrent_max:-0.0120}
-export EL_versionCurrent_min=${versionCurrent_min:-0.0570}
+export EL_versionCurrent_min=${versionCurrent_min:-0.0530}
 export EL_versionCurrent_max=${versionCurrent_max:-0.0650}
 export EL_padMotorCurrent_min=${padMotorCurrent_min:-0.2000}
 export EL_padMotorCurrent_max=${padMotorCurrent_max:-0.4000}
@@ -44,30 +44,42 @@ export EL_SHELL=/bin/dash
 export PATH=./tests:./tests/local:./tests/cloud:./tests/pool:./tests/diag:$PATH
 export EL_serial=${serial:-NONE}
 export EL_power=${power:-/dev/ttyUSB0}
-export EL_power_rate=${power_rate:-1.25}
+export EL_power_rate=${power_rate:-1.2}
 export EL_stationlog=test_results.log
 
 cd `dirname $0`
 
 while (true) do
 
-## Prompt for these on command line
-export EL_user=${user:-NONE}
-export EL_mfg=${mfg:-NONE}
+## Prompt for these if not set on command line
 
-#if [ -z $pod ]; then
+if [ -z $user ]; then
     echo -n "Please scan User ID: "
     read EL_user
+else
+    EL_user=$user
+fi
 
+if [ -z $mfg ]; then
     echo -n "Please scan Serial Number: "
     read EL_mfg
+else
+    EL_mfg=$mfg
+fi
 
+if [ -z $pod ]; then
     echo -n "Please scan BLE ID: "
-    read pod
+    read EL_pod
+else
+    EL_pod=$pod
+fi
 
-    export EL_user EL_mfg
-#fi
-export EL_pod=$pod
+# start over if these are not set
+if [ -z $EL_user -o -z $EL_mfg -o -z $EL_pod ]; then
+    exec ./runtest FAT
+fi
+
+export EL_user EL_mfg EL_pod
 
 ## run each test given on the command line
 for test in $*; do
@@ -87,7 +99,5 @@ for test in $*; do
     esac
 
 done
-
-    pod=""
 
 done
