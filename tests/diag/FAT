@@ -169,7 +169,7 @@ $teststatus=NONE
 
 >egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n([0-9].*\n)
->awk "BEGIN { print $total / $count }"
+>awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*\n)
 ; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 

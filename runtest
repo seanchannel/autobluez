@@ -25,7 +25,7 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 export EL_idleCurrent_min=${idleCurrent_min:-0.0000}
 export EL_idleCurrent_max=${idleCurrent_max:-0.0003}
 export EL_BLECurrent_min=${BLECurrent_min:-0.0002}
-export EL_BLECurrent_max=${BLECurrent_max:-0.0005}
+export EL_BLECurrent_max=${BLECurrent_max:-0.0007}
 export EL_tempCurrent_min=${tempCurrent_min:-0.007}
 export EL_tempCurrent_max=${tempCurrent_max:-0.012}
 export EL_versionCurrent_min=${versionCurrent_min:-0.053}
@@ -53,29 +53,22 @@ while (true) do
 
 ## Prompt for these if not set on command line
 
-if [ -z $user ]; then
+if [ -z $pod ]; then
     echo -n "Please scan User ID: "
     read EL_user
-else
-    EL_user=$user
-fi
 
-if [ -z $mfg ]; then
     echo -n "Please scan Serial Number: "
     read EL_mfg
-else
-    EL_mfg=$mfg
-fi
 
-if [ -z $pod ]; then
     echo -n "Please scan BLE ID: "
     read EL_pod
+
 else
     EL_pod=$pod
 fi
 
-# start over if these are not set
-if [ -z $EL_user -o -z $EL_mfg -o -z $EL_pod ]; then
+# start over if pod is not set
+if [ -z $EL_pod ]; then
     exec ./runtest FAT
 fi
 
