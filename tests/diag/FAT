@@ -174,7 +174,8 @@ $teststatus=NONE
 ; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
-? $count < 90 ? $teststatus=FAIL 
+? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
+? $count < 90 ? $teststatus=FAIL :: $testvalue=motor_stop
 ? $teststatus == FAIL ? *FAIL
 >
 
