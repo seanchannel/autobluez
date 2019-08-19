@@ -22,7 +22,7 @@ export EL_meas_min=${meas_min:-11}
 export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 
 # variables for Manufacturing and diagnostic tests
-export EL_idleCurrent_min=${idleCurrent_min:-0}
+export EL_idleCurrent_min=${idleCurrent_min:-0.0001}
 export EL_idleCurrent_max=${idleCurrent_max:-0.0003}
 export EL_BLECurrent_min=${BLECurrent_min:-0.0002}
 export EL_BLECurrent_max=${BLECurrent_max:-0.0007}
@@ -79,10 +79,10 @@ export EL_user EL_mfg EL_pod
 ## run each test given on the command line
 for test in $*; do
     export EL_testname=`basename $test`
-    export EL_log=logs/${EL_pod}-${EL_testname}.log
-    export EL_BLELOG=logs/${EL_pod}-${EL_testname}-ble.log
-    export EL_POWERLOG=logs/${EL_pod}-${EL_testname}-power.log
-    export EL_SCANLOG=logs/${EL_pod}-${EL_testname}-blescan.log
+    export EL_log=logs/${EL_mfg}-${EL_testname}.log
+    export EL_BLELOG=logs/${EL_mfg}-${EL_testname}-ble.log
+    export EL_POWERLOG=logs/${EL_mfg}-${EL_testname}-power.log
+    export EL_SCANLOG=logs/${EL_mfg}-${EL_testname}-blescan.log
 
     $test
     return=$?
