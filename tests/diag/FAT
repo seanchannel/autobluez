@@ -39,7 +39,7 @@ $teststatus=NONE
 ? $teststatus == FAIL ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
@@ -87,7 +87,7 @@ $teststatus=NONE
 ? $teststatus == FAIL ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
@@ -117,7 +117,7 @@ $teststatus=NONE
 ? $teststatus == FAIL ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
@@ -147,7 +147,7 @@ $teststatus=NONE
 ? $teststatus == FAIL ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
@@ -179,7 +179,7 @@ $teststatus=NONE
 ? $teststatus == FAIL ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
@@ -213,7 +213,7 @@ $teststatus=FAIL
 ? $teststatus == FAIL ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%m%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 >screen -r $EL_testname -X stuff 'disconnect\015'
