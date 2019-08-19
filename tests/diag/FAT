@@ -16,8 +16,6 @@
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test idle current
 $testitem=idleCurrent
-$testvalue=NONE
-$teststatus=NONE
 
 :5
 
@@ -36,7 +34,7 @@ $teststatus=NONE
 
 ? $testvalue > $EL_idleCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_idleCurrent_min ? $teststatus=FAIL
-? $teststatus == FAIL ? *FAIL
+? $teststatus != PASS ? *FAIL
 >
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
@@ -44,6 +42,7 @@ $teststatus=NONE
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test BLE current
+$testitem=BLECurrent
 
 ; searching 10 sec. for BLE address...
 >>hcitool lescan >> $EL_SCANLOG
@@ -63,10 +62,6 @@ $teststatus=NONE
 >^D
 >
 
-$testitem=BLECurrent
-$testvalue=NONE
-$teststatus=NONE
-
 :5
 
 >tail -25 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
@@ -84,17 +79,14 @@ $teststatus=NONE
 
 ? $testvalue > $EL_BLECurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_BLECurrent_min ? $teststatus=FAIL
-? $teststatus == FAIL ? *FAIL
+? $teststatus != PASS ? *FAIL
 >
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
-
 $testitem=tempCurrent
-$testvalue=NONE
-$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :4
@@ -114,7 +106,7 @@ $teststatus=NONE
 
 ? $testvalue > $EL_tempCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_tempCurrent_min ? $teststatus=FAIL
-? $teststatus == FAIL ? *FAIL
+? $teststatus != PASS ? *FAIL
 >
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
@@ -123,8 +115,6 @@ $teststatus=NONE
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test version current
 $testitem=versionCurrent
-$testvalue=NONE
-$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 :4
@@ -144,7 +134,7 @@ $teststatus=NONE
 
 ? $testvalue > $EL_versionCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_versionCurrent_min ? $teststatus=FAIL
-? $teststatus == FAIL ? *FAIL
+? $teststatus != PASS ? *FAIL
 >
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
@@ -153,8 +143,6 @@ $teststatus=NONE
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current
 $testitem=padMotorCurrent
-$testvalue=NONE
-$teststatus=NONE
 
 ; running... (30s)
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
@@ -175,8 +163,8 @@ $teststatus=NONE
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
-? $count < 80 ? $teststatus=FAIL :: $testvalue=motor_stop
-? $teststatus == FAIL ? *FAIL
+? $count < 80 ? $teststatus=motor_stop
+? $teststatus != PASS ? *FAIL
 >
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
@@ -185,8 +173,6 @@ $teststatus=NONE
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current
 $testitem=RGBCurrent
-$testvalue=NONE
-$teststatus=FAIL
 
 ; running... (25s)
 
@@ -210,7 +196,7 @@ $teststatus=FAIL
 
 ? $testvalue > $EL_RGBCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_RGBCurrent_min ? $teststatus=FAIL
-? $teststatus == FAIL ? *FAIL
+? $teststatus != PASS ? *FAIL
 >
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
