@@ -102,11 +102,11 @@ $teststatus=NONE
 >tail -29 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 #>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00[0-1]|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0\.00[0-1]|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 5 sec.
 
->egrep -v '0.000|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0\.000|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -132,11 +132,11 @@ $teststatus=NONE
 >tail -20 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 #>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 10 sec.
 
->egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -163,11 +163,11 @@ $teststatus=NONE
 >tail -150 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 #>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*\n)
 ; $count samples over 30 sec.
 
->egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n([0-9].*\n)
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*\n)
@@ -175,7 +175,7 @@ $teststatus=NONE
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
-? $count < 90 ? $teststatus=FAIL :: $testvalue=motor_stop
+? $count < 80 ? $teststatus=FAIL :: $testvalue=motor_stop
 ? $teststatus == FAIL ? *FAIL
 >
 
@@ -198,11 +198,11 @@ $teststatus=FAIL
 >tail -100 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 #>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 ; $count samples over 30 sec.
 
->egrep -v '0.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
