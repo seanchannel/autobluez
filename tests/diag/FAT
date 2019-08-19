@@ -175,7 +175,7 @@ $teststatus=NONE
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
-? $count < 90 ? $teststatus=FAIL 
+? $count < 90 ? $teststatus=FAIL :: $testvalue=motor_stop
 ? $teststatus == FAIL ? *FAIL
 >
 
