@@ -163,7 +163,8 @@ $testitem=padMotorCurrent
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
-? $count < 80 ? $teststatus=motor_stop
+? $count < 80 ? $testvalue=motor_stop
+? $count < 80 ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 >
 
