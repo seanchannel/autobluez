@@ -23,7 +23,7 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 
 # variables for Manufacturing and diagnostic tests
 export EL_idleCurrent_min=${idleCurrent_min:-0.0001}
-export EL_idleCurrent_max=${idleCurrent_max:-0.0003}
+export EL_idleCurrent_max=${idleCurrent_max:-0.00035}
 export EL_BLECurrent_min=${BLECurrent_min:-0.0002}
 export EL_BLECurrent_max=${BLECurrent_max:-0.0007}
 export EL_tempCurrent_min=${tempCurrent_min:-0.007}
@@ -67,11 +67,6 @@ else
     EL_pod=$pod
     EL_mfg=${mfg:-pod}
     EL_user=${user:-debug}
-fi
-
-# start over if pod is not set
-if [ -z $EL_pod ]; then
-    exec ./runtest FAT
 fi
 
 export EL_user EL_mfg EL_pod
