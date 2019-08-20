@@ -11,40 +11,36 @@
 >
 
 >>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
-; waiting 35 sec. for pod startup...
-:35
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test idle current
 $testitem=idleCurrent
 
-:5
+:45
 
 >tail -25 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 #>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
-; $count samples over 5 sec.
 
 >egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 ? $total != 0 ? >awk "BEGIN { print 0$total / $count }" :: >echo $total
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue, expected range: $EL_idleCurrent_min - $EL_idleCurrent_max
+#; average current $testvalue, expected range: $EL_idleCurrent_min - $EL_idleCurrent_max
 
 ? $testvalue > $EL_idleCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_idleCurrent_min ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus >> $EL_stationlog
 >
 
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test BLE current
+; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test BLE connect
 $testitem=BLECurrent
 
-; searching 10 sec. for BLE address...
 >>hcitool lescan >> $EL_SCANLOG
 :10
 >^C
@@ -52,7 +48,6 @@ $testitem=BLECurrent
 +$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
 ? $address == __NO_STRING_CAPTURED__ ? *FAIL
 
-; connecting to BLE...
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect
@@ -69,47 +64,45 @@ $testitem=BLECurrent
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
-; $count samples over 5 sec.
 
 >egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue, expected range: $EL_BLECurrent_min - $EL_BLECurrent_max
+#; average current $testvalue, expected range: $EL_BLECurrent_min - $EL_BLECurrent_max
 
 ? $testvalue > $EL_BLECurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_BLECurrent_min ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | >> $EL_stationlog
 >
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test temperature current
 $testitem=tempCurrent
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
-:4
+:5
 
 >tail -29 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 #>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0\.00[0-1]|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
-; $count samples over 5 sec.
 
 >egrep -v '0\.000|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue, expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
+#; average current $testvalue, expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
 
 ? $testvalue > $EL_tempCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_tempCurrent_min ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | >> $EL_stationlog
 >
 
 
@@ -117,34 +110,32 @@ $testitem=tempCurrent
 $testitem=versionCurrent
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
-:4
+:5
 
 >tail -20 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
 #>cat logs/$EL_pod-$EL_testname-sample.log
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
-; $count samples over 10 sec.
 
 >egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue, expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
+#; average current $testvalue, expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
 
 ? $testvalue > $EL_versionCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_versionCurrent_min ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | >> $EL_stationlog
 >
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test pad motor current
 $testitem=padMotorCurrent
 
-; running... (30s)
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
 
@@ -153,13 +144,12 @@ $testitem=padMotorCurrent
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*\n)
-; $count samples over 30 sec.
 
 >egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n([0-9].*\n)
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*\n)
-; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
+#; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
@@ -168,14 +158,12 @@ $testitem=padMotorCurrent
 ? $teststatus != PASS ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | >> $EL_stationlog
 >
 
 
 ; -+-+-+-> WaterGuru $EL_pod $EL_testname: Test RGB current
 $testitem=RGBCurrent
-
-; running... (25s)
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
 :25
@@ -187,20 +175,19 @@ $testitem=RGBCurrent
 >dos2unix -q logs/$EL_pod-$EL_testname-sample.log
 >egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
-; $count samples over 30 sec.
 
 >egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
-; average current $testvalue, expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
+#; average current $testvalue, expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
 
 ? $testvalue > $EL_RGBCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_RGBCurrent_min ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 >
 
->echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
+>echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | >> $EL_stationlog
 >
 
 >screen -r $EL_testname -X stuff 'disconnect\015'
