@@ -148,8 +148,8 @@ $testitem=padMotorCurrent
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
-? $count < 80 ? $testvalue=motor_stop
-? $count < 80 ? $teststatus=FAIL
+? $count < 72 ? $testvalue=motor_stop
+? $count < 72 ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
