@@ -10,18 +10,18 @@
 
 >>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
 
-; ~~~~~~~~> WaterGuru $EL_pod $EL_testname: Test idle current <~~~~~~~~
+; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test idle current <~~~~~~~~
 $testitem=idleCurrent
 
 :25
 
->tail -20 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g'  > logs/$EL_pod-$EL_testname-sample.log
->dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>tail -20 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
+>dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 ? $total != 0 ? >awk "BEGIN { print 0$total / $count }" :: >echo $total
 +$testvalue=\n([0-9].*)\n
@@ -35,7 +35,7 @@ $testitem=idleCurrent
 >
 
 
-; ~~~~~~~~> WaterGuru $EL_pod $EL_testname: Test BLE connect <~~~~~~~~
+; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test BLE connect <~~~~~~~~
 $testitem=BLECurrent
 
 >>hcitool lescan >> $EL_SCANLOG
@@ -57,13 +57,13 @@ $testitem=BLECurrent
 
 :5
 
->tail -25 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>tail -25 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -76,19 +76,19 @@ $testitem=BLECurrent
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
-; ~~~~~~~~> WaterGuru $EL_pod $EL_testname: Test temperature current <~~~~~~~~
+; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test temperature current <~~~~~~~~
 $testitem=tempCurrent
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :5
 
->tail -20 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0\.000|e' logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0\.000|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>tail -20 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 
->egrep -v '0\.000|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -102,19 +102,19 @@ $testitem=tempCurrent
 >
 
 
-; ~~~~~~~~> WaterGuru $EL_pod $EL_testname: Test version current <~~~~~~~~
+; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test version current <~~~~~~~~
 $testitem=versionCurrent
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 :3
 
->tail -20 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log
->egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>tail -20 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 
->egrep -v '0\.000|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -128,19 +128,19 @@ $testitem=versionCurrent
 >
 
 
-; ~~~~~~~~> WaterGuru $EL_pod $EL_testname: Test pad motor current <~~~~~~~~
+; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test pad motor current <~~~~~~~~
 $testitem=padMotorCurrent
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
 
->tail -120 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>tail -120 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*\n)
 
->egrep -v '0\.00|e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n([0-9].*\n)
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*\n)
@@ -148,28 +148,27 @@ $testitem=padMotorCurrent
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
 ? $testvalue < $EL_padMotorCurrent_min ? $teststatus=FAIL
-? $count < 72 ? $testvalue=motor_stop
-? $count < 72 ? $teststatus=FAIL
+? $count < $EL_padMotorSamples_min  ? $testvalue=motor_stop
+? $count < $EL_padMotorSamples_min  ? $teststatus=FAIL
 ? $teststatus != PASS ? *FAIL
 
 >echo `date +%C%y%m%d:%H%M%S`, $EL_testname, $EL_mfg, $EL_user, $testitem, 0, $testvalue, $teststatus | tee -a $EL_stationlog
 >
 
 
-; ~~~~~~~~> WaterGuru $EL_pod $EL_testname: Test RGB current <~~~~~~~~
+; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test RGB current <~~~~~~~~
 $testitem=RGBCurrent
 
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B46FF | xxd -ps`\015"
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B4601 | xxd -ps`\015"
 :25
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 80 | xxd -ps`\015"
 
->tail -60 $EL_POWERLOG > logs/$EL_pod-$EL_testname-sample.log
->dos2unix -q logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | wc -l
+>tail -60 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n([0-9].*)\n
 
->egrep -v 'e' logs/$EL_pod-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
+>egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
 >awk "BEGIN { print 0$total / $count }"
 +$testvalue=\n([0-9].*)\n
@@ -197,5 +196,5 @@ $testitem=RGBCurrent
 >>^X
 >
 
-; ~~~~~~~~> WaterGuru $EL_pod $EL_testname: Results <~~~~~~~~
+; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Results <~~~~~~~~
 >tail -6 $EL_stationlog
