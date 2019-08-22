@@ -136,8 +136,8 @@ $testitem=padMotorCurrent
 
 >tail -120 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
+>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log
+>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n(.*)\n
 
 >egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
