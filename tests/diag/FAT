@@ -19,12 +19,12 @@ $testitem=idleCurrent
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
-+$count=\n([0-9].*)\n
++$count=\n(.*)\n
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
-? $total != 0 ? >awk "BEGIN { print 0$total / $count }" :: >echo $total
-+$testvalue=\n([0-9].*)\n
+? $total != 0 ? >echo "scale=4; $total / $count" | bc :: >echo $total
++$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_idleCurrent_min - $EL_idleCurrent_max
 
 ? $testvalue > $EL_idleCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
@@ -61,12 +61,12 @@ $testitem=BLECurrent
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
-+$count=\n([0-9].*)\n
++$count=\n(.*)\n
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->awk "BEGIN { print 0$total / $count }"
-+$testvalue=\n([0-9].*)\n
+>echo "scale=4; $total / $count" | bc
++$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_BLECurrent_min - $EL_BLECurrent_max
 
 ? $testvalue > $EL_BLECurrent_max ? $teststatus=FAIL :: $teststatus=PASS
@@ -86,12 +86,12 @@ $testitem=tempCurrent
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
-+$count=\n([0-9].*)\n
++$count=\n(.*)\n
 
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->awk "BEGIN { print 0$total / $count }"
-+$testvalue=\n([0-9].*)\n
+>echo "scale=4; $total / $count" | bc
++$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
 
 ? $testvalue > $EL_tempCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
@@ -112,12 +112,12 @@ $testitem=versionCurrent
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
-+$count=\n([0-9].*)\n
++$count=\n(.*)\n
 
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->awk "BEGIN { print 0$total / $count }"
-+$testvalue=\n([0-9].*)\n
+>echo "scale=4; $total / $count" | bc
++$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
 
 ? $testvalue > $EL_versionCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
@@ -138,12 +138,12 @@ $testitem=padMotorCurrent
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
-+$count=\n([0-9].*\n)
++$count=\n(.*)\n
 
 >egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
-+$total=\n([0-9].*\n)
->awk "BEGIN { print 0$total / $count }"
-+$testvalue=\n([0-9].*\n)
++$total=\n(.*)\n
+>echo "scale=4; $total / $count" | bc
++$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
 ? $testvalue > $EL_padMotorCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
@@ -166,12 +166,12 @@ $testitem=RGBCurrent
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
-+$count=\n([0-9].*)\n
++$count=\n(.*)\n
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->awk "BEGIN { print 0$total / $count }"
-+$testvalue=\n([0-9].*)\n
+>echo "scale=4; $total / $count" | bc
++$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
 
 ? $testvalue > $EL_RGBCurrent_max ? $teststatus=FAIL :: $teststatus=PASS
