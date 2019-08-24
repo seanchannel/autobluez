@@ -33,8 +33,8 @@ export EL_versionCurrent_max=${versionCurrent_max:-0.072}
 export EL_padMotorCurrent_min=${padMotorCurrent_min:-0.080}
 export EL_padMotorCurrent_max=${padMotorCurrent_max:-0.620}
 export EL_padMotorRunTime_min=${padMotorSamples_min:-60}
-export EL_RGBCurrent_min=${RGBCurrent_min:-0.018}
-export EL_RGBCurrent_max=${RGBCurrent_max:-0.024}
+export EL_RGBCurrent_min=${RGBCurrent_min:-0.012}
+export EL_RGBCurrent_max=${RGBCurrent_max:-0.030}
 
 # test runtime configuration
 export EL_timeout=${timeout:-30}
