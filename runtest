@@ -23,7 +23,8 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 
 # variables for Manufacturing and diagnostic tests
 export EL_idleCurrent_min=${idleCurrent_min:-0.0000}
-export EL_idleCurrent_max=${idleCurrent_max:-0.0003}
+export EL_idleCurrent_max=${idleCurrent_max:-0.0004}
+export EL_idleCurrent_time=${idleCurrent_time:-15}
 export EL_BLECurrent_min=${BLECurrent_min:-0.0004}
 export EL_BLECurrent_max=${BLECurrent_max:-0.0300}
 export EL_tempCurrent_min=${tempCurrent_min:-0.0040}
