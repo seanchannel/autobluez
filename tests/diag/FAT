@@ -13,9 +13,9 @@
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test idle current <~~~~~~~~
 $testitem=idleCurrent
 
-:25
+:50
 
->tail -75 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
+>tail -100 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
