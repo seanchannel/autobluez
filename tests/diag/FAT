@@ -23,7 +23,7 @@ $testitem=idleCurrent
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
-? $total != 0 ? >echo "scale=4; $total / $count" | bc :: >echo $total
+? $total != 0 ? >echo "$total / $count" | bc :: >echo $total
 +$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_idleCurrent_min - $EL_idleCurrent_max
 
@@ -65,7 +65,7 @@ $testitem=BLECurrent
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->echo "scale=4; $total / $count" | bc
+>echo "$total / $count" | bc
 +$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_BLECurrent_min - $EL_BLECurrent_max
 
@@ -90,7 +90,7 @@ $testitem=tempCurrent
 
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->echo "scale=4; $total / $count" | bc
+>echo "$total / $count" | bc
 +$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_tempCurrent_min - $EL_tempCurrent_max
 
@@ -116,7 +116,7 @@ $testitem=versionCurrent
 
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->echo "scale=4; $total / $count" | bc
+>echo "$total / $count" | bc
 +$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_versionCurrent_min - $EL_versionCurrent_max
 
@@ -142,7 +142,7 @@ $testitem=padMotorCurrent
 
 >egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->echo "scale=4; $total / $count" | bc
+>echo "$total / $count" | bc
 +$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_padMotorCurrent_min - $EL_padMotorCurrent_max
 
@@ -170,7 +170,7 @@ $testitem=RGBCurrent
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo 0 | bc
 +$total=\n(.*)\n
->echo "scale=4; $total / $count" | bc
+>echo "$total / $count" | bc
 +$testvalue=\n(.*)\n
 ; average current $testvalue, expected range: $EL_RGBCurrent_min - $EL_RGBCurrent_max
 
