@@ -21,7 +21,7 @@ $testitem=idleCurrent
 >wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 ? $total != 0 ? >echo "scale=7; $total / $count" | bc :: >echo $total
 +$testvalue=\n(.*)\n
@@ -63,7 +63,7 @@ $testitem=BLECurrent
 >wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
 +$testvalue=\n(.*)\n
@@ -88,7 +88,8 @@ $testitem=tempCurrent
 >wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
->egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+#>egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
 +$testvalue=\n(.*)\n
@@ -114,7 +115,8 @@ $testitem=versionCurrent
 >wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
->egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+#>egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
 +$testvalue=\n(.*)\n
@@ -140,7 +142,8 @@ $testitem=padMotorCurrent
 >wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
->egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+#>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
 +$testvalue=\n(.*)\n
@@ -168,7 +171,7 @@ $testitem=RGBCurrent
 >wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
 +$testvalue=\n(.*)\n
