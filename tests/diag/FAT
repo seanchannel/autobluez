@@ -17,8 +17,8 @@ $testitem=idleCurrent
 
 >tail -100 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
+>cat -n logs/$EL_mfg-$EL_testname-sample.log
+>wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
@@ -57,10 +57,10 @@ $testitem=BLECurrent
 
 :5
 
->tail -25 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>tail -25 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
+>cat -n logs/$EL_mfg-$EL_testname-sample.log
+>wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
@@ -82,10 +82,10 @@ $testitem=tempCurrent
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :5
 
->tail -20 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>tail -20 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
->egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log
->egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
+>cat -n logs/$EL_mfg-$EL_testname-sample.log
+>wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
@@ -108,10 +108,10 @@ $testitem=versionCurrent
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 :3
 
->tail -20 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>tail -20 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
->egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log
->egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
+>cat -n logs/$EL_mfg-$EL_testname-sample.log
+>wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
 >egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
@@ -134,10 +134,10 @@ $testitem=padMotorCurrent
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
 
->tail -120 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>tail -120 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
->egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log
->egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
+>cat -n logs/$EL_mfg-$EL_testname-sample.log
+>wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
 >egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
@@ -162,10 +162,10 @@ $testitem=RGBCurrent
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B4601 | xxd -ps`\015"
 :25
 
->tail -60 $EL_POWERLOG > logs/$EL_mfg-$EL_testname-sample.log
+>tail -60 $EL_POWERLOG | sed 's/[1-9]e-0[0-9]/0.000/g' > logs/$EL_mfg-$EL_testname-sample.log
 >dos2unix -q logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log
->egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | wc -l
+>cat -n logs/$EL_mfg-$EL_testname-sample.log
+>wc -l logs/$EL_mfg-$EL_testname-sample.log
 +$count=\n(.*)\n
 
 >egrep -v 'e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
