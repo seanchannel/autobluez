@@ -138,8 +138,7 @@ $testitem=padMotorCurrent
 >cat logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n(.*)\n
 
-#>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
->sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
+>egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
 +$testvalue=\n(.*)\n
