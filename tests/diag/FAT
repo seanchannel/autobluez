@@ -38,9 +38,13 @@ $testitem=idleCurrent
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test BLE connect <~~~~~~~~
 $testitem=BLECurrent
 
+*NODVPROMPT
+
 >hcitool lescan
 +$address=([0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]) WaterGuru:$EL_pod
 >^C
+
+*DVPROMPT
 
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
