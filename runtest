@@ -24,7 +24,6 @@ export EL_pod_meas_hr=`expr $EL_meas_hr - 7`
 # variables for Manufacturing and diagnostic tests
 export EL_idleCurrent_min=${idleCurrent_min:-0.00007}
 export EL_idleCurrent_max=${idleCurrent_max:-0.00038}
-export EL_idleCurrent_time=${idleCurrent_time:-15}
 export EL_BLECurrent_min=${BLECurrent_min:-0.0003}
 export EL_BLECurrent_max=${BLECurrent_max:-0.00075}
 export EL_tempCurrent_min=${tempCurrent_min:-0.0032}
@@ -33,7 +32,7 @@ export EL_versionCurrent_min=${versionCurrent_min:-0.0555}
 export EL_versionCurrent_max=${versionCurrent_max:-0.068}
 export EL_padMotorCurrent_min=${padMotorCurrent_min:-0.2103}
 export EL_padMotorCurrent_max=${padMotorCurrent_max:-0.3495}
-export EL_padMotorRunTime_min=${padMotorSamples_min:-60}
+export EL_padMotoSamples_min=${padMotorSamples_min:-60}
 export EL_RGBCurrent_min=${RGBCurrent_min:-0.0096}
 export EL_RGBCurrent_max=${RGBCurrent_max:-0.0223}
 

@@ -5,13 +5,14 @@
 *LOGAPPEND $EL_log
 @$EL_timeout
 
->rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG logs/*sample.log
+>rm -f $EL_POWERLOG $EL_BLELOG logs/*sample.log
 >
 
 >>screen -c $EL_SCREENRC -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
 
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test idle current <~~~~~~~~
 $testitem=idleCurrent
+$teststatus=NONE
 
 :50
 
@@ -37,13 +38,12 @@ $testitem=idleCurrent
 
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test BLE connect <~~~~~~~~
 $testitem=BLECurrent
+$teststatus=NONE
 
 *NODVPROMPT
-
 >hcitool lescan
 +$address=([0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]) WaterGuru:$EL_pod
 >^C
-
 *DVPROMPT
 
 */[$address][LE]>/
@@ -78,6 +78,7 @@ $testitem=BLECurrent
 
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test temperature current <~~~~~~~~
 $testitem=tempCurrent
+$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
 :5
@@ -88,7 +89,7 @@ $testitem=tempCurrent
 >cat logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n(.*)\n
 
->egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>egrep -v '0\.000' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
 >sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
@@ -105,6 +106,7 @@ $testitem=tempCurrent
 
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test version current <~~~~~~~~
 $testitem=versionCurrent
+$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 :3
@@ -115,7 +117,7 @@ $testitem=versionCurrent
 >cat logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n(.*)\n
 
->egrep -v '0\.000|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>egrep -v '0\.000' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
 >sed 's/^/+ /g' logs/$EL_mfg-$EL_testname-sample.log | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
@@ -132,6 +134,7 @@ $testitem=versionCurrent
 
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test pad motor current <~~~~~~~~
 $testitem=padMotorCurrent
+$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
 :30
@@ -142,7 +145,7 @@ $testitem=padMotorCurrent
 >cat logs/$EL_mfg-$EL_testname-sample.log | wc -l
 +$count=\n(.*)\n
 
->egrep -v '0\.00|e' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
+>egrep -v '0\.00' logs/$EL_mfg-$EL_testname-sample.log | sed 's/^/+ /g' | xargs echo "scale=7; 0" | bc
 +$total=\n(.*)\n
 >echo "scale=7; $total / $count" | bc
 +$testvalue=\n(.*)\n
@@ -160,6 +163,7 @@ $testitem=padMotorCurrent
 
 ; ~~~~~~~~> WaterGuru $EL_mfg $EL_testname: Test RGB current <~~~~~~~~
 $testitem=RGBCurrent
+$teststatus=NONE
 
 >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B4601 | xxd -ps`\015"
 :25
