@@ -5,7 +5,7 @@
 @$EL_timeout
 
 
->rm -f $EL_SCANLOG $EL_POWERLOG $EL_BLELOG logs/*sample.log
+>rm -f $EL_POWERLOG $EL_BLELOG logs/*sample.log
 >. ./bashrc
 >
 
@@ -15,13 +15,12 @@
 #:30
 #%SKIP_POWER_LOG
 
-; searching 10 sec. for BLE address...
->>hcitool lescan >> $EL_SCANLOG
-:10
+; scanning for BLE address...
+*NODVPROMPT
+>hcitool lescan
++$address=([0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]) WaterGuru:$EL_pod
 >^C
-> sort -u $EL_SCANLOG | fgrep $EL_pod
-+$address=\n(([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})) WaterGuru:$EL_pod
-? $address == __NO_STRING_CAPTURED__ ? *FAIL
+*DVPROMPT
 
 ; connecting to BLE...
 */[$address][LE]>/
