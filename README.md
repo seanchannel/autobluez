@@ -12,7 +12,11 @@ Linux is required. The linux bluetooth stack (“bluez”) includes a tool packa
 
 	sudo setcap 'cap_net_raw,cap_net_admin+eip' `which hcitool`
 
-Once the BT MAC address has been found in the scan you can use ‘gatttool’ to connect, however all communication will be in hex and gatttool is a full-screen interactive program. To connect: “gatttool -I --listen -b <address>”, There are “connect” and “disconnect” commands which are very important. To send and reeieve commands at the point you would need to go outside of the gattool, e.g. in another window, and use the ‘xxd’ utility to translate to and from hex that you want to send or receive from gatttool. See shortcuts below.
+Once the BT MAC address has been found in the scan you can use ‘gatttool’ to connect, however all communication will be in hex and gatttool is a full-screen interactive program. To connect:
+
+	gatttool -I --listen -b <address>
+	
+There are “connect” and “disconnect” commands which are very important. To send and reeieve commands at the point you would need to go outside of the gattool, e.g. in another window, and use the ‘xxd’ utility to translate to and from hex that you want to send or receive from gatttool. See shortcuts below.
 
 Both gatttool and hcitool are very sensitive to unexpected signals / interrupts. So if one of these gets terminated unexpectedly it is possible your BT stack will hang ond the computer will need a reboot. It is important to only interrupt hcitool with ^C and it is also important to explicitly give the “disconnect” command in gatttool before quitting.
 
