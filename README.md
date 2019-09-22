@@ -8,7 +8,9 @@ Some technical details first, and shortcuts at the end.
 
 Linux is required. The linux bluetooth stack (“bluez”) includes a tool package, “bluez-tools”, which includes the 'hcitool' and 'gatttool' utilities. 'xxd' is used to translate hex<->ascii and is part of the “vim” package. So on Ubuntu I just do “sudo apt install bluez-tools” (xxd is usually there already).
 
-‘sudo hcitool lescan’ is used to scan the local bluetooth environment (it must be run as root or you can modify the binary to allow regular users, e.g. “setcap 'cap_net_raw,cap_net_admin+eip' `which hcitool`”. Otherwise use sudo.)
+‘sudo hcitool lescan’ is used to scan the local bluetooth environment (it must be run as root or you can modify the binary to allow regular users, e.g. 
+
+	“setcap 'cap_net_raw,cap_net_admin+eip' `which hcitool`”
 
 Once the BT MAC address has been found in the scan you can use ‘gatttool’ to connect, however all communication will be in hex and gatttool is a full-screen interactive program. To connect: “gatttool -I --listen -b <address>”, There are “connect” and “disconnect” commands which are very important. To send and reeieve commands at the point you would need to go outside of the gattool, e.g. in another window, and use the ‘xxd’ utility to translate to and from hex that you want to send or receive from gatttool. See shortcuts below.
 
