@@ -2,7 +2,7 @@
 
 These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). See below for details about using these scripts.
 
-# How This basically works
+# How This basically works -- developer mode
 
 Some technical details first, and shortcuts at the end.
 
