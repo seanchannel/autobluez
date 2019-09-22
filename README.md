@@ -52,7 +52,7 @@ ble <pod>
 
 # How this works -- automated
 
-No ".podnames" file is used for automated testing. Instead we require the pod BLE ID (e,g, "FCC314") and we do a BLE scan to fild the MAC address and connect. Only after that do we get the pod ID from the unit.
+No ".podnames" file is not used for automated testing. Instead we require the pod BLE ID (e,g, "FCC314") and we do a BLE scan to fild the MAC address and connect. Only after that do we get the pod ID from the unit.
 
 ### Prerequisites
 
