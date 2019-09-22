@@ -44,20 +44,9 @@ bleep <pod> <command>
 ble <pod>
 	this gives you a gatttool prompt at the pod address, unconnected by default. However sometimes the connection gets stuck so you can try entering “disconnect” here, then ‘exit’ / ^D 
 
+# How this works -- automated
 
-
-## What's in here
-
-* ```runtest```  - The main front-end user script for running test scripts
-* ```podnames``` - A list of BLE addresses for the test units with pod ID and other human-readable aliases
-* ```tests/``` - test scripts in sub-folders per section, and common scripts for all tests
-* ```logs/``` - a log for each 'podname-script', over-written by next script run
-* ```screenrc``` - critical settings for the ```screen``` utility
-* ```bashrc```- shortcuts for test development and translating hex to ascii
-
-## Getting Started
-
-Any mainstream Linux server should support all prerequisites. Each linux distro has it's own software ecosystem, You should be familiar with your system's software management tools and configuration. In general most systems require the 'extended' or 'community' repositories enabled for that platform to install the needed software. For example, to install expext-lite on ubuntu requires the ["Universe" repository](https://help.ubuntu.com/community/Repositories#Managing_Repositories) be enabled, and on RPM-based systems you might need the ["EPEL" repository](https://fedoraproject.org/wiki/EPEL).
+No ".podnames" file is used for automated testing. Instead we require the pod BLE ID (e,g, "FCC314") and we do a BLE scan to fild the MAC address and connect. Only after that do we get the pod ID from the unit.
 
 ### Prerequisites
 
@@ -75,6 +64,20 @@ Example Ubuntu package installation, with repositories configured:
 ```
 $ sudo apt install git bluez bluez-tools screen expect-lite
 ```
+
+## What's in here
+
+* ```runtest```  - The main front-end user script for running test scripts
+* ```podnames``` - A list of BLE addresses for the test units with pod ID and other human-readable aliases
+* ```tests/``` - test scripts in sub-folders per section, and common scripts for all tests
+* ```logs/``` - a log for each 'podname-script', over-written by next script run
+* ```screenrc``` - critical settings for the ```screen``` utility
+* ```bashrc```- shortcuts for test development and translating hex to ascii
+
+## Getting Started
+
+Any mainstream Linux server should support all prerequisites. Each linux distro has it's own software ecosystem, You should be familiar with your system's software management tools and configuration. In general most systems require the 'extended' or 'community' repositories enabled for that platform to install the needed software. For example, to install expext-lite on ubuntu requires the ["Universe" repository](https://help.ubuntu.com/community/Repositories#Managing_Repositories) be enabled, and on RPM-based systems you might need the ["EPEL" repository](https://fedoraproject.org/wiki/EPEL).
+
 ### Installing
 
 Clone this repository onto the system or use the GitHub "clone or download" button for other options. E.g.: 
