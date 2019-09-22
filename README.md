@@ -18,7 +18,7 @@ This is all very painful for a human but computer can automate this with the use
 
 ## Shortcuts
 
-I have some bash shortcuts I use while developing tests, even if I have to reboot occasionally. You can add the attached bash.txt contents to your ~/.bashrc (then source or start a new shell). Please see also the code and comments in the attachment.
+I have some bash shortcuts I use while developing tests, even if I have to reboot occasionally. You can add the contents of bashrc contents to your ~/.bashrc (then source or start a new shell). Please see also the code and comments in there.
 
 First, I take the output from ‘hcitool lescan’ and save the line for my pod(s) into a file ~/.podnames and the shortcuts below use this. Example of ~/.podnames file:
 
@@ -26,7 +26,7 @@ First, I take the output from ‘hcitool lescan’ and save the line for my pod(
 	7C:01:0A:FC:C3:14 WaterGuru:FCC314 1097 backyard
 	C8:DF:84:FC:23:F2 WaterGuru:FC23F2 testpod
 
-^ note I added aliases at the end of the line which you can use with the shortcuts (or the “FC2655” part). There are 5 aliases / functions defined for bash in the attached file. “bleep” and “dx” are what I use to do a command-line session. 
+^ note I added aliases at the end of the line which you can use with the shortcuts (or the “FC2655” part). There are 5 aliases / functions defined for bash in bashrc. *“bleep” and “dx” are what I use to do a command-line session.* 
 
 “dx”
 	this will wait for you to copy and paste hex output from gatttool into the terminal. multi-line OK. after pasting content press ^D to terminate input and it will print the input as plain tex.
