@@ -15,12 +15,17 @@
 >^C
 *DVPROMPT
 
+>echo -n "get podid" | xxd -ps
++$cmd=\n(.*)
+
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect
 <Connection successful
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 50 4f 44 20 49 44 20 3d
 >
->char-write-req 0x001b 67657420706f6469640a
 >>^A
 >^D
 >
@@ -28,6 +33,7 @@
 >dehex $EL_BLELOG
 -<Please try again
 -<Unknown
-+$podid=([1-9][0-9][0-9][0-9]+)
++$EL_pod=POD ID = ([1-9][0-9]+)
+>export EL_pod
 
-? $test_in_progress != 1 ? ~tests/cleanup.inc
+#? $test_in_progress != 1 ? ~tests/cleanup.inc

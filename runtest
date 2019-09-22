@@ -65,7 +65,7 @@ if [ -z $pod ]; then
 else
 
     EL_ble=$pod
-    EL_mfg=${mfg:-pod}
+    EL_mfg=${mfg:-$pod}
     EL_user=${user:-debug}
 
 fi
