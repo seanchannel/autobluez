@@ -10,7 +10,7 @@ Linux is required. The linux bluetooth stack (“bluez”) includes a tool packa
 
 ‘sudo hcitool lescan’ is used to scan the local bluetooth environment (it must be run as root or you can modify the binary to allow regular users, e.g. 
 
-	“setcap 'cap_net_raw,cap_net_admin+eip' `which hcitool`”
+	sudo setcap 'cap_net_raw,cap_net_admin+eip' `which hcitool`
 
 Once the BT MAC address has been found in the scan you can use ‘gatttool’ to connect, however all communication will be in hex and gatttool is a full-screen interactive program. To connect: “gatttool -I --listen -b <address>”, There are “connect” and “disconnect” commands which are very important. To send and reeieve commands at the point you would need to go outside of the gattool, e.g. in another window, and use the ‘xxd’ utility to translate to and from hex that you want to send or receive from gatttool. See shortcuts below.
 
