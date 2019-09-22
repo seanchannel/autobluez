@@ -50,8 +50,6 @@ export EL_stationlog=test_results.log
 
 cd `dirname $0`
 
-while (true) do
-
 ## Prompt for these if not set on command line
 
 if [ -z $pod ]; then
@@ -62,17 +60,17 @@ if [ -z $pod ]; then
     read EL_mfg
 
     echo -n "Please scan BLE ID: "
-    read EL_pod
+    read EL_ble
 
 else
 
-    EL_pod=$pod
+    EL_ble=$pod
     EL_mfg=${mfg:-pod}
     EL_user=${user:-debug}
 
 fi
 
-export EL_user EL_mfg EL_pod
+export EL_user EL_mfg EL_ble
 
 ## run each test given on the command line
 for test in $*; do
@@ -89,7 +87,5 @@ for test in $*; do
         0) toilet --gay PASS ;;
         *) toilet --metal FAIL ;;
     esac
-
-done
 
 done
