@@ -2,7 +2,51 @@
 
 These scripts are intended to automate the [firmware regression test suite in TestLodge](https://waterguru.testlodge.com/projects/27528/suites/130300). See below for details about using these scripts.
 
-### What's in here
+# How This basically works
+
+Some technical details first, and shortcuts at the end.
+
+Linux is required. The linux bluetooth stack (“bluez”) includes a tool package, “bluez-tools”, which includes the 'hcitool' and 'gatttool' utilities. 'xxd' is used to translate hex<->ascii and is part of the “vim” package. So on Ubuntu I just do “sudo apt install bluez-tools” (xxd is usually there already).
+
+‘sudo hcitool lescan’ is used to scan the local bluetooth environment (it must be run as root or you can modify the binary to allow regular users, e.g. “setcap 'cap_net_raw,cap_net_admin+eip' `which hcitool`”. Otherwise use sudo.)
+
+Once the BT MAC address has been found in the scan you can use ‘gatttool’ to connect, however all communication will be in hex and gatttool is a full-screen interactive program. To connect: “gatttool -I --listen -b <address>”, There are “connect” and “disconnect” commands which are very important. To send and reeieve commands at the point you would need to go outside of the gattool, e.g. in another window, and use the ‘xxd’ utility to translate to and from hex that you want to send or receive from gatttool. See shortcuts below.
+
+Both gatttool and hcitool are very sensitive to unexpected signals / interrupts. So if one of these gets terminated unexpectedly it is possible your BT stack will hang ond the computer will need a reboot. It is important to only interrupt hcitool with ^C and it is also important to explicitly give the “disconnect” command in gatttool before quitting.
+
+This is all very painful for a human but computer can automate this with the use of a few other tools.
+
+## Shortcuts
+
+I have some bash shortcuts I use while developing tests, even if I have to reboot occasionally. You can add the attached bash.txt contents to your ~/.bashrc (then source or start a new shell). Please see also the code and comments in the attachment.
+
+First, I take the output from ‘hcitool lescan’ and save the line for my pod(s) into a file ~/.podnames and the shortcuts below use this. Example of ~/.podnames file:
+
+	C8:DF:84:FC:26:55 WaterGuru:FC2655 labbench
+	7C:01:0A:FC:C3:14 WaterGuru:FCC314 1097 backyard
+	C8:DF:84:FC:23:F2 WaterGuru:FC23F2 testpod
+
+^ note I added aliases at the end of the line which you can use with the shortcuts (or the “FC2655” part). There are 5 aliases / functions defined for bash in the attached file. “bleep” and “dx” are what I use to do a command-line session. 
+
+“dx”
+	this will wait for you to copy and paste hex output from gatttool into the terminal. multi-line OK. after pasting content press ^D to terminate input and it will print the input as plain tex.
+
+dehex <file>
+	this is the same as the above but for a file of gatttool output, e.g. “dehex log.txt” will display contents in plain text. 
+
+blip <pod> <command>
+	this will send one command to the pod address found in ~/.podnames without waiting for any response. Useful for when you do not need to stay connected or read the response. E.g.:
+	blip testpod restart
+
+bleep <pod> <command>
+	this will send a command and wait for responses until ^C is pressed. Copy the response output lines, type ‘dx’ (above) and paste output, press ^D to translate output.
+
+ble <pod>
+	this gives you a gatttool prompt at the pod address, unconnected by default. However sometimes the connection gets stuck so you can try entering “disconnect” here, then ‘exit’ / ^D 
+
+
+
+## What's in here
 
 * ```runtest```  - The main front-end user script for running test scripts
 * ```podnames``` - A list of BLE addresses for the test units with pod ID and other human-readable aliases
