@@ -68,7 +68,6 @@ $ sudo apt install git bluez bluez-tools screen expect-lite
 ## What's in here
 
 * ```runtest```  - The main front-end user script for running test scripts
-* ```podnames``` - A list of BLE addresses for the test units with pod ID and other human-readable aliases
 * ```tests/``` - test scripts in sub-folders per section, and common scripts for all tests
 * ```logs/``` - a log for each 'podname-script', over-written by next script run
 * ```screenrc``` - critical settings for the ```screen``` utility
@@ -86,17 +85,16 @@ Clone this repository onto the system or use the GitHub "clone or download" butt
 $ git clone https://github.com/WaterGuru/wg-firmware-test.git
 $ cd wg-firmware-test
 ```
-You can edit the file ```podnames``` to add test units or alias names using a text editor or online in GitHub before downloading. To scan the local environment for BLE addresses requires root (superuser) privilege:
-
+To scan the local environment for BLE addresses requires root (superuser) privilege, or modify the binary as above.
 ```
 $ sudo hcitool lescan
 ```
 
-The scan will continue until Control-c is pressed. Look for the address in the terminal output and copy/paste into ```podnames``` along with any alias names for the unit on the same line.
+The scan will continue until Control-c is pressed. The scripts look for the address in the terminal output and then send a ^C automatically.
 
 ## Running the tests
 
-```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod ID that is listed in ```podnames``` along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after is the list of test script to run. E.g. to run all the [local operation](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#suite_section_140046) test section (with default parameters):
+```runtest``` is used to run any script in the ```tests/``` directory. As input it requires at least a pod BLE ID along with any critical test parameters. These can be specified in any order on the command line before ```runtest```. What follows after is the list of test script to run. E.g. to run all the [local operation](https://waterguru.testlodge.com/projects/27528/suites/130300?expand_section=140046#suite_section_140046) test section (with default parameters):
 
 ```
 $ pod=testpod ./runtest wifi_connect mcu-fw-update ble-fw-update basic_info log_upload mode_check
