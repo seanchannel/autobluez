@@ -8,16 +8,16 @@
 >. ./bashrc
 >
 
-; ~~~~~~~~> Connecting to WaterGuru $EL_ble <~~~~~~~~
+; ~~~~~~~~> Scanning for WaterGuru $EL_ble <~~~~~~~~
 *NODVPROMPT
 >hcitool lescan
 +$address=([0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]) WaterGuru:$EL_ble
 >^C
 *DVPROMPT
 
+; ~~~~~~~~> Connecting to WaterGuru $EL_ble <~~~~~~~~
 >echo -n "get podid" | xxd -ps
 +$cmd=\n(.*)
-
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect

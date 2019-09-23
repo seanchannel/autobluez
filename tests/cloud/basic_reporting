@@ -2,36 +2,28 @@
 
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
-##-------------------------------------------------------------------##
+$json=logs/${EL_mfg}-${EL_testname}.json
+>rm -f $json
 
-$test_in_progress=1
-~tests/cloud/cloud_check
-$test_in_progress=0
-
->podrec $EL_pod logs/$EL_testname.json
+>podrec $EL_pod $json
 <<"StatusCode": 200
 
 ##------------------------------------------------------------------##
 
-#; ============ WaterGuru $EL_pod $EL_testname: Verify battery e.g. "5.67" ============
-#>cat logs/$EL_testname.json | jo -a -p | fgrep sizeGal | awk '{print $2}'
-#<$EL_gallons,
-
-##------------------------------------------------------------------##
-
 ; ============ WaterGuru $EL_pod $EL_testname: Verify fw series e.g. "$EL_fw_index" ============
->cat logs/$EL_testname.json | jo -a -p | fgrep fwSeries | awk '{print $2}'
+>cat $json | jo -a -p | fgrep fwSeries | awk '{print $2}'
 <<"$EL_fw_index",
 
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify FW version "$EL_fw_version" ============
->cat logs/$EL_testname.json | jo -a -p | fgrep fwUpdateVersion | awk '{print $2}'
+>cat $json | jo -a -p | fgrep fwUpdateVersion | awk '{print $2}'
 <"$EL_fw_version.*",
+
 ##------------------------------------------------------------------##
 
 ; ============ WaterGuru $EL_pod $EL_testname: Verify BLE version "$EL_fw_bleversion" ============
->cat logs/$EL_testname.json | jo -a -p | fgrep fwBleVersion | awk '{print $2}'
+>cat $json | jo -a -p | fgrep fwBleVersion | awk '{print $2}'
 <<"$EL_fw_bleversion",
 
 ##------------------------------------------------------------------##
