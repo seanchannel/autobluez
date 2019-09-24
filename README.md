@@ -52,17 +52,20 @@ ble <pod>
 
 # How this works -- automated
 
-No ".podnames" file is not used for automated testing. Instead we require the pod BLE ID (e,g, "FCC314") and we do a BLE scan to fild the MAC address and connect. Only after that do we get the pod ID from the unit.
+The ".podnames" file is not used for automated testing. Instead we require the pod BLE ID (e,g, "FCC314") and we do a BLE scan to find the MAC address and connect. Only after that do we get the pod ID from the unit.
 
 ### Prerequisites
 
 Software requirements:
-* ```git``` can be used to clone this repository and keep it up to date
-* ```gatttool``` is a utility from the ```bluez``` linux bluetooth stack for BLE communications
-* ```screen``` version 4.06 or newer is used for the interactive BLE and/or serial sessions
-* ```Expect``` is the automation engine written in Tcl/Tk
-* [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is a compact front-end for ```Expect``` and the main script interpreter
-* ```Dash``` is a minimal POSIX-compliant shell with no bash features installed as /bin/sh on Ubuntu systems
+* ```git``` can be used to clone this repository and keep it up to date. Not needed if deployed from zip file (e.g. FAT).
+* ```gatttool``` is a utility from the ```bluez``` linux bluetooth stack for BLE communications.
+* ```screen``` version 4.06 or newer is used for the interactive BLE and/or serial sessions.
+* ```Expect``` is the automation engine written in Tcl/Tk.
+* [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is a compact front-end for ```Expect``` and the main script interpreter.
+* ```Dash``` is a minimal POSIX-compliant shell with no bash features installed as /bin/sh on Ubuntu systems.
+* ```picocom``` is used to connect to serial devices like the pod serial console and programmable power supplies.
+* ```awscli``` is the [pythpn] aws command line interface for downloading logs and pod the pod record (podrec).
+* ```toilet``` prints the colorful "PASS" or "FAIL" banner text at the end of a test script.
 
 Additionally, the system must be configured with a bluetooth hardware device.
 
@@ -75,8 +78,8 @@ $ sudo apt install git bluez bluez-tools screen expect-lite
 
 * ```runtest```  - The main front-end user script for running test scripts
 * ```tests/``` - test scripts in sub-folders per section, and common scripts for all tests
-* ```logs/``` - a log for each 'podname-script', over-written by next script run
-* ```screenrc``` - critical settings for the ```screen``` utility
+* ```logs/``` - a log for each 'podname-script', over-written by next script run (except FAT)
+* ```screenrc``` - critical settings for the ```screen``` utility, used to open serial and BLE sessions in the backgroupd
 * ```bashrc```- shortcuts for test development and translating hex to ascii
 
 ## Getting Started
