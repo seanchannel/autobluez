@@ -62,6 +62,7 @@ Software requirements:
 * ```screen``` version 4.06 or newer is used for the interactive BLE and/or serial sessions.
 * ```Expect``` is the automation engine written in Tcl/Tk.
 * [```expect-lite```](http://expect-lite.sourceforge.net/expect-lite_install.html) is a compact front-end for ```Expect``` and the main script interpreter.
+* ```Jo``` is a command-line json utility used by the scripts for parsing pod JSON records.
 * ```Dash``` is a minimal POSIX-compliant shell with no bash features installed as /bin/sh on Ubuntu systems.
 * ```picocom``` is used to connect to serial devices like the pod serial console and programmable power supplies.
 * ```awscli``` is the [pythpn] aws command line interface for downloading logs and pod the pod record (podrec).
