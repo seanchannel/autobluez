@@ -31,6 +31,27 @@ $test_in_progress=0
 
 ##------------------------------------------------------------------##
 
+; ============ WaterGuru $EL_pod $EL_testname: Test "get resist" ============
+>cp /dev/null $EL_BLELOG
+>echo -n "get resist" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 72 65 73 69 73 74 61 6e 63 65
+>
+>>^A
+>^D
+>
+
+; ============ WaterGuru $EL_pod $EL_testname: Verify "get resist" e.g. "resistance 1.80" ============
+>dehex $EL_BLELOG
+-<Please try again
+-<Unknown
+<resistance [1-2]\.[0-9][0-9]
+
+##------------------------------------------------------------------##
+
 ; ============ WaterGuru $EL_pod $EL_testname: Test "get time" ============
 >cp /dev/null $EL_BLELOG
 >echo -n "get time" | xxd -ps
@@ -69,7 +90,7 @@ $test_in_progress=0
 >dehex $EL_BLELOG
 -<Please try again
 -<Unknown
-<UTC date: 201[8-9]/[0-9][0-9]?/[0-9][0-9]?
+<UTC date: 202[1-9]/[0-9][0-9]?/[0-9][0-9]?
 
 ##------------------------------------------------------------------##
 

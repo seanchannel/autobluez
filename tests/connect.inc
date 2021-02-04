@@ -24,7 +24,8 @@
 <Connection successful
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 50 4f 44 20 49 44 20 3d
+#<Notification handle = 0x001b value: 50 4f 44 20 49 44 20 3d
+<Notification handle = 0x001b value: 24 70 6f 64 49 64
 >
 >>^A
 >^D
@@ -33,7 +34,8 @@
 >dehex $EL_BLELOG
 -<Please try again
 -<Unknown
-+$EL_pod=POD ID = ([1-9][0-9]+)
+#+$EL_pod=POD ID = ([1-9][0-9]+)
++$EL_pod=podId ([1-9][0-9]+)
 >export EL_pod
 
 #? $test_in_progress != 1 ? ~tests/cleanup.inc
