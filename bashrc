@@ -44,6 +44,13 @@ bleep()
     gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
 
+blap()
+{
+    POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
+    COMMAND=`echo $* | xxd -ps`
+    gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
+}
+
 # connect to pod BLE in gatttool. leaves you at the gatttool prompt until exit
 ble()
 {
@@ -71,6 +78,6 @@ podrec()
     payload="'`jo podId=$1 crudOp=READ returnRec=true`'"
     outfile=${2:-$1-podRec.json}
 
-    eval aws --profile qa lambda invoke --function-name qa-managePod --invocation-type RequestResponse \
+    eval aws --profile qa --region us-west-2 lambda invoke --function-name qa-managePod --invocation-type RequestResponse \
         --payload ${payload} $outfile
 }
