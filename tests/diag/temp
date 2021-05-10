@@ -1,0 +1,141 @@
+#!/usr/bin/env expect-lite
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+##------------------------------------------------------------------##
+
+; ============ WaterGuru $EL_pod $EL_testname: test for BLE DISCONNECT timeout ============
+
+# >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n '$timers 0' | xxd -ps`\015"
+# :5
+
+# set eom 1
+>echo -n "set eom 1" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 73 65 74 20 65 6f 6d
+>
+>>^A
+>^D
+>
+
+# $timers 0
+>echo -n '$timers 0' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 69 6d 65 72 73 20 30
+>
+>>^A
+>^D
+>
+
+# $remote on
+>echo -n '$remote on' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 72 73 65 6e 73 6f 72 20 6f 6e
+>
+>>^A
+>^D
+>
+
+# $get temp board
+>echo -n '$get temp board' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 65 6d 70 30 20 62 6f 61 72 64 20 36 39 2e 33
+>
+>>^A
+>^D
+>
+
+# $get temp water
+>echo -n '$get temp water' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 65 6d 70 20 77 61 74 65 72 20 36 39 2e 36
+>
+>>^A
+>^D
+>
+
+# $get humid
+>echo -n '$get humid' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 68 75 6d 69 64 30 20 35 32 25 20 36 39 2e 38
+>
+>>^A
+>^D
+>
+
+# $get moist
+>echo -n '$get moist' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 6d 6f 69 73 74 30 20 30 20 36 35 35 33 35
+>
+>>^A
+>^D
+>
+
+# $remote off
+>echo -n '$remote off' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 72 73 65 6e 73 6f 72 20 6f 66 66
+>
+>>^A
+>^D
+>
+
+# $timers 1
+>echo -n '$timers 1' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 69 6d 65 72 73 20 31
+>
+>>^A
+>^D
+>
+
+# set eom 0
+>echo -n "set eom 0" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 73 65 74 20 65 6f 6d
+>
+>>^A
+>^D
+>
+
+#; ============ WaterGuru $EL_pod $EL_testname: Verify output ============
+>dehex $EL_BLELOG
+-<Please try again
+-<Unknown
+#<TI_VERS = $EL_fw_bleversion
+#<$EL_fw_version
+
+##------------------------------------------------------------------##
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc
