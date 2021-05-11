@@ -9,17 +9,17 @@
 # >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n '$timers 0' | xxd -ps`\015"
 # :5
 
-# set eom 1
->echo -n "set eom 1" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
->
->>^A
->^D
->
+## set eom 1
+#>echo -n "set eom 1" | xxd -ps
+#+$cmd=\n(.*)
+#>screen -r $EL_testname
+#>char-write-req 0x001b $cmd
+#<Characteristic value was written successfully
+#<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+#>
+#>>^A
+#>^D
+#>
 
 # $timers 0
 >echo -n '$timers 0' | xxd -ps
@@ -27,7 +27,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 24 74 69 6d 65 72 73 20 30
 >
 >>^A
 >^D
@@ -39,7 +39,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 72 65 74 3d 30
 >
 >>^A
 >^D
@@ -51,7 +51,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 24 74 65 6d 70 31 20 62 6f 61 72 64
 >
 >>^A
 >^D
@@ -63,7 +63,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 24 74 65 6d 70 20 77 61 74 65 72
 >
 >>^A
 >^D
@@ -75,7 +75,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 24 68 75 6d 69 64 31
 >
 >>^A
 >^D
@@ -87,7 +87,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 24 6d 6f 69 73 74 31 20 31
 >
 >>^A
 >^D
@@ -99,7 +99,7 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 72 65 74 3d 30
 >
 >>^A
 >^D
@@ -111,23 +111,23 @@
 >screen -r $EL_testname
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 3c 45 4f 4d 3e
+<Notification handle = 0x001b value: 24 74 69 6d 65 72 73 20 31
 >
 >>^A
 >^D
 >
 
-# set eom 0
->echo -n "set eom 0" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 30
->
->>^A
->^D
->
+## set eom 0
+#>echo -n "set eom 0" | xxd -ps
+#+$cmd=\n(.*)
+#>screen -r $EL_testname
+#>char-write-req 0x001b $cmd
+#<Characteristic value was written successfully
+#<Notification handle = 0x001b value: 30
+#>
+#>>^A
+#>^D
+#>
 
 #; ============ WaterGuru $EL_pod $EL_testname: Verify output ============
 -<Please try again
