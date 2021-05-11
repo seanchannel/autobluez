@@ -6,9 +6,6 @@
 
 ; ============ WaterGuru $EL_pod $EL_testname: test for BLE DISCONNECT timeout ============
 
-# >screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n '$timers 0' | xxd -ps`\015"
-# :5
-
 ## set eom 1
 #>echo -n "set eom 1" | xxd -ps
 #+$cmd=\n(.*)
@@ -128,12 +125,6 @@
 #>>^A
 #>^D
 #>
-
-#; ============ WaterGuru $EL_pod $EL_testname: Verify output ============
--<Please try again
--<Unknown
-#<TI_VERS = $EL_fw_bleversion
-#<$EL_fw_version
 
 ##------------------------------------------------------------------##
 
