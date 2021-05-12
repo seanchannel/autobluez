@@ -1,0 +1,159 @@
+#!/usr/bin/env expect-lite
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+##------------------------------------------------------------------##
+## This script is 
+
+; ============ WaterGuru $EL_pod $EL_testname: test for BLE DISCONNECT timeout ============
+
+# $timers 0
+>echo -n '$timers 0' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 69 6d 65 72 73 20 30
+>
+>>^A
+>^D
+>
+
+# $remote off
+>echo -n '$remote off' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 72 65 74 3d 30
+>
+>>^A
+>^D
+>
+
+# $remote on
+>echo -n '$remote on' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 72 65 74 3d 30
+>
+>>^A
+>^D
+>
+
+# $color read
+>echo -n '$color read' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 53 42 3a
+>
+>>^A
+>^D
+>
+
+# $get humid
+>echo -n '$get humid' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 68 75 6d 69 64 31
+>
+>>^A
+>^D
+>
+
+# $get temp board
+>echo -n '$get temp board' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 65 6d 70 31 20 62 6f 61 72 64
+>
+>>^A
+>^D
+>
+
+# $get temp water
+>echo -n '$get temp water' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 65 6d 70 20 77 61 74 65 72
+>
+>>^A
+>^D
+>
+
+# $get temp board
+>echo -n '$get temp board' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 74 65 6d 70 31 20 62 6f 61 72 64
+>
+>>^A
+>^D
+>
+
+# $get resist
+>echo -n '$get resist' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 72 65 73 69 73 74
+>
+>>^A
+>^D
+>
+
+# $get moist
+>echo -n '$get moist' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 6d 6f 69 73 74 31 20 31
+>
+>>^A
+>^D
+>
+
+# $mot 0 10000 0
+>echo -n '$mot 0 10000 0' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 6d 6f 74 20 44 6f 6e 65
+>
+>>^A
+>^D
+>
+
+# $get flow
+@$EL_delay
+>echo -n '$get flow' | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 24 66 6c 6f 77
+
+>
+>>^A
+>^D
+>
+@$EL_timeout
+
+##------------------------------------------------------------------##
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc

@@ -37,5 +37,3 @@
 #+$EL_pod=POD ID = ([1-9][0-9]+)
 +$EL_pod=podId ([1-9][0-9]+)
 >export EL_pod
-
-#? $test_in_progress != 1 ? ~tests/cleanup.inc
