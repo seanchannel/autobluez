@@ -26,18 +26,18 @@
 >
 
 # $log upload
-@$EL_delay
->echo -n '$log upload' | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 6c 6f 67 20 75 70 6c 6f 61 64 20 4f 4b
->
->>^A
->^D
->
-@$EL_timeout
+#@$EL_delay
+#>echo -n '$log upload' | xxd -ps
+#+$cmd=\n(.*)
+#>screen -r $EL_testname
+#>char-write-req 0x001b $cmd
+#<Characteristic value was written successfully
+#<Notification handle = 0x001b value: 24 6c 6f 67 20 75 70 6c 6f 61 64 20 4f 4b
+#>
+#>>^A
+#>^D
+#>
+#@$EL_timeout
 
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n set log end | xxd -ps`\015"
 >screen -r $EL_testname -X stuff 'disconnect\015'
