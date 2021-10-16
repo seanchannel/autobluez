@@ -1,8 +1,13 @@
 
-HISTTIMEFORMAT='%d/%m/%y %T '
-# WaterGuru tester handy bash aliases
+## WaterGuru firmware test shell
+#
+# link this file to ~/.bash_aliases
+
+
+## misc handy aliases
 
 # add a timestamp to the shell prompts
+HISTTIMEFORMAT='%d/%m/%y %T '
 alias timestamp='export PROMPT_COMMAND="echo -n \$(date +%H:%M:%S)\ "'
 
 # podserial [--logfile <FILE>] /dev/<USB/SERIAL>
@@ -25,7 +30,14 @@ dehex()
     echo
 }
 
-# send a comman to a pod without waiting for notificatsions
+
+## the following require a "podnames" file instead of scanning with `hcitool`
+#
+# link the example file `podnames` to ~/.podnames
+# you can add any number of aliases on each line
+# changes may optionally be committed in git
+
+# send a command to a pod without waiting for notificatsions
 # e.g. 'blip <mypod> restart' or 'blip <mypod> pad test 2'
 blip()
 {
@@ -58,8 +70,10 @@ ble()
     gatttool -I --listen -b $POD 
 }
 
-# search for a keyword in the latest pod log, case insensitive
-# s3log <podId> <keyword>
+## AWS stuff
+
+# display the most recent logfile sent from the pod
+# s3log <podId> 
 s3log()
 {
     # the last file listed is the most recent log file uploaded
