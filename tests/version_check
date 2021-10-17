@@ -24,7 +24,7 @@
 >dehex $EL_BLELOG
 -<Please try again
 -<Unknown
-<TI_VERS = $EL_fw_bleversion
+<TI_VERS $EL_fw_bleversion
 <$EL_fw_version
 
 ##------------------------------------------------------------------##
