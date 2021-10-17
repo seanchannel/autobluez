@@ -34,6 +34,5 @@
 >dehex $EL_BLELOG
 -<Please try again
 -<Unknown
-#+$EL_pod=POD ID = ([1-9][0-9]+)
 +$EL_pod=podId ([1-9][0-9]+)
 >export EL_pod
