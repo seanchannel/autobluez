@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-. ./test_parameters.sh
+. ./parameters.sh
 
 ## Prompt for these if not set on command line
 
