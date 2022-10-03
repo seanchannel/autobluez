@@ -6,19 +6,15 @@
 
 ## misc handy aliases
 
-# add a timestamp to the shell prompts
+# timestamps
 HISTTIMEFORMAT='%d/%m/%y %T '
 alias timestamp='export PROMPT_COMMAND="echo -n \$(date +%H:%M:%S)\ "'
 
-# podserial [--logfile <FILE>] /dev/<USB/SERIAL>
-alias podserial="picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset"
+# AVR serial [--logfile <FILE>] /dev/<USB/SERIAL>
+alias avrserial="picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset"
 
-# logserial <LOGFILE> <DEVICE>
-logserial()
-{
-    screen -L -Logfile $1 -S $1 \
-    picocom --quiet --baud 115200 --flow h --echo --imap crcrlf --noreset $2
-}
+# ESP serial [--logfile <FILE>] /dev/<USB/SERIAL>
+alias podserial="picocom --baud 115200 --imap lfcrlf"
 
 # translate BLE hex copy/pasted in the terminal until ^D is pressed - diagnostic
 alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
