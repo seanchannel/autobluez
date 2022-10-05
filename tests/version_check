@@ -4,8 +4,9 @@
 
 ##------------------------------------------------------------------##
 
-; ============ WaterGuru $EL_pod $EL_testname: test BLE and MCU version ============
+; ~~~~~~~~>  Verify firmware versions <~~~~~~~~
 
+#XXX Template for stuffing instead of connecting
 #>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 #:5
 
@@ -20,7 +21,6 @@
 >^D
 >
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify BLE and MCU firmware versions ============
 >dehex $EL_BLELOG
 -<Please try again
 -<Unknown
