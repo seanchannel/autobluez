@@ -2,9 +2,10 @@
 
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
-##------------------------------------------------------------------##
-
 ; ~~~~~~~~>  Verify firmware versions <~~~~~~~~
+
+? $serial == NONE ? [
+## BLE
 
 #XXX Template for stuffing instead of connecting
 #>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
@@ -27,6 +28,18 @@
 <TI_VERS $EL_fw_bleversion
 <$EL_fw_version
 
-##------------------------------------------------------------------##
+]::[
+## Serial
+*NODVPROMPT
+>>picocom --quiet --logfile $EL_BLELOG --baud 115200 $EL_serial
+>>version
+<.+\$EL_fw_version
+>
+>>^A
+>^X
+>
+*DVPROMPT
+
+#----------------------------------------------------------#
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc
