@@ -8,14 +8,15 @@
 >. ./bashrc
 >
 
-; ~~~~~~~~> Scanning for WaterGuru $EL_ble <~~~~~~~~
+? $serial == NONE ? [
+
+;<red>~~~~~~~~> Connecting to WaterGuru $EL_ble <~~~~~~~~
 *NODVPROMPT
 >hcitool lescan
 +$address=([0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]) WaterGuru:$EL_ble
 >^C
 *DVPROMPT
 
-; ~~~~~~~~> Connecting to WaterGuru $EL_ble <~~~~~~~~
 >echo -n "get podid" | xxd -ps
 +$cmd=\n(.*)
 */[$address][LE]>/
@@ -24,7 +25,6 @@
 <Connection successful
 >char-write-req 0x001b $cmd
 <Characteristic value was written successfully
-#<Notification handle = 0x001b value: 50 4f 44 20 49 44 20 3d
 <Notification handle = 0x001b value: 24 70 6f 64 49 64
 >
 >>^A
@@ -32,7 +32,23 @@
 >
 
 >dehex $EL_BLELOG
--<Please try again
--<Unknown
 +$EL_pod=podId ([1-9][0-9]+)
+
+]::[
+
+;<red>~~~~~~~~> Connecting to WaterGuru serial $EL_serial <~~~~~~~~
+*NODVPROMPT
+# --initstring "$(echo -ne 'AAATZ\r\n\r\n')" 
+>>picocom --quiet --logfile $EL_BLELOG --baud 115200 $EL_serial
+>>
+>>
+>>get podid
++$EL_pod=.*podId ([1-9][0-9]+)
+>>^A
+>^X
+>
+*DVPROMPT
+
+]
+
 >export EL_pod
