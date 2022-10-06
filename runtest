@@ -20,7 +20,7 @@ else
 
     EL_ble=$pod
     EL_mfg=${mfg:-$pod}
-    EL_user=${user:-debug}
+    EL_user=${user:-QA}
 
 fi
 
