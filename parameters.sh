@@ -3,7 +3,7 @@
 
 export EL_fw_env=${env:-qa}
 export EL_fw_index=${index}
-export EL_fw_version=${version:-v10.0}
+export EL_fw_version=${version:-v12}
 export EL_fw_bleversion=${bleversion:-15}
 export EL_ssid=${ssid:-WG2}
 export EL_pswd=${pswd:-waterguru}
