@@ -8,7 +8,7 @@
 >. ./bashrc
 >
 
-? $serial == NONE ? [
+? $EL_serial == NONE ? [
 
 ;<red>~~~~~~~~> Connecting to WaterGuru $EL_ble <~~~~~~~~
 *NODVPROMPT

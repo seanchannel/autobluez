@@ -4,7 +4,7 @@
 
 ; ~~~~~~~~>  Verify firmware versions <~~~~~~~~
 
-? $serial == NONE ? [
+? $EL_serial == NONE ? [
 ## BLE
 
 #XXX Template for stuffing instead of connecting
@@ -39,6 +39,7 @@
 >^X
 >
 *DVPROMPT
+]
 
 #----------------------------------------------------------#
 
