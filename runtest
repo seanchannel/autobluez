@@ -1,5 +1,7 @@
 #!/usr/bin/env dash
 
+# this comment is a test
+
 cd `dirname $0`
 
 . ./parameters.sh
