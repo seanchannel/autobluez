@@ -1,0 +1,33 @@
+#!/usr/bin/env expect-lite
+
+; ~~~~~~~~>  Verify firmware versions <~~~~~~~~
+
+# - connect a screen session to the DUT console (serial or BLE), and power supply CLI, logging each to a file
+# - send the TEST_COMMAND to the DUT (translate to hex for BLE)
+# - verify console output and power consumption from screen logs
+# - upload the DUT log and verify result contents
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+$TEST_COMMAND=version
+
+? $EL_serial == NONE ? [
+## BLE
+>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n "$TEST_COMMAND" | xxd -ps`\015"
+:5
+>dehex $EL_BLELOG
+<TI_VERS $EL_fw_bleversion
+<$EL_fw_version
+
+]::[
+
+## Serial
+>screen -r $EL_testname -S -X stuff "$TEST_COMMAND"
+:5
+>cat $EL_BLELOG
+<TI_VERS $EL_fw_bleversion
+<$EL_fw_version
+
+]
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc
