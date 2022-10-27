@@ -2,32 +2,36 @@
 
 ; ~~~~~~~~>  Verify firmware versions <~~~~~~~~
 
-# - connect a screen session to the DUT console (serial or BLE), and power supply CLI, logging each to a file
-# - send the TEST_COMMAND to the DUT (translate to hex for BLE)
-# - verify console output and power consumption from screen logs
-# - upload the DUT log and verify result contents
-
+# - connect to console (serial or BLE), and power supply, logging each
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
-$TEST_COMMAND=version
+# - defaults could be taken from parameters.sh or runteest
+$TEST_CMD=version
+$LOG_CMD=zlog
+$LOG_READ=cat
 
-? $EL_serial == NONE ? [
-## BLE
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n "$TEST_COMMAND" | xxd -ps`\015"
-:5
->dehex $EL_BLELOG
-<TI_VERS $EL_fw_bleversion
-<$EL_fw_version
-
-]::[
-
-## Serial
->screen -r $EL_testname -S -X stuff "$TEST_COMMAND"
-:5
->cat $EL_BLELOG
-<TI_VERS $EL_fw_bleversion
-<$EL_fw_version
-
+# - translate to hex if we have an address
+? $EL_ble != "" ? [
+$TEST_CMD="char-write-req 0x001b `echo -n "$TEST_CMD" | xxd -ps`\015"
+$LOG_CMD="char-write-req 0x001b `echo -n "$LOG_CMD" | xxd -ps`\015"
+$LOG_READ=dehex
 ]
+
+# - send the TEST_CMD to the DUT, 5 sec delay
+>screen -r $EL_testname -X stuff "$TEST_CMD"
+:5
+
+# - verify console output
+>$LOG_READ $EL_BLELOG
+<TI_VERS $EL_fw_bleversion
+<$EL_fw_version
+]
+
+# - upload the log and verify result contents #issue
+~tests/wifi/log_upload
+# XXX now download and check the log
+
+# - verify power consumption from screen logs
+# XXX read back the power supply log for this test... check.
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc
