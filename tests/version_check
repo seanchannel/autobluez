@@ -2,14 +2,10 @@
 
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
-; ~~~~~~~~>  Verify firmware versions <~~~~~~~~
+; ~~~~~~~~> Verify firmware versions <~~~~~~~~
 
 ? $EL_serial == NONE ? [
 ## BLE
-
-#XXX Template for stuffing instead of connecting
-#>screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
-#:5
 
 >echo -n "version" | xxd -ps
 +$cmd=\n(.*)
