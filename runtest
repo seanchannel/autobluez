@@ -40,8 +40,8 @@ for test in $*; do
     echo
 
     case $return in
-        0) toilet --gay PASS ;;
-        *) toilet --metal FAIL ;;
+        0) figlet PASS ;;
+        *) figlet FAIL ;;
     esac
 
 done
