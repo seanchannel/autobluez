@@ -3,28 +3,26 @@
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ; ~~~~~~~~> Check firmware version <~~~~~~~~
-# send the "version" command and compare result
 
 ? $EL_serial == NONE ? [
-# connect over BLE if serial port is not set
+# BLE
+
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
 
-
 >dehex $EL_BLELOG | tail
-#<TI_VERS $EL_fw_bleversion
+<WI-FI_VERS $EL_fw_wifiversion
+<TI_VERS $EL_fw_bleversion
 <$EL_fw_version
 
 ]::[
-# connect over serial
-*NODVPROMPT
->>picocom --quiet --logfile $EL_BLELOG --baud 115200 $EL_serial
->>version
-<.+\$EL_fw_version
->
->>^A
->^X
->
-*DVPROMPT
+# Serial
+>screen -r $EL_testname -X stuff "version"
+
+>cat $EL_BLELOG | tail
+<WI-FI_VERS $EL_fw_wifiversion
+<TI_VERS $EL_fw_bleversion
+<$EL_fw_version
+
 ]
 
 #----------------------------------------------------------#

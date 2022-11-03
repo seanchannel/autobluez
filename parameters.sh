@@ -3,8 +3,9 @@
 
 export EL_fw_env=${env:-qa}
 export EL_fw_index=${index}
-export EL_fw_version=${version:-v12}
+export EL_fw_version=${version:-v11.3.9}
 export EL_fw_bleversion=${bleversion:-15}
+export EL_fw_wifiversion=${wifiversion:-1.0.0}
 export EL_ssid=${ssid:-WG2}
 export EL_pswd=${pswd:-waterguru}
 export EL_ssid_len=`echo -n $EL_ssid | wc -c`

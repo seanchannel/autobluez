@@ -10,7 +10,7 @@
 
 ? $EL_serial == NONE ? [
 
-;<red>~~~~~~~~> Connecting to WaterGuru $EL_ble <~~~~~~~~
+;>~~~~~~~~> Connecting to WaterGuru BLE $EL_ble <~~~~~~~~
 *NODVPROMPT
 >hcitool lescan
 +$address=([0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]:[0-9A-Fa-f][0-9A-Fa-f]) WaterGuru:$EL_ble
@@ -36,7 +36,7 @@
 
 ]::[
 
-;<red>~~~~~~~~> Connecting to WaterGuru serial $EL_serial <~~~~~~~~
+;~~~~~~~~> Connecting to WaterGuru serial $EL_serial <~~~~~~~~
 *NODVPROMPT
 # --initstring "$(echo -ne 'AAATZ\r\n\r\n')" 
 >>picocom --quiet --logfile $EL_BLELOG --baud 115200 $EL_serial
