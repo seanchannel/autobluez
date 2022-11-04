@@ -1,40 +1,27 @@
 #!/usr/bin/env expect-lite
 
-? $test_in_progress != 1 ? ~tests/connect.inc
+? $test_in_progress != 1 ? ~tests/2connect.inc
 
-; ~~~~~~~~> Verify firmware versions <~~~~~~~~
+; ~~~~~~~~> Check firmware version <~~~~~~~~
 
 ? $EL_serial == NONE ? [
-## BLE
+# BLE
 
->echo -n "version" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 54 49 5f 56 45 52 53
->
->>^A
->^D
->
-
->dehex $EL_BLELOG
--<Please try again
--<Unknown
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+<WI-FI_VERS $EL_fw_wifiversion
 <TI_VERS $EL_fw_bleversion
 <$EL_fw_version
 
 ]::[
-## Serial
-*NODVPROMPT
->>picocom --quiet --logfile $EL_BLELOG --baud 115200 $EL_serial
->>version
-<.+\$EL_fw_version
->
->>^A
->^X
->
-*DVPROMPT
+
+# Serial
+>screen -r $EL_testname -X stuff "version\015"
+>tail $EL_BLELOG
+<.*WI-FI_VERS $EL_fw_wifiversion
+<.*TI_VERS $EL_fw_bleversion
+<.*$EL_fw_version
+
 ]
 
 #----------------------------------------------------------#
