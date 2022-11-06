@@ -1,11 +1,17 @@
 
-; -+-+-+-> WaterGuru $EL_pod $EL_testname: cleanup
+; ~~~~~~~> WaterGuru $EL_pod $EL_testname: cleanup <~~~~~~~
 
-#@$EL_timeout
-
+?? $EL_serial == NONE ? [
+# BLE disconnect, gently
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n set log end | xxd -ps`\015"
 >screen -r $EL_testname -X stuff 'disconnect\015'
 >screen -r $EL_testname -X stuff 'exit\015'
+
+]:[
+# serial disconnect
+>screen -X -S $EL_testname quit
+
+]
 
 #? $EL_power == NONE ? %SKIP_POWER_STOP
 #>screen -r power-$EL_testname
@@ -19,3 +25,5 @@
 #>>^A
 #>>^X
 #%SKIP_POWER_STOP
+#
+#] 
