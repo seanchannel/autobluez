@@ -8,82 +8,70 @@
 
 # BLE
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n get volt | xxd -ps`\015"
->dehex $EL_BLELOG | tail -f
+>dehex $EL_BLELOG | grep volt
 
 ]::[
 
 # serial
 >screen -r $EL_testname -X stuff "\015\015"
 >screen -r $EL_testname -X stuff "get volt\015"
->cat #EL_BLELOG | tail -f
+>cat $EL_BLELOG | grep volt
 
 ]
 
-<.*Vbat =  [5-6]\.[0-9][0-9]
+<.*volt [5-6]\.[0-9][0-9]
 
-##------------------------------------------------------------------##
+; ~~~~~~~~> $EL_testname: Test "get resist" <~~~~~~~~
 
-; ============ WaterGuru $EL_pod $EL_testname: Test "get resist" ============
->cp /dev/null $EL_BLELOG
->echo -n "get resist" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 72 65 73 69 73 74 61 6e 63 65
->
->>^A
->^D
->
+? $EL_serial == NONE ? [
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "get resist" e.g. "resistance 1.80" ============
->dehex $EL_BLELOG
--<Please try again
--<Unknown
-<resistance [1-2]\.[0-9][0-9]
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `get resist | xxd -ps`\015"
+>dehex $EL_BLELOG | tail | grep resist
 
-##------------------------------------------------------------------##
+]::[
 
-; ============ WaterGuru $EL_pod $EL_testname: Test "get time" ============
->cp /dev/null $EL_BLELOG
->echo -n "get time" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 55 54 43 20 74 69 6d 65 3a 20
->
->>^A
->^D
->
+# Serial
+>screen -r $EL_testname -X stuff "get resist\015"
+>tail $EL_BLELOG | grep resist
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "get time" e.g. "UTC time: 17:53:47" ============
->dehex $EL_BLELOG
--<Please try again
--<Unknown
+]
+
+<.*resist [0-3]\.[0-9][0-9]
+
+; ~~~~~~~~> $EL_testname: Test "get time" <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `get time | xxd -ps`\015"
+>dehex $EL_BLELOG | tail | grep time
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "get time\015"
+>tail $EL_BLELOG | grep time
+
+]
 <UTC time: [0-9][0-9]?:[0-5][0-9]?:[0-5][0-9]?
 
-##------------------------------------------------------------------##
+; ~~~~~~~~> $EL_testname: Test "get date" <~~~~~~~~
 
-; ============ WaterGuru $EL_pod $EL_testname: Test "get date" ============
->cp /dev/null $EL_BLELOG
->echo -n "get date" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 55 54 43 20 64 61 74 65 3a 20
->
->>^A
->^D
->
+? $EL_serial == NONE ? [
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify "get date" e.g. "UTC date: 2019/01/07" ============
->dehex $EL_BLELOG
--<Please try again
--<Unknown
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `get date | xxd -ps`\015"
+>dehex $EL_BLELOG | tail | grep date
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "get date\015"
+>tail $EL_BLELOG | grep date
+
+]
+
 <UTC date: 202[1-9]/[0-9][0-9]?/[0-9][0-9]?
-
-##------------------------------------------------------------------##
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc

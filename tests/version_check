@@ -8,14 +8,14 @@
 
 # BLE
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
->dehex $EL_BLELOG | tail
+>dehex $EL_BLELOG | tail | grep VERS
 
 ]::[
 
 # Serial
 >screen -r $EL_testname -X stuff "\015\015"
 >screen -r $EL_testname -X stuff "version\015"
->tail $EL_BLELOG
+>tail $EL_BLELOG | grep VERS
 
 ]
 
