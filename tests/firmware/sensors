@@ -1,0 +1,77 @@
+#!/usr/bin/env expect-lite
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+; ~~~~~~~~> $EL_testname: test $get temp board <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get temp board | xxd -ps`\015"
+>dehex $EL_BLELOG | tail | grep temp
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff '\$get temp board\015'
+>cat  $EL_BLELOG | tail | grep temp
+
+]
+
+<.*temp1 board
+
+; ~~~~~~~~> $EL_testname: test $get temp water <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get temp water | xxd -ps`\015"
+>dehex $EL_BLELOG | tail | grep water
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff '\$get temp water\015'
+>cat  $EL_BLELOG | tail | grep water
+
+]
+
+<.*temp water
+
+; ~~~~~~~~> $EL_testname: test $get humid <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get humid | xxd -ps`\015"
+>dehex $EL_BLELOG | tail | grep HUMID
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff '\$get humid\015'
+>cat  $EL_BLELOG | tail | grep HUMID
+
+]
+
+<.*HUMID
+
+# ; ~~~~~~~~> $EL_testname: test $get moist <~~~~~~~~
+#
+#? $EL_serial == NONE ? [
+#
+# BLE
+#>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get moist | xxd -ps`\015"
+#>dehex $EL_BLELOG | tail | grep water
+#
+#]::[
+#
+# Serial
+#>screen -r $EL_testname -X stuff '\$get moist\015'
+#>cat  $EL_BLELOG | tail | grep temp
+#
+#]
+#
+#<.*0xDEADBEEF
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc
