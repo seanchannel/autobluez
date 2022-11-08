@@ -28,7 +28,7 @@
 >
 
 # get the pod ID
-> screen -r $EL_testname -X stuff "char-write-req 0x0001b \015"
+> screen -r $EL_testname -X stuff "char-write-req 0x0001b \015\015"
 > screen -r $EL_testname -X stuff "char-write-req 0x0001b `echo -n get podid | xxd -ps`\015"
 >dehex $EL_BLELOG
 +$EL_pod=podId (.+)

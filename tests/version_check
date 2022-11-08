@@ -13,7 +13,7 @@
 ]::[
 
 # Serial
->screen -r $EL_testname -X stuff "\015"
+>screen -r $EL_testname -X stuff "\015\015"
 >screen -r $EL_testname -X stuff "version\015"
 >tail $EL_BLELOG
 
