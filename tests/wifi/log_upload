@@ -2,31 +2,29 @@
 
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
-##-------------------------------------------------------------------##
+; ~~~~~~~~> $EL_testname: "zlog" ============
 
-; ============ WaterGuru $EL_pod $EL_testname: "zlog" ============
-@$EL_delay
->cp /dev/null $EL_BLELOG
->echo -n "zlog" | xxd -ps
-+$cmd=\n(.*)
->screen -r $EL_testname
->char-write-req 0x001b $cmd
-<Characteristic value was written successfully
-<Notification handle = 0x001b value: 55 70 6c 6f 61 64 20 4f 4b 3b 20 6c 6f 67 20 72 65 73 65 74 
->
->>^A
->^D
->
-@$EL_timeout
+? $EL_serial == NONE ? [
 
-; ============ WaterGuru $EL_pod $EL_testname: Verify e.g. "Upload OK; log reset" ============
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n zlog | xxd -ps`\015"
+:$EL_timeout
 >dehex $EL_BLELOG
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "\015\015"
+>screen -r $EL_testname -X stuff "zlog\015"
+:$EL_timeout
+>tail -f $EL_BLELOG 
+
+]
+
 -<Please try again
 -<Unknown
 -<SSID NOT FOUND
 -<Upload failed
 <Upload OK; log reset
-
-##-------------------------------------------------------------------##
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc

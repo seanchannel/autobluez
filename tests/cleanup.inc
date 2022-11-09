@@ -9,7 +9,7 @@
 
 ]:[
 # serial disconnect
->screen -X -S $EL_testname quit
+>screen -S $EL_testname -X quit
 
 ]
 
