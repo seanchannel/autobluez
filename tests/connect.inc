@@ -21,6 +21,7 @@
 */[$address][LE]>/
 >screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect
+-<Function not implemented
 <Connection successful
 >
 >>^A
