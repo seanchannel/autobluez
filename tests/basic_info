@@ -7,15 +7,17 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n get volt | xxd -ps`\015"
->dehex $EL_BLELOG | grep volt
+>screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get volt | xxd -ps`\015"
+:$EL_pause
+>dehex $EL_BLELOG | tail
 
 ]::[
 
 # serial
->screen -r $EL_testname -X stuff "\015\015"
->screen -r $EL_testname -X stuff "get volt\015"
->cat $EL_BLELOG | grep volt
+#>screen -S $EL_testname -X stuff "\015\015"
+>screen -S $EL_testname -X stuff "get volt\015"
+:$EL_pause
+>cat $EL_BLELOG | t
 
 ]
 
@@ -26,14 +28,16 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `get resist | xxd -ps`\015"
->dehex $EL_BLELOG | tail | grep resist
+>screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get resist | xxd -ps`\015"
+:$EL_pause
+>dehex $EL_BLELOG | tail
 
 ]::[
 
 # Serial
->screen -r $EL_testname -X stuff "get resist\015"
->tail $EL_BLELOG | grep resist
+>screen -S $EL_testname -X stuff "get resist\015"
+:$EL_pause
+>cat $EL_BLELOG | tail
 
 ]
 
@@ -44,14 +48,14 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `get time | xxd -ps`\015"
->dehex $EL_BLELOG | tail | grep time
+>screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get time | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
 
 ]::[
 
 # Serial
->screen -r $EL_testname -X stuff "get time\015"
->tail $EL_BLELOG | grep time
+>screen -S $EL_testname -X stuff "get time\015"
+>cat $EL_BLELOG | tail
 
 ]
 <UTC time: [0-9][0-9]?:[0-5][0-9]?:[0-5][0-9]?
@@ -61,14 +65,14 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `get date | xxd -ps`\015"
->dehex $EL_BLELOG | tail | grep date
+>screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get date | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
 
 ]::[
 
 # Serial
->screen -r $EL_testname -X stuff "get date\015"
->tail $EL_BLELOG | grep date
+>screen -S $EL_testname -X stuff "get date\015"
+>cat $EL_BLELOG | tail
 
 ]
 
