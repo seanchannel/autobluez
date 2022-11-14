@@ -1,0 +1,141 @@
+#!/usr/bin/env expect-lite
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+## $test_in_progress=1
+## ~tests/wifi/wifi_reset
+## $test_in_progress=0
+
+##-------------------------------------------------------------------##
+
+; ~~~~~~~~> $EL_testname: ssid set $EL_ssid <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n ssid set $EL_ssid | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "ssid set $EL_ssid\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<ssid chars = $EL_ssid_len
+
+; ~~~~~~~~> $EL_testname: ssid save <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n ssid save | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "ssid save\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<ssid saved
+
+; ~~~~~~~~> $EL_testname: ssid show <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n ssid show | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "ssid show\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<$EL_ssid
+
+; ~~~~~~~~> $EL_testname: pswd set <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n pswd set $EL_pswd | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "pswd set $EL_pswd\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<pswd chars = $EL_pswd_len
+
+; ~~~~~~~~> $EL_testname: pswd save <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n pswd save | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "pswd save\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<pswd saved
+
+; ~~~~~~~~> $EL_testname: pswd show <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n pswd show | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "pswd show\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<$EL_pswd
+
+; ~~~~~~~~> $EL_testname: wifi test <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n wifi test | xxd -ps`\015"
+:10
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "wifi test\015"
+:10
+>cat $EL_BLELOG | tail
+
+]
+
+-<SSID NOT FOUND
+<WI-FI OK
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc
+

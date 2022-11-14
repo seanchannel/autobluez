@@ -1,5 +1,9 @@
 #!/usr/bin/env expect-lite
 
+##
+## check installed firmware version(s)
+##
+
 ? $test_in_progress != 1 ? ~tests/connect.inc
 
 ; ~~~~~~~~> Check firmware version <~~~~~~~~
@@ -13,7 +17,6 @@
 ]::[
 
 # Serial
->screen -r $EL_testname -X stuff "\015\015"
 >screen -r $EL_testname -X stuff "version\015"
 >cat $EL_BLELOG | tail
 
@@ -22,7 +25,5 @@
 <.*WI-FI_VERS $EL_fw_wifiversion
 <.*TI_VERS $EL_fw_bleversion
 <.*$EL_fw_version
-
-]
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc
