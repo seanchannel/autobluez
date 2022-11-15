@@ -1,0 +1,25 @@
+#!/usr/bin/env expect-lite
+
+##
+## check values in the podRec()
+##
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+$json=logs/${EL_mfg}-${EL_testname}.json
+>podrec $EL_pod $json
+<<"StatusCode": 200
+
+; ~~~~~~~~> $EL_testname: check fw series <~~~~~~~~
+>cat $json | jo -a -p | fgrep fwSeries | awk '{print $2}'
+<<"$EL_fw_index",
+
+; ~~~~~~~~> $EL_testname: check fw version <~~~~~~~~
+>cat $json | jo -a -p | fgrep fwUpdateVersion | awk '{print $2}'
+<"$EL_fw_version.*",
+
+; ~~~~~~~~> $EL_testname: check BLE version <~~~~~~~~
+>cat $json | jo -a -p | fgrep fwBleVersion | awk '{print $2}'
+<<"$EL_fw_bleversion",
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc

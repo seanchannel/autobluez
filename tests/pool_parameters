@@ -1,0 +1,41 @@
+#!/usr/bin/env expect-lite
+
+##
+## what are we doing here?
+##
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+$json=logs/${EL_mfg}-${EL_testname}.json
+>podrec $EL_pod $json
+<<"StatusCode": 200
+
+; ~~~~~~~~> $EL_testname: check pool gallons <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n get poolgal | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "get poolgal\015"
+>cat $EL_BLELOG | tail
+
+]
+
+# compare firmwaare output with podRec()
+<Gallons: $EL_gallons
+>cat $json | jo -a -p | fgrep sizeGal | awk '{print $2}'
+<<$EL_gallons,
+
+# ; ============ WaterGuru $EL_pod $EL_testname: Test measure time ============
+# XXX TODO: fix s3log function for test user
+# 1. BLE "timers show"
+# 2. BLE "zlog"
+# 3. AWS s3log
+# 4. compare two completely different formats [facepalm]
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc

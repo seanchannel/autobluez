@@ -1,0 +1,39 @@
+#!/usr/bin/env expect-lite
+
+##
+## XXX need to set "upload log" flag for the pod on OpsGuru here
+##
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+; ~~~~~~~~> $EL_testname: upload log now <~~~~~~~~
+
+@$EL_delay
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n cloud | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "cloud\015"
+>cat $EL_BLELOG | tail
+
+]
+
+@$EL_timeout
+<Upload OK; log reset
+
+# check the latest log on s3 for our test mark
+>s3log $EL_pod $EL_testname
+<$EL_testname
+
+# cloud check again expecting no log upload
+
+$test_in_progress=1
+~tests/cloud/cloud_check
+$test_in_progress=0
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc

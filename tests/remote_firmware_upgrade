@@ -1,0 +1,36 @@
+#!/usr/bin/env expect-lite
+
+##
+## XXX setup a firmware download via OpsGuru
+##
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+; ~~~~~~~~> $EL_testname: "remote firmware upgrade" <~~~~~~~~
+
+@$EL_DELAY_WAIT_FOR_HOST
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n cloud | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "cloud\015"
+>cat $EL_BLELOG | tail
+
+]
+
+@$EL_timeout
+
+-<Please try again
+-<Unknown
+-<SSID NOT FOUND
+<Bytes to go: 0 bytes
+
+:$EL_delay
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc
