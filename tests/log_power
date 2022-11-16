@@ -1,12 +1,17 @@
 #!/usr/bin/env expect-lite
 
+##
+## connect to a power supply and log current
+##
+
 *NOINFO
 #*TIMESTAMP
-#*/\n/
+*/\n/
 
->>picocom --nolock --baud 9600 --omap crcrlf --imap igncr,crcrlf -r $EL_power
+>>picocom --nolock --noreset --echo --omap crcrlf --imap lfcrlf $EL_power
 <<Terminal ready
->>*IDN?
+>*IDN?
+>*IDN?
 <B&K Precision, 9201(.*)\n
 >>SYST:REM
 >>VOLT 6.0

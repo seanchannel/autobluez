@@ -6,8 +6,8 @@ export EL_fw_index=${index-:sense2_3}
 export EL_fw_version=${version:-v12}
 export EL_fw_bleversion=${bleversion:-15}
 export EL_fw_wifiversion=${wifiversion:-1.0.0}
-export EL_ssid=${ssid:-155s}
-export EL_pswd=${pswd:-greantea}
+export EL_ssid=${ssid:-WG2}
+export EL_pswd=${pswd:-clearwater}
 export EL_ssid_len=`echo -n $EL_ssid | wc -c`
 export EL_pswd_len=`echo -n $EL_pswd | wc -c`
 

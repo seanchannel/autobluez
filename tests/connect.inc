@@ -19,7 +19,7 @@
 
 # BLE connect
 */[$address][LE]>/
->screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
+>screen -L -Logfile $EL_BLELOG -S $EL_testname gatttool -I --listen -b $address
 >connect
 -<Function not implemented
 -<Error
@@ -42,7 +42,7 @@
 
 # serial connect
 *NODVPROMPT
->screen -c $EL_SCREENRC -L -Logfile $EL_BLELOG -S $EL_testname screen $EL_serial 115200
+>screen -L -Logfile $EL_BLELOG -S $EL_testname screen $EL_serial 115200
 >>
 >>
 >>^A
@@ -57,4 +57,10 @@
 
 ]
 >export EL_pod
+
+;~~~~~~~~> Connecting to WaterGuru power supply <~~~~~~~~
+
+#? $EL_power != NONE ? ~tests/log_power
+#>>screen -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
+
 ;~~~~~~~~> Connected to WaterGuru $EL_pod <~~~~~~~~
