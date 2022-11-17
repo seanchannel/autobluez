@@ -8,22 +8,15 @@
 >screen -S $EL_testname -X stuff 'exit\015'
 
 ]:[
-# serial disconnect
+# serial disconnect, just quit
 >screen -S $EL_testname -X quit
 
 ]
 
-#? $EL_power == NONE ? %SKIP_POWER_STOP
-#>screen -r power-$EL_testname
-#>^C
-#:2
-#>
-#
-#>picocom --echo --baud 9600 --omap crcrlf --imap lfcrlf -r $EL_power > /dev/null
+? $EL_power != NONE ? [
+>screen -S power-${EL_testname} -X quit
+
 #>>OUTP 0
 #>>SYST:LOC
-#>>^A
-#>>^X
-#%SKIP_POWER_STOP
-#
-#] 
+
+] 

@@ -58,9 +58,9 @@
 ]
 >export EL_pod
 
+? $EL_power != NONE ? [
 ;~~~~~~~~> Connecting to WaterGuru power supply <~~~~~~~~
-
-#? $EL_power != NONE ? ~tests/log_power
-#>>screen -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
+>screen -L -Logfile $EL_POWERLOG -S power-${EL_testname} -d -m tests/log_power
+]
 
 ;~~~~~~~~> Connected to WaterGuru $EL_pod <~~~~~~~~
