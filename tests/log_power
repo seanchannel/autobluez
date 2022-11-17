@@ -8,7 +8,7 @@
 #*TIMESTAMP
 */\n/
 
->>picocom --nolock --noreset --echo --omap crcrlf --imap lfcrlf $EL_power
+>>picocom --nolock --echo --omap crcrlf --imap lfcrlf --baud 115200 $EL_power
 <<Terminal ready
 >*IDN?
 >*IDN?
