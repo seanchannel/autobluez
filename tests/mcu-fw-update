@@ -1,0 +1,125 @@
+#!/usr/bin/env expect-lite
+
+##
+## download & install main app firmware
+##
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+; ~~~~~~~~> $EL_testname: set "fw env" <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw env $EL_fw_env | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw env $EL_fw_env\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<env set to \'$EL_fw_env\'
+
+; ~~~~~~~~> $EL_testname: show "fw env" <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw env | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw env\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<.*\$env $EL_fw_env
+
+; ~~~~~~~~> $EL_testname: set "fw index" <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw index $EL_fw_index | xxd -ps`\015"
+:$EL_pause
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw index $EL_fw_index\015"
+:$EL_pause
+>cat $EL_BLELOG | tail
+
+]
+
+<$EL_fw_index
+
+; ~~~~~~~~> $EL_testname: show "fw index" <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw index | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw index\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<$EL_fw_index
+
+; ~~~~~~~~> $EL_testname: download "fw dwld" <~~~~~~~~
+
+@$EL_DELAY_WAIT_FOR_HOST
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw dwld | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw dwld\015"
+>cat $EL_BLELOG | tail
+
+]
+
+@$EL_timeout
+<Bytes to go: 0 bytes
+:$EL_delay
+
+; ~~~~~~~~> $EL_testname: install "fw inst" <~~~~~~~~
+
+@$EL_DELAY_WAIT_FOR_HOST
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw inst | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw inst\015"
+>cat $EL_BLELOG | tail
+
+]
+
+<Restarting
+
+~tests/cleanup.inc
+~tests/version_check
+

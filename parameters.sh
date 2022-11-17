@@ -2,7 +2,7 @@
 ## Defaults for test environment
 
 export EL_fw_env=${env:-qa}
-export EL_fw_index=${index-:sense2_3}
+export EL_fw_index=${index:-sense2_3}
 export EL_fw_version=${version:-v12}
 export EL_fw_bleversion=${bleversion:-15}
 export EL_fw_wifiversion=${wifiversion:-1.0.0}
@@ -44,6 +44,6 @@ export EL_SCREENRC=screenrc
 export EL_SHELL=`which dash`
 export PATH=./tests:./tests/firmware:./tests/wifi:./tests/cloud:./tests/pool:./tests/diag:$PATH
 export EL_serial=${serial:-NONE}
-export EL_power=${power:-/dev/ttyUSB0}
+export EL_power=${power:-NONE}
 export EL_power_rate=${power_rate:-1.2}
 export EL_stationlog=test_results.log
