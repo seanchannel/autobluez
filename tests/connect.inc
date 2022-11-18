@@ -1,4 +1,3 @@
-#!/usr/bin/env expect-lite
 
 # log, timeout, and shell aliase (dehex)
 #*NOINFO
