@@ -48,14 +48,14 @@
 
 # BLE
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw index $EL_fw_index | xxd -ps`\015"
-:$EL_pause
+:10
 >dehex $EL_BLELOG | tail
 
 ]::[
 
 # Serial
 >screen -r $EL_testname -X stuff "fw index $EL_fw_index\015"
-:$EL_pause
+:10
 >cat $EL_BLELOG | tail
 
 ]
@@ -87,19 +87,19 @@
 
 # BLE
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw dwld | xxd -ps`\015"
+:120
 >dehex $EL_BLELOG | tail
 
 ]::[
 
 # Serial
 >screen -r $EL_testname -X stuff "fw dwld\015"
+:120
 >cat $EL_BLELOG | tail
 
 ]
 
-@$EL_timeout
-<Bytes to go: 0 bytes
-:$EL_delay
+<Download succeeded
 
 ; ~~~~~~~~> $EL_testname: install "fw inst" <~~~~~~~~
 
