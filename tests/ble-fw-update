@@ -1,0 +1,96 @@
+#!/usr/bin/env expect-lite
+
+##
+## update firmware for an external BLE chip
+##
+
+? $test_in_progress != 1 ? ~tests/connect.inc
+
+; ~~~~~~~~> $EL_testname: download "fw dwld ble" <~~~~~~~~
+
+@$EL_DELAY_WAIT_FOR_HOST
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw dwld ble | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw dwld ble\015"
+>cat $EL_BLELOG | tail
+
+]
+
+@$EL_timeout
+
+<Download succeeded
+
+##------------------------------------------------------------------##
+
+; ~~~~~~~~> $EL_testname: install "fw ble" <~~~~~~~~
+
+? $EL_serial == NONE ? [
+
+# BLE
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw ble | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n disconnect | xxd -ps`\015"
+:90
+>screen -r $EL_testname -X stuff "connect\015"
+:5
+>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n restart | xxd -ps`\015"
+>dehex $EL_BLELOG | tail
+
+]::[
+
+# Serial
+>screen -r $EL_testname -X stuff "fw ble\015"
+:90
+>screen -r $EL_testname -X stuff "restart\015"
+>cat $EL_BLELOG | tail
+
+]
+
+>disconnect
+>>^A
+>^D
+>
+
+; ============ WaterGuru $EL_pod $EL_testname: Verify "restart" ============
+>dehex $EL_BLELOG
+-<Please try again
+-<Unknown
+<Restarting
+
+:$EL_timeout
+
+##------------------------------------------------------------------##
+
+; ============ WaterGuru $EL_pod $EL_testname: BLE "version" ============
+>cp /dev/null $EL_BLELOG
+>echo -n "version" | xxd -ps
++$cmd=\n(.*)
+>screen -r $EL_testname
+>connect
+-<Error
+-<connect error
+-<connect: Device or resource busy (16)
+<Connection successful
+>char-write-req 0x001b $cmd
+<Characteristic value was written successfully
+<Notification handle = 0x001b value: 54 49 5f 56 45 52 53 20 3d
+>
+>>^A
+>^D
+>
+
+; ============ WaterGuru $EL_pod $EL_testname: Verify BLE "$EL_fw_bleversion" ============
+>dehex $EL_BLELOG
+-<Please try again
+-<Unknown
+<TI_VERS = $EL_fw_bleversion
+
+##------------------------------------------------------------------##
+
+? $test_in_progress != 1 ? ~tests/cleanup.inc

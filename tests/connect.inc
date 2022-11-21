@@ -1,8 +1,9 @@
 
 # log, timeout, and shell aliase (dehex)
-#*NOINFO
+*NOINFO
 *LOGAPPEND $EL_log
 @$EL_timeout
+*~cleanup.inc
 >rm -f $EL_POWERLOG $EL_BLELOG logs/*sample.log
 >. ./bashrc
 
