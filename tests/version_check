@@ -4,7 +4,10 @@
 ## check installed firmware version(s)
 ##
 
-? $test_in_progress != 1 ? ~tests/connect.inc
+? $test_in_progress != 1 ? [
+~tests/connect.inc
+*~cleanup.inc
+]
 
 ; ~~~~~~~~> Check firmware version <~~~~~~~~
 
