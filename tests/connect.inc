@@ -55,7 +55,6 @@
 +$EL_pod=podId ([1-9][0-9]+)
 
 ]
->export EL_pod
 
 ? $EL_power != NONE ? [
 ;~~~~~~~~> Connecting to WaterGuru power supply $EL_power <~~~~~~~~

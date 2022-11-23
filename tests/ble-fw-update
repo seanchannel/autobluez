@@ -4,7 +4,10 @@
 ## update firmware for an external BLE chip
 ##
 
-? $test_in_progress != 1 ? ~tests/connect.inc
+? $test_in_progress != 1 ? [
+*~cleanup.inc
+~tests/connect.inc
+]
 
 ; ~~~~~~~~> $EL_testname: download "fw dwld ble" <~~~~~~~~
 

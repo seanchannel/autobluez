@@ -37,8 +37,6 @@ export EL_RGBCurrent_max=${RGBCurrent_max:-0.03}
 
 # test runtime configuration
 export EL_timeout=${timeout:-30}
-export EL_delay=${delay:-60}
-export EL_pause=${pause:-5}
 export EL_DELAY_WAIT_FOR_HOST=${EL_DELAY_WAIT_FOR_HOST:-5000}
 export EL_SCREENRC=screenrc
 export EL_SHELL=`which dash`

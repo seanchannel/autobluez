@@ -5,8 +5,8 @@
 ##
 
 ? $test_in_progress != 1 ? [
-~tests/connect.inc
 *~cleanup.inc
+~tests/connect.inc
 ]
 
 ; ~~~~~~~~> Check firmware version <~~~~~~~~
@@ -25,8 +25,8 @@
 
 ]
 
-<.*WI-FI_VERS $EL_fw_wifiversion
-<.*TI_VERS $EL_fw_bleversion
+#<.*WI-FI_VERS $EL_fw_wifiversion
+#<.*TI_VERS $EL_fw_bleversion
 <.*$EL_fw_version
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc

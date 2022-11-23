@@ -4,7 +4,10 @@
 ## check values in the podRec()
 ##
 
-? $test_in_progress != 1 ? ~tests/connect.inc
+? $test_in_progress != 1 ? [
+*~cleanup.inc
+~tests/connect.inc
+]
 
 $json=logs/${EL_mfg}-${EL_testname}.json
 >podrec $EL_pod $json

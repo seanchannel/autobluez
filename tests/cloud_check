@@ -1,10 +1,13 @@
 #!/usr/bin/env expect-lite
 
 ##
-## regular cloud check with no firmware download or log upload
+## do a cloud check
 ##
 
-? $test_in_progress != 1 ? ~tests/connect.inc
+? $test_in_progress != 1 ? [
+*~cleanup.inc
+~tests/connect.inc
+]
 
 ; ~~~~~~~~> $EL_testname: cloud check <~~~~~~~~
 
@@ -12,17 +15,19 @@
 
 # BLE
 >screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n cloud | xxd -ps`\015"
+:5
 >dehex $EL_BLELOG | tail
 
 ]::[
 
 # Serial
 >screen -r $EL_testname -X stuff "cloud\015"
+:5
 >cat $EL_BLELOG | tail
 
 ]
 
--<Cloud check failed
-<Cloud check passed
+-<.*Cloud check failed
+<.*Cloud check passed
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc

@@ -6,28 +6,6 @@ cd `dirname $0`
 
 . ./parameters.sh
 
-## Prompt for these if not set on command line
-
-if [ -z $pod ]; then
-    echo -n "Please scan User ID: "
-    read EL_user
-
-    echo -n "Please scan Serial Number: "
-    read EL_mfg
-
-    echo -n "Please scan BLE ID: "
-    read EL_ble
-
-else
-
-    EL_ble=$pod
-    EL_mfg=${mfg:-$pod}
-    EL_user=${user:-QA}
-
-fi
-
-export EL_user EL_mfg EL_ble
-
 ## run each test given on the command line
 for test in $*; do
     export EL_testname=`basename $test`

@@ -1,27 +1,36 @@
 #!/usr/bin/env expect-lite
 
-? $test_in_progress != 1 ? ~tests/connect.inc
+##
+## upload the log now
+##
 
-; ~~~~~~~~> $EL_testname: "zlog" <~~~~~~~~
+? $test_in_progress != 1 ? [
+*~cleanup.inc
+~tests/connect.inc
+]
+
+; ~~~~~~~~> $EL_testname: "$log" <~~~~~~~~
 
 ? $EL_serial == NONE ? [
 
-# BLE
 >screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n zlog | xxd -ps`\015"
-:$EL_timeout
->dehex $EL_BLELOG | tail
 
 ]::[
 
-# Serial
->screen -S $EL_testname -X stuff "zlog\015"
-:$EL_timeout
->cat -f $EL_BLELOG | tail
+>screen -S $EL_testname -X stuff '\$log\015'
+]
 
+:45
+
+? $EL_serial == NONE ? [
+>dehex $EL_BLELOG | tail
+]::[
+>cat $EL_BLELOG | tail
 ]
 
 -<Upload failed
 -<Log empty
-<.*\$log upload OK
+<.*Log dump OK
+>^C
 
 ? $test_in_progress != 1 ? ~tests/cleanup.inc
