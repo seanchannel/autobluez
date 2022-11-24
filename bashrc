@@ -1,31 +1,20 @@
 
-## WaterGuru firmware test shell
+## WaterGuru firmware test shell support
 #
-# link this file to ~/.bash_aliases
+# link this file to ~/.bash_aliases, etc
 
 
-## misc handy aliases
-
-# timestamps
-HISTTIMEFORMAT='%d/%m/%y %T '
-alias timestamp='export PROMPT_COMMAND="echo -n \$(date +%H:%M:%S)\ "'
-
-# translate BLE hex copy/pasted in the terminal until ^D is pressed - diagnostic
+# BLE hex to ASCII copy/paste in the terminal, ^D when done
 alias dx='cut -f2 -d: | sed '\''s/^/0a/g'\'' | xxd -r -ps; echo'
 
-# same thing but work on a file, like a log file e.g. 'dehex <FILENAME>' 
+# BLE hex to ASCII a file, e.g. 'dehex myfile.log' 
 dehex()
 {
     cat $1 | egrep -a Notification | cut -f7 -d: | sed 's/^/0a/g' | xxd -r -ps
     echo
 }
 
-
-## the following require a "podnames" file instead of scanning with `hcitool`
-#
-# link the example file `podnames` to ~/.podnames
-# you can add any number of aliases on each line
-# changes may optionally be committed in git
+## the following require ~/.podnames (see example file)
 
 # send a command to a pod without waiting for notificatsions
 # e.g. 'blip <mypod> restart' or 'blip <mypod> pad test 2'
@@ -46,24 +35,9 @@ bleep()
     gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
 }
 
-blap()
-{
-    POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
-    COMMAND=`echo $* | xxd -ps`
-    gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
-}
-
-# connect to pod BLE in gatttool. leaves you at the gatttool prompt until exit
-ble()
-{
-    POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
-    gatttool -I --listen -b $POD 
-}
-
 ## AWS stuff
 
-# display the most recent logfile sent from the pod
-# s3log <podId> 
+# display the most recent logfile sent from the pod: 's3log <podId>' 
 s3log()
 {
     # the last file listed is the most recent log file uploaded
@@ -75,8 +49,7 @@ s3log()
     aws --profile qa s3 cp s3://qa-log.waterguru.com/pod/$1/$logfile - 
 }
 
-# get a pod record and save to the file '<podId>-podRec.json' (or a different filename if given.)
-# podRec <podId> [<filename>]
+# get a podRec() and save to file, e.g. 'podRec <podId>'
 podrec()
 {
     payload="'`jo podId=$1 crudOp=READ returnRec=true`'"
