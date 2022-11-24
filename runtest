@@ -18,8 +18,8 @@ for test in $*; do
     echo
 
     case $return in
-        0) figlet PASS ;;
-        *) figlet FAIL ;;
+        0) figlet PASS: $EL_testname ;;
+        *) figlet FAIL: $EL_testname ;;
     esac
 
 done
