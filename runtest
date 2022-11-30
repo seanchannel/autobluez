@@ -1,17 +1,18 @@
-#!/usr/bin/env dash
+#!/usr/bin/env dash -a
 
 # this comment is a test
 
 cd `dirname $0`
 
+export EL_pod=${pod:-noname}
 . ./parameters.sh
 
 ## run each test given on the command line
 for test in $*; do
     export EL_testname=`basename $test`
-    export EL_log=logs/${EL_mfg}-${EL_testname}.log
-    export EL_BLELOG=logs/${EL_mfg}-${EL_testname}-ble.log
-    export EL_POWERLOG=logs/${EL_mfg}-${EL_testname}-power.log
+    export EL_log=logs/${EL_pod}-${EL_testname}.log
+    export EL_BLELOG=logs/${EL_pod}-${EL_testname}-ble.log
+    export EL_POWERLOG=logs/${EL_pod}-${EL_testname}-power.log
 
     $test
     return=$?

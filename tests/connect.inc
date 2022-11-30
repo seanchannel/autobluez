@@ -41,7 +41,7 @@
 
 # serial connect
 *NODVPROMPT
->screen -L -Logfile $EL_BLELOG -S $EL_testname screen $EL_serial 115200
+>screen -L -Logfile $EL_BLELOG -S $EL_testname $EL_serial 115200
 >>
 >>
 >>^A
