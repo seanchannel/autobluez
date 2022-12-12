@@ -7,12 +7,12 @@
 >. ./bashrc
 
 ? $EL_serial == NONE ? [
-;>~~~~~~~~> Connecting to WaterGuru BLE $EL_ble <~~~~~~~~
+;>~~~~~~~~> Connecting to WaterGuru BLE $EL_pod <~~~~~~~~
 
 # BLE scan
 *NODVPROMPT
 >hcitool lescan
-+$address=(.*) WaterGuru:$EL_ble
++$address=(.*) WaterGuru.$EL_pod
 >^C
 *DVPROMPT
 

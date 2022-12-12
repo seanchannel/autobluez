@@ -15,7 +15,7 @@
 
 # BLE
 >screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get volt | xxd -ps`\015"
-:$EL_pause
+:5
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -23,7 +23,7 @@
 # serial
 #>screen -S $EL_testname -X stuff "\015\015"
 >screen -S $EL_testname -X stuff "get volt\015"
-:$EL_pause
+:5
 >cat $EL_BLELOG | tail
 
 ]
@@ -36,14 +36,14 @@
 
 # BLE
 >screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get resist | xxd -ps`\015"
-:$EL_pause
+:5
 >dehex $EL_BLELOG | tail
 
 ]::[
 
 # Serial
 >screen -S $EL_testname -X stuff "get resist\015"
-:$EL_pause
+:5
 >cat $EL_BLELOG | tail
 
 ]
