@@ -11,7 +11,7 @@ export EL_pswd=${pswd:-clearwater}
 export EL_ssid_len=`echo -n $EL_ssid | wc -c`
 export EL_pswd_len=`echo -n $EL_pswd | wc -c`
 
-export EL_gallons=${gal:-10000}
+export EL_gallons=${gal:-1000}
 export EL_fc_target=${fc_target:-3}
 export EL_fc_limit=${fc_limit:-1}
 export EL_ph_target=${ph:-7.5}
