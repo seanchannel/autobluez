@@ -23,7 +23,7 @@ blip()
     POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
     COMMAND=`echo -n $* | xxd -ps`
 
-    gatttool -b $POD --char-write-req --handle=0x001b --value=$COMMAND
+    gatttool -b $POD --char-write-req --handle=0x0010 --value=$COMMAND
 }
 
 # send a comman to a pod and show notifications until ^C is pressed. 
@@ -32,7 +32,7 @@ bleep()
 {
     POD=`fgrep -his $1 ~/.podnames | awk '{print $1}'`; shift
     COMMAND=`echo -n $* | xxd -ps`
-    gatttool --listen -b $POD --char-write-req --handle=0x001b --value=$COMMAND
+    gatttool --listen -b $POD --char-write-req --handle=0x0010 --value=$COMMAND
 }
 
 ## AWS stuff
