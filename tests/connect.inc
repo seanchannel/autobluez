@@ -1,6 +1,8 @@
 
-# log, timeout, and shell aliase (dehex)
+# uncomment this line to reduce info printed
 #*NOINFO
+# uncomment this line to enable time stamps
+#*TIMESTAMP
 *LOGAPPEND $EL_log
 @$EL_timeout
 >rm -f $EL_POWERLOG $EL_BLELOG logs/*sample.log
