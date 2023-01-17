@@ -13,7 +13,7 @@
 
 ? $EL_serial == NONE ? [
 
->screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n zlog | xxd -ps`\015"
+>screen -S $EL_testname -X stuff "char-write-req $EL_handle `echo -n zlog | xxd -ps`\015"
 
 ]::[
 

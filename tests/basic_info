@@ -14,7 +14,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get volt | xxd -ps`\015"
+>screen -S $EL_testname -X stuff "char-write-req $EL_handle `echo -n get volt | xxd -ps`\015"
 :5
 >dehex $EL_BLELOG | tail
 
@@ -35,7 +35,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get resist | xxd -ps`\015"
+>screen -S $EL_testname -X stuff "char-write-req $EL_handle `echo -n get resist | xxd -ps`\015"
 :5
 >dehex $EL_BLELOG | tail
 
@@ -55,7 +55,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get time | xxd -ps`\015"
+>screen -S $EL_testname -X stuff "char-write-req $EL_handle `echo -n get time | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -72,7 +72,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -S $EL_testname -X stuff "char-write-req 0x001b `echo -n get date | xxd -ps`\015"
+>screen -S $EL_testname -X stuff "char-write-req $EL_handle `echo -n get date | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[

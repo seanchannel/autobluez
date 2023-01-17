@@ -45,4 +45,4 @@ export TERM=${term:-screen}
 export EL_serial=${serial:-NONE}
 export EL_power=${power:-NONE}
 export EL_power_rate=${power_rate:-1.2}
-export EL_stationlog=test_results.log
+export EL_handle=${handle:-0x0010}

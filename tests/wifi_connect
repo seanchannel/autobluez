@@ -16,7 +16,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n ssid set $EL_ssid | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n ssid set $EL_ssid | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -34,7 +34,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n ssid save | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n ssid save | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -52,7 +52,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n ssid show | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n ssid show | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -70,7 +70,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n pswd set $EL_pswd | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n pswd set $EL_pswd | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -88,7 +88,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n pswd save | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n pswd save | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -106,7 +106,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n pswd show | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n pswd show | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -124,7 +124,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n wifi test | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n wifi test | xxd -ps`\015"
 :10
 >dehex $EL_BLELOG | tail
 

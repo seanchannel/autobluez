@@ -10,7 +10,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get temp board | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n \$get temp board | xxd -ps`\015"
 >dehex $EL_BLELOG | tail | grep temp
 
 ]::[
@@ -28,7 +28,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get temp water | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n \$get temp water | xxd -ps`\015"
 >dehex $EL_BLELOG | tail | grep water
 
 ]::[
@@ -46,7 +46,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get humid | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n \$get humid | xxd -ps`\015"
 >dehex $EL_BLELOG | tail | grep HUMID
 
 ]::[
@@ -64,7 +64,7 @@
 #? $EL_serial == NONE ? [
 #
 # BLE
-#>screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n \$get moist | xxd -ps`\015"
+#>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n \$get moist | xxd -ps`\015"
 #>dehex $EL_BLELOG | tail | grep water
 #
 #]::[

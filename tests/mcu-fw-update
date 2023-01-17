@@ -14,7 +14,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw env $EL_fw_env | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw env $EL_fw_env | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -32,7 +32,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw env | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw env | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -50,7 +50,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw index $EL_fw_index | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw index $EL_fw_index | xxd -ps`\015"
 :10
 >dehex $EL_BLELOG | tail
 
@@ -70,7 +70,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw index | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw index | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -89,7 +89,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw dwld | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw dwld | xxd -ps`\015"
 :120
 >dehex $EL_BLELOG | tail
 
@@ -110,7 +110,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw inst | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw inst | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[

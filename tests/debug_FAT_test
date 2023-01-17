@@ -11,9 +11,9 @@
 >echo -n '$timers 0' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 74 69 6d 65 72 73 20 30
+<Notification handle = $EL_handle value: 24 74 69 6d 65 72 73 20 30
 >
 >>^A
 >^D
@@ -23,9 +23,9 @@
 >echo -n '$remote off' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 72 65 74 3d 30
+<Notification handle = $EL_handle value: 72 65 74 3d 30
 >
 >>^A
 >^D
@@ -35,9 +35,9 @@
 >echo -n '$remote on' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 72 65 74 3d 30
+<Notification handle = $EL_handle value: 72 65 74 3d 30
 >
 >>^A
 >^D
@@ -47,9 +47,9 @@
 >echo -n '$color read' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 53 42 3a
+<Notification handle = $EL_handle value: 24 53 42 3a
 >
 >>^A
 >^D
@@ -59,9 +59,9 @@
 >echo -n '$get humid' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 68 75 6d 69 64 31
+<Notification handle = $EL_handle value: 24 68 75 6d 69 64 31
 >
 >>^A
 >^D
@@ -71,9 +71,9 @@
 >echo -n '$get temp board' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 74 65 6d 70 31 20 62 6f 61 72 64
+<Notification handle = $EL_handle value: 24 74 65 6d 70 31 20 62 6f 61 72 64
 >
 >>^A
 >^D
@@ -83,9 +83,9 @@
 >echo -n '$get temp water' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 74 65 6d 70 20 77 61 74 65 72
+<Notification handle = $EL_handle value: 24 74 65 6d 70 20 77 61 74 65 72
 >
 >>^A
 >^D
@@ -95,9 +95,9 @@
 >echo -n '$get temp board' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 74 65 6d 70 31 20 62 6f 61 72 64
+<Notification handle = $EL_handle value: 24 74 65 6d 70 31 20 62 6f 61 72 64
 >
 >>^A
 >^D
@@ -107,9 +107,9 @@
 >echo -n '$get resist' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 72 65 73 69 73 74
+<Notification handle = $EL_handle value: 24 72 65 73 69 73 74
 >
 >>^A
 >^D
@@ -119,9 +119,9 @@
 >echo -n '$get moist' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 6d 6f 69 73 74 31 20 31
+<Notification handle = $EL_handle value: 24 6d 6f 69 73 74 31 20 31
 >
 >>^A
 >^D
@@ -131,9 +131,9 @@
 >echo -n '$mot 0 10000 0' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 6d 6f 74 20 44 6f 6e 65
+<Notification handle = $EL_handle value: 24 6d 6f 74 20 44 6f 6e 65
 >
 >>^A
 >^D
@@ -144,9 +144,9 @@
 >echo -n '$get flow' | xxd -ps
 +$cmd=\n(.*)
 >screen -r $EL_testname
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 24 66 6c 6f 77
+<Notification handle = $EL_handle value: 24 66 6c 6f 77
 
 >
 >>^A

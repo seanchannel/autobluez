@@ -14,7 +14,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n version | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[

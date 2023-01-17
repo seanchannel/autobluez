@@ -15,7 +15,7 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw dwld ble | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw dwld ble | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -37,12 +37,12 @@
 ? $EL_serial == NONE ? [
 
 # BLE
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n fw ble | xxd -ps`\015"
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n disconnect | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n fw ble | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n disconnect | xxd -ps`\015"
 :90
 >screen -r $EL_testname -X stuff "connect\015"
 :5
->screen -r $EL_testname -X stuff "char-write-req 0x001b `echo -n restart | xxd -ps`\015"
+>screen -r $EL_testname -X stuff "char-write-req $EL_handle `echo -n restart | xxd -ps`\015"
 >dehex $EL_BLELOG | tail
 
 ]::[
@@ -80,9 +80,9 @@
 -<connect error
 -<connect: Device or resource busy (16)
 <Connection successful
->char-write-req 0x001b $cmd
+>char-write-req $EL_handle $cmd
 <Characteristic value was written successfully
-<Notification handle = 0x001b value: 54 49 5f 56 45 52 53 20 3d
+<Notification handle = $EL_handle value: 54 49 5f 56 45 52 53 20 3d
 >
 >>^A
 >^D

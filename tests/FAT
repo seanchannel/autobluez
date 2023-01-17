@@ -80,7 +80,7 @@ $teststatus=NONE
 $testitem=tempCurrent
 $teststatus=NONE
 
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n get temp | xxd -ps`\015"
+>screen -r $EL_testname -S -X stuff "char-write-req $EL_handle `echo -n get temp | xxd -ps`\015"
 :5
 
 >tail -20 $EL_POWERLOG | egrep -v '0\.000|1e' > logs/$EL_mfg-$EL_testname-sample.log
@@ -107,7 +107,7 @@ $teststatus=NONE
 $testitem=versionCurrent
 $teststatus=NONE
 
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n version | xxd -ps`\015"
+>screen -r $EL_testname -S -X stuff "char-write-req $EL_handle `echo -n version | xxd -ps`\015"
 :3
 
 >tail -20 $EL_POWERLOG | egrep -v '0\.000|1e' > logs/$EL_mfg-$EL_testname-sample.log
@@ -134,7 +134,7 @@ $teststatus=NONE
 $testitem=padMotorCurrent
 $teststatus=NONE
 
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n pad dist 10000 | xxd -ps`\015"
+>screen -r $EL_testname -S -X stuff "char-write-req $EL_handle `echo -n pad dist 10000 | xxd -ps`\015"
 :30
 
 >tail -120 $EL_POWERLOG | egrep -v '0\.000|1e' > logs/$EL_mfg-$EL_testname-sample.log
@@ -163,7 +163,7 @@ $teststatus=NONE
 $testitem=RGBCurrent
 $teststatus=NONE
 
->screen -r $EL_testname -S -X stuff "char-write-req 0x001b `echo -n 820B4601 | xxd -ps`\015"
+>screen -r $EL_testname -S -X stuff "char-write-req $EL_handle `echo -n 820B4601 | xxd -ps`\015"
 :25
 
 >tail -60 $EL_POWERLOG | egrep -v '0\.000|1e' > logs/$EL_mfg-$EL_testname-sample.log
