@@ -3,7 +3,7 @@
 
 export EL_fw_env=${env:-qa}
 export EL_fw_index=${index:-universal}
-export EL_fw_version=${version:-v12}
+export EL_fw_version=${version:-v12.0.10-30-g4efa895}
 export EL_fw_bleversion=${bleversion:-15}
 export EL_fw_wifiversion=${wifiversion:-1.0.0}
 export EL_ssid=${ssid:-WG2}
