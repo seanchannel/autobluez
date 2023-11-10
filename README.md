@@ -6,7 +6,7 @@ Project to automate bluetooth by scripting linux bluetooth tools.
 
 * Scripts in the ```tests``` directory are launched by ```runtest```. Default test values for all scripts are defined in ```parameters.sh``` and can be set on the command line at run time. A BLE short ID or serial port is required. Multiple scripts can be specified on the same command line.
 
-* The file ```podnames``` is used with aliases in ```bashrc``` to send arbitrary commands over BLE.
+* The file ```podnames``` lists aliases for BLE addresses. See shell functions in ```bashrc```
 
 ## Dependencies
 
