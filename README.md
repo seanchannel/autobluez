@@ -1,6 +1,6 @@
 # autobluez
 
-Project to automate bluetooth by scripting linux bluetooth tools. 
+Project to automate bluetooth by scripting linux tools. 
 
 Caution: rough road ahead & you may want to explore several hundred other projects that do this with Python. This was intended as a prototype for a later python implementation but it was needed in production as-is. Also this is built around a specific product (cloned with permission) so it is not (yet) generalized.
 
